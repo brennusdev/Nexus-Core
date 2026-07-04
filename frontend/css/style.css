@@ -4,12 +4,12 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #0077ff;
 }
 
 header {
     background-color: #2253bb;
-    color: #fff;
+    color: #0044ff;
     padding: 20px 0;
     text-align: center;
 }
@@ -18,3 +18,13 @@ nav {
     background-color: #444;
     overflow: hidden;
 }
+
+p {
+    margin: 20px;
+    line-height: 1.6;
+}
+h1, h2, h3 {
+    margin: 20px;
+    color: #1efd00;
+}
+
