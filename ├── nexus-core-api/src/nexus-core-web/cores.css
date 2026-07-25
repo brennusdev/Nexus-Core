@@ -7,7 +7,7 @@
 }
 /* Colocando efeito de vidro no fundo da tela */
 body{
-    background:linear-gradient(120deg,#1f1c2c,#928dab);
+    background:linear-gradient(120deg,#ffffff,#928dab);
     height:100vh;
     display:flex;
     justify-content:center;
@@ -17,9 +17,40 @@ body{
 .card{
     width:300px;
     padding:30px;
-    background:rgba(255,255,255,0.1);
+    background:rgba(0, 26, 255, 0.1);
     border-radius:20px;
     backdrop-filter:blur(10px);
     color:white;
     box-shadow:0 8px 32px rgba(0,0,0,0.3);
 }
+.register{
+    width:350px;
+    margin:auto;
+    background:white;
+    padding:35px;
+    border-radius:15px;
+    box-shadow:0 5px 25px rgba(0,0,0,0.2);
+}
+.loader{
+    width:60px;
+    height:60px;
+    border:8px solid #ddd;
+    border-top:8px solid #111;
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+    margin:auto;
+}
+.loader{
+    width:60px;
+    height:60px;
+    border:8px solid #ddd;
+    border-top:8px solid #111;
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+    margin:auto;
+}
+@keyframes spin{
+    100%{transform:rotate(360deg);}
+}
+
+
