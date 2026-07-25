@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seja bem vindo ao Nexus Core</title>
+    
     <style>
         *{margin:0;padding:0;box-sizing:border-box;font-family:Arial;}
 body{
@@ -31,8 +32,25 @@ body{
 <input type="text" placeholder="Usuário">
 <input type="password" placeholder="Senha">
 <button>Entrar</button>
+    <script>
+        function fazerLogin() {
+
+            const usuario = document.getElementById("usuario").value;
+            const senha = document.getElementById("senha").value;
+
+            if (usuario === "admin" && senha === "1234") {
+
+                // Vai para outra página
+                window.location.href = "dashboard.html";
+
+            } else {
+                alert("Usuário ou senha inválidos.");
+            }
+
+        }
+    </script>
 </div>
-    </style>
+    
 </head>
 <body>
     
