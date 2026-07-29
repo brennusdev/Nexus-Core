@@ -1,9 +1,13 @@
-# TODO - Montar banco de dados (MySQL)
+# TODO - Correção de Erros de Sintaxe
 
-- [ ] Validar requisitos do modelo (login por e-mail, gráfico Jan–Dez por ano, valores por mês, temas/categorias flexíveis, evolução % 0–100)
-- [ ] Criar SQL MySQL completo com: tabelas de usuários, temas, registros mensais e controle de anos/meses
-- [ ] Adicionar constraints (PK/FK únicas), índices e defaults (mes 1..12)
-- [ ] Incluir views/consultas exemplo para popular e recuperar dados do gráfico por ano
-- [ ] Atualizar `database/banco de dados.sql` com o SQL final
-- [ ] (Opcional) Rodar validação rápida com `mysql`/`mysqldump` ou checar sintaxe
+## ✅ Concluído
+- [ ] 1. Criar `docker-compose.yaml` na raiz (corrigir estrutura de pasta)
+- [ ] 2. Corrigir `Backend/dockerfile` — caminho `app.main` → `App.main`
+- [ ] 3. Corrigir `Backend/requirements.txt` — versões incorretas
+     - `python-jose[cryptography]==3.5.0` → `3.3.0`
+     - `pydantic[email]==2.11.7` → `2.13.4`
+     - `uvicorn[standard]==0.35.0` → `0.34.0`
+- [ ] 4. Popular `Backend/App/core/__init__.py` — adicionar imports
+- [ ] 5. Corrigir `Backend/App/core/database.py` — adicionar engine SQLAlchemy
+- [ ] 6. Testar validação das correções
 
