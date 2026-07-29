@@ -1,3 +1,10 @@
+# ====================================================================
+# CORRECAO: dockerfile - Caminho do modulo corrigido
+# MOTIVO: O comando CMD original usava "app.main:app" (minusculo),
+#         mas o diretorio do modulo e "App" (maiusculo). No Linux
+#         (onde o Docker roda), os nomes de diretorio sao CASE-SENSITIVE,
+#         entao "app" != "App" e causaria erro de importacao.
+# ====================================================================
 FROM python:3.13-slim
 
 WORKDIR /app
@@ -8,4 +15,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
+# CORRECAO: "app.main:app" -> "App.main:app"
+# MOTIVO: Case-sensitive - o diretorio se chama "App" com A maiusculo
 CMD ["uvicorn", "App.main:app", "--host", "0.0.0.0", "--port", "8000"]
