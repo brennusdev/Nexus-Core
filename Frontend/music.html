@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nexus Core | Configuração de Música</title>
+    <link rel="stylesheet" href="cores.css" />
+    <link rel="stylesheet" href="dashboard.css" />
+    <style>
+        .music-config { max-width: 720px; margin: 0 auto; padding: 20px; }
+        .config-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            border: 1px solid var(--border-card);
+            padding: 30px;
+        }
+        .config-title { font-size: 1.4rem; font-weight: 800; margin-bottom: 6px; }
+        .config-desc { color: var(--text-soft); margin-bottom: 24px; }
+        .service-list { display: flex; flex-direction: column; gap: 12px; }
+        .service-option {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid var(--border-input);
+            background: var(--bg-soft);
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .service-option:hover { border-color: var(--color-primary); }
+        .service-option--selected { border-color: var(--color-primary); background: rgba(108, 92, 231, 0.08); }
+        .service-logo {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            display: grid;
+            place-items: center;
+            font-size: 1.3rem;
+            color: #fff;
+            flex-shrink: 0;
+        }
+        .service-name { font-weight: 700; font-size: 1rem; }
+        .service-status { font-size: 0.8rem; color: var(--text-soft); }
+        .service-check { margin-left: auto; font-size: 1.2rem; color: var(--color-primary); }
+        .yt { background: #ff0000; }
+        .sp { background: #1db954; }
+        .dz { background: #2a9d8f; }
+        .sc { background: #ff5500; }
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--bg-soft-2);
+            border-radius: 8px;
+            padding: 8px 14px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-main);
+            border: 1px solid var(--border-input);
+            margin-bottom: 20px;
+        }
+        .back-btn:hover { background: var(--hover); }
+        .save-btn {
+            margin-top: 20px;
+            width: 100%;
+            padding: 12px;
+            background: var(--color-primary);
+            color: #fff;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+        .save-btn:hover { background: var(--color-primary-dark); }
+    </style>
+</head>
+<body class="dash-body">
+
+    <main class="main" style="margin-left:0;">
+        <div class="music-config">
+            <a href="dashboard.html" class="back-btn">← Voltar ao Dashboard</a>
+            <section class="config-card">
+                <h1 class="config-title">🎵 Configuração de Música</h1>
+                <p class="config-desc">Selecione o serviço de streaming que deseja vincular ao seu player. A escolha será salva e usada no dashboard.</p>
+
+                <div class="service-list">
+                    <div class="service-option" data-service="youtube">
+                        <div class="service-logo yt">▶</div>
+                        <div>
+                            <p class="service-name">YouTube Music</p>
+                            <p class="service-status">Faça login para sincronizar suas playlists</p>
+                        </div>
+                        <span class="service-check">○</span>
+                    </div>
+                    <div class="service-option" data-service="spotify">
+                        <div class="service-logo sp">🎧</div>
+                        <div>
+                            <p class="service-name">Spotify</p>
+                            <p class="service-status">Conecte sua conta Premium</p>
+                        </div>
+                        <span class="service-check">○</span>
+                    </div>
+                    <div class="service-option" data-service="deezer">
+                        <div class="service-logo dz">🎶</div>
+                        <div>
+                            <p class="service-name">Deezer</p>
+                            <p class="service-status">Conecte sua conta Deezer</p>
+                        </div>
+                        <span class="service-check">○</span>
+                    </div>
+                    <div class="service-option" data-service="soundcloud">
+                        <div class="service-logo sc">☁️</div>
+                        <div>
+                            <p class="service-name">SoundCloud</p>
+                            <p class="service-status">Conecte sua conta SoundCloud</p>
+                        </div>
+                        <span class="service-check">○</span>
+                    </div>
+                </div>
+
+                <button class="save-btn" id="saveMusicConfig">Salvar configuração</button>
+            </section>
+        </div>
+    </main>
+
+    <script src="js/music.js" defer></script>
+</body>
+</html>
