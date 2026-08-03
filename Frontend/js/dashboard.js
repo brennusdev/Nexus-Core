@@ -176,7 +176,55 @@
     renderChart(DAYS, weekData);
 
     /* ============================================================
-       7. TAREFA DO DIA (adicionar)
+       7. MÚSICA — refletir serviço configurado
+       ============================================================ */
+    const musicService = localStorage.getItem("nexus_music_service");
+    const musicName = localStorage.getItem("nexus_music_name");
+
+    const musicGrid = document.getElementById("musicGrid");
+    const mpTitle = document.getElementById("mpTitle");
+    const mpArtist = document.getElementById("mpArtist");
+    const mpPlayBtn = document.getElementById("mpPlayBtn");
+
+    if (musicGrid) {
+        musicGrid.querySelectorAll(".music-item").forEach((btn) => {
+            btn.addEventListener("click", () => {
+                localStorage.setItem("nexus_music_service", btn.dataset.service);
+                const labels = {
+                    youtube: "YouTube Music",
+                    spotify: "Spotify",
+                    deezer: "Deezer",
+                    soundcloud: "SoundCloud"
+                };
+                localStorage.setItem("nexus_music_name", labels[btn.dataset.service]);
+                if (mpTitle) mpTitle.textContent = `Conectado ao ${labels[btn.dataset.service]}`;
+                if (mpArtist) mpArtist.textContent = "Clique em ▶ para tocar";
+                if (mpPlayBtn) mpPlayBtn.disabled = false;
+            });
+        });
+    }
+
+    if (musicService && mpTitle) {
+        mpTitle.textContent = `Conectado ao ${musicName || musicService}`;
+        if (mpArtist) mpArtist.textContent = "Clique em ▶ para tocar";
+        if (mpPlayBtn) mpPlayBtn.disabled = false;
+    }
+
+    if (mpPlayBtn) {
+        mpPlayBtn.addEventListener("click", () => {
+            const service = localStorage.getItem("nexus_music_service") || "spotify";
+            const urls = {
+                youtube: "https://music.youtube.com",
+                spotify: "https://open.spotify.com",
+                deezer: "https://www.deezer.com",
+                soundcloud: "https://soundcloud.com"
+            };
+            window.open(urls[service] || urls.spotify, "_blank");
+        });
+    }
+
+    /* ============================================================
+       8. TAREFA DO DIA (adicionar)
        ============================================================ */
     const todoAdd = document.getElementById("todoAdd");
     const todoList = document.getElementById("todoList");
