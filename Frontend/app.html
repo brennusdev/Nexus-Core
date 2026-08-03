@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nexus Core | Ferramenta</title>
+    <link rel="stylesheet" href="cores.css" />
+    <link rel="stylesheet" href="dashboard.css" />
+    <style>
+        .app-shell { max-width: 1000px; margin: 0 auto; padding: 20px; }
+        .app-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            border: 1px solid var(--border-card);
+            padding: 30px;
+            min-height: 60vh;
+        }
+        .app-title { font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; }
+        .app-desc { color: var(--text-soft); margin-bottom: 24px; }
+        .app-placeholder {
+            border: 2px dashed var(--border-input);
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            color: var(--text-soft);
+        }
+        .app-placeholder .big { font-size: 2.5rem; display: block; margin-bottom: 10px; }
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--bg-soft-2);
+            border-radius: 8px;
+            padding: 8px 14px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-main);
+            border: 1px solid var(--border-input);
+            margin-bottom: 20px;
+        }
+        .back-btn:hover { background: var(--hover); }
+        .text-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border-input);
+            border-radius: 8px;
+            background: var(--bg-soft);
+            color: var(--text-main);
+            font-size: 0.9rem;
+            outline: none;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body class="dash-body">
+
+    <!-- Sidebar compacta -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar__brand">
+            <div class="sidebar__mark">NX</div>
+            <span class="sidebar__name">Nexus Core</span>
+        </div>
+        <nav class="sidebar__nav">
+            <p class="sidebar__label">Acesso Rápido</p>
+            <a href="app.html?app=life-os" class="sidebar__item"><span class="si">🧬</span> Life OS</a>
+            <a href="app.html?app=cyber-desk" class="sidebar__item"><span class="si">🖥️</span> Cyber Desk</a>
+            <a href="app.html?app=code-vault" class="sidebar__item"><span class="si">📦</span> Code Vault</a>
+            <a href="app.html?app=second-brain" class="sidebar__item"><span class="si">🧠</span> Second Brain</a>
+            <a href="app.html?app=project-generator" class="sidebar__item"><span class="si">🛠️</span> Project Generator</a>
+            <a href="app.html?app=analytics-center" class="sidebar__item"><span class="si">📈</span> Analytics Center</a>
+            <a href="app.html?app=automation-hub" class="sidebar__item"><span class="si">🤖</span> Automation Hub</a>
+            <p class="sidebar__label">Ferramentas</p>
+            <a href="app.html?app=terminal" class="sidebar__item"><span class="si">💻</span> Terminal</a>
+            <a href="app.html?app=database" class="sidebar__item"><span class="si">🗄️</span> Database</a>
+            <a href="app.html?app=api-hub" class="sidebar__item"><span class="si">🔌</span> Api Hub</a>
+            <a href="app.html?app=snippets" class="sidebar__item"><span class="si">📄</span> Snippets</a>
+            <a href="app.html?app=file-manager" class="sidebar__item"><span class="si">📁</span> File Manager</a>
+            <a href="app.html?app=notas-rapidas" class="sidebar__item"><span class="si">🗒️</span> Notas Rápidas</a>
+            <p class="sidebar__label">Sistema</p>
+            <a href="app.html?app=configuracoes" class="sidebar__item"><span class="si">⚙️</span> Configurações</a>
+            <a href="app.html?app=temas" class="sidebar__item"><span class="si">🎨</span> Temas</a>
+            <a href="app.html?app=perfil" class="sidebar__item"><span class="si">👤</span> Perfil</a>
+            <a href="app.html?app=seguranca" class="sidebar__item"><span class="si">🔒</span> Segurança</a>
+            <a href="app.html?app=backup-restore" class="sidebar__item"><span class="si">💾</span> Backup &amp; Restore</a>
+        </nav>
+        <div class="sidebar__footer">
+            <div class="sidebar__user">
+                <div class="sidebar__avatar" id="userAvatar">B</div>
+                <div>
+                    <p class="sidebar__user-name" id="userName">BlackCode</p>
+                    <p class="sidebar__user-role">Administrador</p>
+                </div>
+            </div>
+            <button class="sidebar__logout" id="logoutBtn" title="Sair">⎋</button>
+        </div>
+    </aside>
+
+    <!-- Conteúdo -->
+    <main class="main">
+        <header class="topbar">
+            <button class="topbar__toggle" id="sidebarToggle" aria-label="Alternar menu">☰</button>
+            <div class="topbar__search">
+                <input type="text" placeholder="Buscar no Nexus Core…" aria-label="Buscar" />
+            </div>
+            <div class="topbar__actions">
+                <button class="icon-btn" id="themeToggle" title="Alternar tema">🌙</button>
+                <span class="topbar__bell">🔔</span>
+                <a class="topbar__avatar" href="app.html?app=perfil" id="avatarTop">B</a>
+            </div>
+        </header>
+
+        <div class="app-shell">
+            <a href="dashboard.html" class="back-btn">← Voltar ao Dashboard</a>
+            <section class="app-card">
+                <h1 class="app-title" id="appTitle">Ferramenta</h1>
+                <p class="app-desc" id="appDesc">Carregando…</p>
+                <div id="appContent" class="app-placeholder">
+                    <span class="big" id="appIcon">📦</span>
+                    <p>Em breve! Esta área está sendo preparada.</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="js/dashboard.js" defer></script>
+    <script>
+        (function () {
+            "use strict";
+            const APP_META = {
+                "life-os":            { icon: "🧬", title: "Life OS",            desc: "Gerencie sua vida: rotinas, saúde, hábitos e bem-estar." },
+                "cyber-desk":         { icon: "🖥️", title: "Cyber Desk",         desc: "Seu espaço de trabalho digital personalizado." },
+                "code-vault":         { icon: "📦", title: "Code Vault",         desc: "Repositório pessoal de códigos e projetos." },
+                "second-brain":       { icon: "🧠", title: "Second Brain",       desc: "Seu segundo cérebro: ideias, notas e conhecimento." },
+                "project-generator":  { icon: "🛠️", title: "Project Generator",  desc: "Gere projetos novos a partir de templates." },
+                "analytics-center":   { icon: "📈", title: "Analytics Center",   desc: "Análises, métricas e relatórios centralizados." },
+                "automation-hub":     { icon: "🤖", title: "Automation Hub",     desc: "Automatize processos e integrações." },
+                "terminal":           { icon: "💻", title: "Terminal",           desc: "Terminal integrado para comandos rápidos." },
+                "database":           { icon: "🗄️", title: "Database",           desc: "Gerencie seus bancos de dados e conexões." },
+                "api-hub":            { icon: "🔌", title: "Api Hub",            desc: "Central de APIs: chaves, endpoints e monitoramento." },
+                "snippets":           { icon: "📄", title: "Snippets",           desc: "Pequenos trechos de código salvos para reuso." },
+                "file-manager":       { icon: "📁", title: "File Manager",       desc: "Gerencie arquivos e pastas do Nexus Core." },
+                "notas-rapidas":      { icon: "🗒️", title: "Notas Rápidas",      desc: "Capture ideias rapidamente." },
+                "configuracoes":      { icon: "⚙️", title: "Configurações",      desc: "Preferências gerais da aplicação." },
+                "temas":              { icon: "🎨", title: "Temas",              desc: "Personalize o visual: claro, escuro, cores." },
+                "perfil":             { icon: "👤", title: "Perfil",             desc: "Gerencie seus dados pessoais e avatar." },
+                "seguranca":          { icon: "🔒", title: "Segurança",          desc: "Senha, autenticação em dois fatores, sessões." },
+                "backup-restore":     { icon: "💾", title: "Backup & Restore",   desc: "Backup e restauração de seus dados." }
+            };
+
+            const params = new URLSearchParams(window.location.search);
+            const app = params.get("app") || "dashboard";
+            const meta = APP_META[app] || { icon: "📦", title: "Ferramenta", desc: "Ferramenta de trabalho do Nexus Core." };
+
+            const titleEl = document.getElementById("appTitle");
+            const descEl = document.getElementById("appDesc");
+            const iconEl = document.getElementById("appIcon");
+            const appContent = document.getElementById("appContent");
+
+            if (titleEl) titleEl.textContent = meta.title;
+            if (descEl) descEl.textContent = meta.desc;
+            if (iconEl) iconEl.textContent = meta.icon;
+            if (document.title) document.title = `Nexus Core | ${meta.title}`;
+
+            // Destaque do item ativo no sidebar
+            document.querySelectorAll('.sidebar__item').forEach((a) => {
+                const href = a.getAttribute("href");
+                if (href && href.includes(`app=${app}`)) {
+                    a.classList.add("sidebar__item--active");
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
+
