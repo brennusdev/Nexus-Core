@@ -1,97 +1,62 @@
 /* ==========================================================================
-   NEXUS CORE — Lógica do Frontend
+   NEXUS CORE — Lógica do Login/Cadastro
    ==========================================================================
-   Responsabilidades:
-   1. Alternância das abas "Entrar" / "Cadastrar"
-   2. Validação dos formulários (client-side)
-   3. Exibição do loader durante o submit
+   FASE 2:
+   - Alternância de abas Entrar/Cadastrar
+   - Validação dos formulários
+   - Redirecionamento para dashboard.html após autenticação
    ========================================================================== */
 
 (function () {
     "use strict";
 
-    /* ------------------------------------------------------------------
-       1. Elementos do DOM
-       ------------------------------------------------------------------ */
     const tabs = document.querySelectorAll("[data-tab]");
     const forms = { login: null, register: null };
     const loader = document.getElementById("loader");
     const yearEl = document.getElementById("year");
 
-    // Guarda referências dos formulários
     document.querySelectorAll("[data-form]").forEach((form) => {
         forms[form.dataset.form] = form;
     });
 
-    /* ------------------------------------------------------------------
-       2. Alternância de abas
-       ------------------------------------------------------------------ */
+    /* --- Abas --- */
     function activateTab(tabName) {
         tabs.forEach((tab) => {
             const isActive = tab.dataset.tab === tabName;
             tab.classList.toggle("auth-tabs__tab--active", isActive);
             tab.setAttribute("aria-selected", String(isActive));
         });
-
-        // Mostra/esconde os formulários correspondentes
         Object.entries(forms).forEach(([name, form]) => {
             if (!form) return;
             form.hidden = name !== tabName;
         });
-
-        // Ancoragem de acessibilidade
-        const panel = document.getElementById(
-            tabName === "login" ? "panel-login" : "panel-register"
-        );
-        if (panel) panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }
 
-    tabs.forEach((tab) => {
-        tab.addEventListener("click", () => activateTab(tab.dataset.tab));
-    });
+    tabs.forEach((tab) => tab.addEventListener("click", () => activateTab(tab.dataset.tab)));
 
-    /* ------------------------------------------------------------------
-       3. Links de troca rápida (ex: "Já tem conta? Entrar")
-       ------------------------------------------------------------------ */
-    document.querySelectorAll("[data-switch]").forEach((link) => {
-        link.addEventListener("click", (e) => {
-            e.preventDefault();
-            activateTab(link.dataset.switch);
-        });
-    });
-
-    /* ------------------------------------------------------------------
-       4. Validação
-       ------------------------------------------------------------------ */
+    /* --- Validação --- */
     function setError(form, fieldName, message) {
         const input = form.querySelector(`[name="${fieldName}"]`);
-        const errorSpan = form.querySelector(`[data-error="${form.dataset.form}-${fieldName}"]`);
-        if (errorSpan) errorSpan.textContent = message;
-        if (input) {
-            input.style.borderColor = message ? "var(--color-error)" : "";
-        }
+        const err = form.querySelector(`[data-error="${form.dataset.form}-${fieldName}"]`);
+        if (err) err.textContent = message;
+        if (input) input.style.borderColor = message ? "var(--color-error)" : "";
         return !message;
     }
+
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     function validateLogin(form) {
         const email = form.email.value.trim();
         const password = form.password.value;
+        let ok = true;
 
-        let valid = true;
+        ok = setError(form, "email", !email
+            ? "Informe seu e-mail." : !emailRe.test(email) ? "E-mail inválido." : "") && ok;
 
-        valid = setError(form, "email", !email
-            ? "Informe seu e-mail."
-            : !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-                ? "E-mail inválido."
-                : ""
-        ) && valid;
+        ok = setError(form, "password", password.length < 6
+            ? "A senha deve ter pelo menos 6 caracteres." : "") && ok;
 
-        valid = setError(form, "password", password.length < 6
-            ? "A senha deve ter pelo menos 6 caracteres."
-            : ""
-        ) && valid;
-
-        return valid;
+        return ok;
     }
 
     function validateRegister(form) {
@@ -99,82 +64,45 @@
         const email = form.email.value.trim();
         const password = form.password.value;
         const confirm = form.confirm.value;
+        let ok = true;
 
-        let valid = true;
+        ok = setError(form, "name", name.length < 3 ? "Informe seu nome completo." : "") && ok;
+        ok = setError(form, "email", !email ? "Informe seu e-mail." : !emailRe.test(email) ? "E-mail inválido." : "") && ok;
+        ok = setError(form, "password", password.length < 6 ? "A senha deve ter pelo menos 6 caracteres." : "") && ok;
+        ok = setError(form, "confirm", confirm !== password ? "As senhas não coincidem." : "") && ok;
 
-        valid = setError(form, "name", name.length < 3
-            ? "Informe seu nome completo."
-            : ""
-        ) && valid;
-
-        valid = setError(form, "email", !email
-            ? "Informe seu e-mail."
-            : !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-                ? "E-mail inválido."
-                : ""
-        ) && valid;
-
-        valid = setError(form, "password", password.length < 6
-            ? "A senha deve ter pelo menos 6 caracteres."
-            : ""
-        ) && valid;
-
-        valid = setError(form, "confirm", confirm !== password
-            ? "As senhas não coincidem."
-            : confirm.length === 0
-                ? "Confirme sua senha."
-                : ""
-        ) && valid;
-
-        return valid;
+        return ok;
     }
 
-    const validators = {
-        login: validateLogin,
-        register: validateRegister,
-    };
+    const validators = { login: validateLogin, register: validateRegister };
 
-    /* ------------------------------------------------------------------
-       5. Submit dos formulários (com loader)
-       ------------------------------------------------------------------ */
+    /* --- Submit + Redirecionamento --- */
     Object.entries(forms).forEach(([name, form]) => {
         if (!form) return;
 
         form.addEventListener("submit", (e) => {
             e.preventDefault();
 
-            const isValid = validators[name](form);
-            if (!isValid) return;
+            if (!validators[name](form)) return;
 
+            // Mostra loader
             loader.hidden = false;
-            form.querySelectorAll("input, button").forEach((el) => {
-                el.disabled = true;
-            });
+            form.querySelectorAll("input, button").forEach((el) => (el.disabled = true));
 
-            // Simula envio (substituir por fetch() ao integrar ao backend)
+            // Sem backend, guarda nome do usuário e vai pro dashboard
             setTimeout(() => {
-                loader.hidden = true;
-                form.querySelectorAll("input, button").forEach((el) => {
-                    el.disabled = false;
-                });
-                alert(`${name === "login" ? "Login" : "Cadastro"} realizado com sucesso!`);
-            }, 1200);
+                const userName = form.name ? form.name.value.trim() : "BlackCode";
+                localStorage.setItem("nexus_user", userName || "BlackCode");
+                window.location.href = "dashboard.html";
+            }, 900);
         });
 
-        // Limpa o erro do campo assim que o usuário digita
-        form.addEventListener("input", (e) => {
-            setError(form, e.target.name, "");
-        });
+        form.addEventListener("input", (e) => setError(form, e.target.name, ""));
     });
 
-    /* ------------------------------------------------------------------
-       6. Inicialização
-       ------------------------------------------------------------------ */
-    // Mostra o ano atual no rodapé
+    /* --- Init --- */
     if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-    // Garante que a aba ativa no HTML é respeitada
-    const activeTab = document.querySelector(".auth-tabs__tab--active");
-    if (activeTab) activateTab(activeTab.dataset.tab);
+    const active = document.querySelector(".auth-tabs__tab--active");
+    if (active) activateTab(active.dataset.tab);
 })();
 
