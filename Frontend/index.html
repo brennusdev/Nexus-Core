@@ -5,31 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Nexus Core - Plataforma de acesso unificado" />
 
-    <title>Nexus Core | Acesso</title>
+    <title>Nexus Core | Login</title>
 
     <!-- CSS principal -->
     <link rel="stylesheet" href="cores.css" />
 </head>
 
-<body>
-    <main class="auth-container">
+<body class="login-bg">
+    <main class="login-container">
 
-        <!-- ===================== LOGO ===================== -->
-        <section class="auth-logo" aria-label="Identificação do produto">
-            <img
-                src="../imagens/nexus.png"
-                alt="Logo Nexus Core"
-                class="auth-logo__img"
-                onerror="this.style.display='none'"
-            />
-            <h1 class="auth-logo__title">Nexus <span>Core</span></h1>
-            <p class="auth-logo__subtitle">Acesso unificado à sua plataforma</p>
-        </section>
+        <!-- ===================== BRAND (sem foto) ===================== -->
+        <div class="login-brand" aria-hidden="true">
+            <div class="login-brand__mark">
+                <span></span><span></span><span></span><span></span>
+            </div>
+            <h1 class="login-brand__title">Nexus&nbsp;<em>Core</em></h1>
+        </div>
 
-        <!-- ===================== CAIXA DE ACESSO ===================== -->
-        <section class="card auth-card" aria-label="Formulário de autenticação">
+        <!-- ===================== CARD DE ACESSO ===================== -->
+        <section class="card login-card" aria-label="Autenticação">
 
-            <!-- Tabs: Login | Cadastro -->
+            <header class="login-card__head">
+                <h2 class="login-card__title">Bem-vindo de volta</h2>
+                <p class="login-card__subtitle">Acesse sua plataforma unificada</p>
+            </header>
+
+            <!-- Tabs: Entrar | Cadastrar -->
             <div class="auth-tabs" role="tablist">
                 <button
                     type="button"
@@ -51,7 +52,7 @@
                 >Cadastrar</button>
             </div>
 
-            <!-- ===== Formulário de LOGIN ===== -->
+            <!-- ===== Form LOGIN ===== -->
             <form class="auth-form" id="panel-login" role="tabpanel" data-form="login" novalidate>
                 <div class="form-field">
                     <label class="form-field__label" for="login-email">E-mail</label>
@@ -74,24 +75,25 @@
                         type="password"
                         id="login-password"
                         name="password"
-                        placeholder="••••••••"
+                        placeholder="Digite sua senha"
                         autocomplete="current-password"
                         minlength="6"
                         required
                     />
                     <span class="form-field__error" data-error="login-password"></span>
+                    <div class="form-field__row">
+                        <label class="checkbox">
+                            <input type="checkbox" name="remember" />
+                            <span>Lembrar de mim</span>
+                        </label>
+                        <a href="#" class="auth-form__link">Esqueceu a senha?</a>
+                    </div>
                 </div>
 
-                <button type="submit" class="btn btn--primary btn--block">
-                    Entrar no Nexus Core
-                </button>
-
-                <p class="auth-form__footer">
-                    Esqueceu a senha? <a href="#" class="auth-form__link">Recuperar</a>
-                </p>
+                <button type="submit" class="btn btn--primary btn--block">Entrar no Nexus Core</button>
             </form>
 
-            <!-- ===== Formulário de CADASTRO ===== -->
+            <!-- ===== Form CADASTRO ===== -->
             <form class="auth-form" id="panel-register" role="tabpanel" data-form="register" hidden novalidate>
                 <div class="form-field">
                     <label class="form-field__label" for="reg-name">Nome completo</label>
@@ -100,7 +102,7 @@
                         type="text"
                         id="reg-name"
                         name="name"
-                        placeholder="Maria da Silva"
+                        placeholder="BlackCode"
                         autocomplete="name"
                         minlength="3"
                         required
@@ -152,25 +154,17 @@
                     <span class="form-field__error" data-error="reg-confirm"></span>
                 </div>
 
-                <button type="submit" class="btn btn--primary btn--block">
-                    Criar minha conta
-                </button>
-
-                <p class="auth-form__footer">
-                    Já tem conta? <a href="#" class="auth-form__link" data-switch="login">Entrar</a>
-                </p>
+                <button type="submit" class="btn btn--primary btn--block">Criar minha conta</button>
             </form>
 
-            <!-- Loader de carregamento -->
             <div class="loader" id="loader" hidden aria-hidden="true"></div>
         </section>
 
-        <footer class="auth-footer">
-            <p>&copy; <span id="year"></span> Nexus Core. Todos os direitos reservados.</p>
-        </footer>
+        <p class="login-footer">
+            &copy; <span id="year"></span> Nexus Core &mdash; Todos os direitos reservados.
+        </p>
     </main>
 
-    <!-- JavaScript -->
     <script src="js/app.js" defer></script>
 </body>
 </html>
