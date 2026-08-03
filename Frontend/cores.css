@@ -1,88 +1,373 @@
-@charset "UTF-8";
+/* ==========================================================================
+   NEXUS CORE — Folha de Estilos Principal
+   ==========================================================================
+   HISTÓRICO DE CORREÇÕES (reestruturação):
+   - [CORREÇÃO] Variáveis CSS definidas em :root (antes inexistentes,
+     quebrava o layout pois usava --color-surface e --radius sem defini-los)
+   - [CORREÇÃO] Regras duplicadas de .card e .loader removidas (eram 2x)
+   - [REESTRUTURAÇÃO] Separação em seções comentadas:
+       1. Variáveis        2. Reset       3. Layout       4. Componentes
+       5. Formulários      6. Utilitários 7. Responsivo   8. Animações
+   ========================================================================== */
 
+/* --------------------------------------------------------------------------
+   1. VARIÁVEIS GLOBAIS (:root)
+   --------------------------------------------------------------------------
+   Centraliza tokens de design: cores, espaçamento, raios e sombras.
+   [CORREÇÃO] --color-surface e --radius agora existem de verdade.
+   -------------------------------------------------------------------------- */
+:root {
+    /* Paleta principal */
+    --color-primary: #0a1aff;
+    --color-primary-dark: #060ea8;
+    --color-secondary: #928dab;
+    --color-surface: #ffffff;
+    --color-surface-glass: rgba(255, 255, 255, 0.08);
+    --color-text: #ffffff;
+    --color-text-dark: #2b2b3c;
+    --color-border: #dcdfe8;
+    --color-error: #e63946;
+    --color-success: #2a9d8f;
+
+    /* Gradiente do fundo */
+    --gradient-bg: linear-gradient(120deg, #ffffff, #928dab);
+
+    /* Tipografia */
+    --font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-size-sm: 0.875rem;
+    --font-size-md: 1rem;
+    --font-size-lg: 1.25rem;
+
+    /* Espaçamentos */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+
+    /* Raios e sombras */
+    --radius: 1rem;
+    --radius-sm: 0.5rem;
+    --radius-lg: 1.25rem;
+    --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.3);
+    --shadow-soft: 0 5px 25px rgba(0, 0, 0, 0.2);
+
+    /* Efeitos */
+    --blur: 10px;
+
+    /* Transições */
+    --transition: 0.25s ease;
+}
+
+/* --------------------------------------------------------------------------
+   2. RESET BÁSICO
+   -------------------------------------------------------------------------- */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-/* Colocando efeito de vidro no fundo da tela */
-body{
-    background:linear-gradient(120deg,#ffffff,#928dab);
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
 }
 
-.card{
-    width:300px;
-    padding:30px;
-    background:rgba(0, 26, 255, 0.1);
-    border-radius:20px;
-    backdrop-filter:blur(10px);
-    color:white;
-    box-shadow:0 8px 32px rgba(0,0,0,0.3);
+body {
+    font-family: var(--font-family);
+    background: var(--gradient-bg);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: var(--spacing-lg);
+    color: var(--color-text);
+    -webkit-font-smoothing: antialiased;
 }
-.register{
-    width:350px;
-    margin:auto;
-    background:white;
-    padding:35px;
-    border-radius:15px;
-    box-shadow:0 5px 25px rgba(0,0,0,0.2);
+
+img {
+    max-width: 100%;
+    display: block;
 }
-.loader{
-    width:60px;
-    height:60px;
-    border:8px solid #ddd;
-    border-top:8px solid #111;
-    border-radius:50%;
-    animation:spin 1s linear infinite;
-    margin:auto;
+
+a {
+    color: inherit;
+    text-decoration: none;
 }
-.loader{
-    width:60px;
-    height:60px;
-    border:8px solid #ddd;
-    border-top:8px solid #111;
-    border-radius:50%;
-    animation:spin 1s linear infinite;
-    margin:auto;
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    background: none;
 }
-@keyframes spin{
-    100%{transform:rotate(360deg);}
+
+/* --------------------------------------------------------------------------
+   3. LAYOUT GERAL
+   -------------------------------------------------------------------------- */
+.auth-container {
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-lg);
 }
+
+/* Logo */
+.auth-logo {
+    text-align: center;
+}
+
+.auth-logo__img {
+    width: 90px;
+    height: auto;
+    margin: 0 auto var(--spacing-sm);
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.25));
+}
+
+.auth-logo__title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+}
+
+.auth-logo__title span {
+    color: var(--color-primary);
+}
+
+.auth-logo__subtitle {
+    margin-top: var(--spacing-xs);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-dark);
+    opacity: 0.7;
+}
+
+/* Rodapé */
+.auth-footer {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-dark);
+    opacity: 0.6;
+    text-align: center;
+}
+
+/* --------------------------------------------------------------------------
+   4. COMPONENTES
+   -------------------------------------------------------------------------- */
+
+/* --- Card (unificado — [CORREÇÃO] 2 definições duplicadas removidas) ---
+   Comporta duas variações: "vidro" (login) e "sólido" (formulário).
+   A classe .card genérica cuida do layout base; o modificador .auth-card
+   aplica o efeito de vidro usado na autenticação. */
+.card {
+    background: var(--color-surface);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-soft);
+}
+
+.card.auth-card {
+    width: 100%;
+    background: var(--color-surface-glass);
+    border-radius: var(--radius-lg);
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
+    color: var(--color-text);
+    box-shadow: var(--shadow-card);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* --- Loader / Spinner (unificado — [CORREÇÃO] duplicado removido) --- */
+.loader {
+    width: 60px;
+    height: 60px;
+    border: 8px solid #ddd;
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: var(--spacing-lg) auto;
+}
+
+/* --- Grid genérico (galerias, listas) --- */
 .grid {
     display: grid;
     gap: 1rem;
 }
 
-@media (min-width: 640px) {
-    .grid.grid-3 {
-        grid-template-columns: repeat(3, 1fr);
+.grid.gallery {
+    grid-template-columns: 1fr;
+}
+
+.card img {
+    width: 100%;
+    border-radius: var(--radius);
+    margin-bottom: var(--spacing-md);
+}
+
+/* --- Botões --- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    padding: 0.75rem 1.5rem;
+    font-size: var(--font-size-md);
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    transition: background var(--transition), transform var(--transition),
+                box-shadow var(--transition);
+}
+
+.btn--primary {
+    background: var(--color-primary);
+    color: var(--color-text);
+}
+
+.btn--primary:hover {
+    background: var(--color-primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(10, 26, 255, 0.35);
+}
+
+.btn--block {
+    width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   5. ABAS DE NAVEGAÇÃO (TABS)
+   -------------------------------------------------------------------------- */
+.auth-tabs {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: var(--radius);
+    padding: var(--spacing-xs);
+}
+
+.auth-tabs__tab {
+    flex: 1;
+    padding: 0.6rem 1rem;
+    font-size: var(--font-size-md);
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.7);
+    border-radius: calc(var(--radius) - 4px);
+    transition: background var(--transition), color var(--transition);
+}
+
+.auth-tabs__tab:hover {
+    color: var(--color-text);
+}
+
+.auth-tabs__tab--active {
+    background: var(--color-primary);
+    color: var(--color-text);
+    box-shadow: 0 4px 14px rgba(10, 26, 255, 0.4);
+}
+
+/* --------------------------------------------------------------------------
+   6. FORMULÁRIOS
+   -------------------------------------------------------------------------- */
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.form-field__label {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.form-field__input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: var(--font-size-md);
+    color: var(--color-text-dark);
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    outline: none;
+    transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.form-field__input::placeholder {
+    color: #9aa0b0;
+}
+
+.form-field__input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(10, 26, 255, 0.15);
+}
+
+/* Mensagem de erro por campo (preenchida via JS) */
+.form-field__error {
+    min-height: 1rem;
+    font-size: var(--font-size-sm);
+    color: var(--color-error);
+}
+
+.auth-form__footer {
+    font-size: var(--font-size-sm);
+    text-align: center;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.auth-form__link {
+    color: var(--color-text);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.auth-form__link:hover {
+    opacity: 0.85;
+}
+
+/* --------------------------------------------------------------------------
+   7. UTILITÁRIOS
+   -------------------------------------------------------------------------- */
+[hidden] {
+    display: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   8. ANIMAÇÕES
+   -------------------------------------------------------------------------- */
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
     }
+}
+
+/* --------------------------------------------------------------------------
+   9. RESPONSIVO
+   --------------------------------------------------------------------------
+   [CORREÇÃO] Media queries organizadas: mobile-first (1 coluna) e
+   grid expandido em telas >= 640px.
+   -------------------------------------------------------------------------- */
+@media (min-width: 640px) {
+    .grid.grid-3,
     .grid.gallery {
         grid-template-columns: repeat(3, 1fr);
     }
 }
 
-@media (max-width: 639px) {
-    .grid.gallery,
-    .grid.grid-3 {
-        grid-template-columns: 1fr;
+@media (min-width: 480px) {
+    body {
+        padding: var(--spacing-xl);
+    }
+
+    .auth-logo__title {
+        font-size: 2rem;
     }
 }
-
-.card {
-    background: var(--color-surface);
-    padding: 1rem;
-    border-radius: var(--radius);
-    box-shadow: 0 6px 16px rgba(33,37,41,0.04);
-}
-.card img {
-    width: 100%;
-    border-radius: var(--radius);
-    margin-bottom: 1rem;
-}
-
 
