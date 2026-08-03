@@ -239,8 +239,30 @@
 .widget--music     { grid-column: span 12; }
 
 /* Saudação compacta */
-.hello-title { font-size: 1.05rem; margin-bottom: 4px; }
-.hello-msg { font-size: 0.8rem; color: var(--text-soft); }
+.hello-title {
+    font-size: 1.05rem;
+    margin-bottom: 8px;
+    font-family: "Segoe UI", "Inter", "Poppins", sans-serif;
+    letter-spacing: 0.01em;
+}
+
+/* Gradiente separado para a mensagem abaixo do "Olá, BlackCode" */
+.hello-gradient {
+    margin-top: 6px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 50%, #00cec9 100%);
+    box-shadow: 0 4px 16px rgba(108, 92, 231, 0.35);
+}
+.hello-msg {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #ffffff;
+    text-align: center;
+    letter-spacing: 0.02em;
+    font-family: "Segoe UI", "Poppins", sans-serif;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+}
 
 /* ==========================================================================
    ESTATÍSTICAS
@@ -442,6 +464,85 @@
 .music-item--sp { background: #1db954; }
 .music-item--dz { background: #2a9d8f; }
 .music-item--sc { background: #ff5500; }
+
+/* ==========================================================================
+   GRÁFICO RADAR (PENTAGONAL) — Visão Geral
+   ========================================================================== */
+.radar-wrap {
+    display: flex;
+    justify-content: center;
+    padding: 6px 0;
+}
+.radar {
+    width: 100%;
+    max-width: 240px;
+    height: auto;
+}
+.radar-grid polygon {
+    fill: none;
+    stroke: var(--chart-bg);
+    stroke-width: 1;
+}
+.radar-axis line {
+    stroke: var(--chart-bg);
+    stroke-width: 1;
+}
+.radar-area {
+    fill: rgba(108, 92, 231, 0.25);
+    stroke: var(--color-primary);
+    stroke-width: 2;
+}
+.radar-dots circle {
+    fill: var(--color-primary);
+}
+.radar-labels text {
+    font-size: 9px;
+    font-weight: 600;
+    fill: var(--text-main);
+}
+
+/* ==========================================================================
+   ACESSO RÁPIDO (nova grade)
+   ========================================================================== */
+.widget--quickaccess { grid-column: span 12; }
+
+.qa-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+}
+.qa-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 18px 12px;
+    border-radius: 14px;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+}
+.qa-card:hover { transform: translateY(-4px); box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2); }
+.qa-icon { font-size: 1.7rem; }
+.qa-name { font-size: 0.82rem; font-weight: 700; letter-spacing: 0.02em; }
+.qa-go {
+    font-size: 0.72rem;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 99px;
+    padding: 4px 14px;
+    backdrop-filter: blur(2px);
+}
+
+.qa-card--life   { background: linear-gradient(135deg, #00b4db, #0083b0); }
+.qa-card--cyber  { background: linear-gradient(135deg, #4776e6, #8e54e9); }
+.qa-card--vault  { background: linear-gradient(135deg, #f2994a, #f2c94c); color:#333; }
+.qa-card--brain  { background: linear-gradient(135deg, #7b4397, #dc2430); }
+.qa-card--proj   { background: linear-gradient(135deg, #56ab2f, #a8e063); color:#1a2733; }
+.qa-card--analy  { background: linear-gradient(135deg, #396afc, #2948ff); }
+.qa-card--auto   { background: linear-gradient(135deg, #0f2027, #2c5364); }
 
 /* ==========================================================================
    RESPONSIVO

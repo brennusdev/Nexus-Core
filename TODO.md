@@ -16,18 +16,21 @@
 | 1 | `Frontend/index.html` | Login redesenhado SEM foto + modo escuro | ✅ |
 | 2 | `Frontend/cores.css` | Variáveis + estilos de autenticação + dark mode | ✅ |
 | 3 | `Frontend/js/app.js` | Validação + redirecionamento + toggle tema | ✅ |
-| 4 | `Frontend/dashboard.html` | Dashboard reestruturado (faixas + sidebar completa) | ✅ |
-| 5 | `Frontend/dashboard.css` | Estilos + dark mode | ✅ |
+| 4 | `Frontend/dashboard.html` | Dashboard reestruturado (faixas + navbar completa) | ✅ |
+| 5 | `Frontend/dashboard.css` | Estilos + dark mode + radar + acesso rápido | ✅ |
 | 6 | `Frontend/js/dashboard.js` | Relógio, calendário, tema, widgets, música | ✅ |
 | 7 | `Frontend/app.html` | Página genérica de ferramentas/sistema | ✅ |
 | 8 | `Frontend/music.html` | Configuração de serviços de música | ✅ |
 | 9 | `Frontend/js/music.js` | Lógica de vínculo dos serviços | ✅ |
 
-## 📌 Funcionalidades implementadas
-- **Modo escuro** 🌙: toggle no login e no dashboard (persistido em localStorage)
-- **Navbar completa**: Acesso Rápido (Life OS, Cyber Desk, Code Vault, Second Brain, Project Generator, Analytics Center, Automation Hub) + FERRAMENTAS (Terminal, Database, Api Hub, Snippets, File Manager, Notas Rápidas) + SISTEMA (Configurações, Temas, Perfil, Segurança, Backup & Restore)
-- **Layout**: saudação compacta + foco/tarefas/estudos/metas/hora na mesma faixa; calendário abaixo da hora com botão de adicionar; "Widgets Rápidos" em mini gradientes
-- **Música**: player no dashboard + página de configuração para vincular YouTube/Spotify/Deezer/SoundCloud
+## ✅ Últimas melhorias (feedback 3)
+| # | Melhoria | Status |
+|---|----------|--------|
+| 1 | Fonte da mensagem alterada (Segoe UI/Inter/Poppins) | ✅ |
+| 2 | Gradiente separado abaixo do "Olá, BlackCode" | ✅ |
+| 3 | Gráfico de Visão Geral em formato pentagonal (radar) | ✅ |
+| 4 | Música movida para abaixo do Progresso Semanal | ✅ |
+| 5 | Nova grade de Acesso Rápido (7 cards com "Acessar") | ✅ |
 
 ## 📌 Como executar
 1. **Backend:** `cd Backend && uvicorn App.main:app --reload`

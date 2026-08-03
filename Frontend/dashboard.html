@@ -203,16 +203,47 @@
                 </div>
             </section>
 
-            <!-- ===== FAIXA 4: Visão Geral + Atividade Recente + Progresso Semanal ===== -->
+            <!-- ===== FAIXA 4: Visão Geral (pentagonal) + Atividade Recente + Progresso Semanal ===== -->
             <section class="widget widget--overview">
                 <h3 class="widget__title">📊 Visão Geral</h3>
-                <div class="score-list">
-                    <div class="score"><span>Produtividade</span><div class="score-bar"><span style="width:85%"></span></div><em>85%</em></div>
-                    <div class="score"><span>Estudos</span><div class="score-bar"><span style="width:70%"></span></div><em>70%</em></div>
-                    <div class="score"><span>Saúde</span><div class="score-bar"><span style="width:60%"></span></div><em>60%</em></div>
-                    <div class="score"><span>Projetos</span><div class="score-bar"><span style="width:75%"></span></div><em>75%</em></div>
-                    <div class="score"><span>Disciplina</span><div class="score-bar"><span style="width:80%"></span></div><em>80%</em></div>
-                    <div class="score"><span>Foco</span><div class="score-bar"><span style="width:90%"></span></div><em>90%</em></div>
+                <div class="radar-wrap">
+                    <svg class="radar" viewBox="0 0 260 260" id="radarChart">
+                        <!-- Polígonos de fundo (grades) -->
+                        <g class="radar-grid">
+                            <polygon points="130,30 218,85 195,185 65,185 42,85"></polygon>
+                            <polygon points="130,55 196,97 179,162 81,162 64,97"></polygon>
+                            <polygon points="130,80 174,109 163,139 97,139 86,109"></polygon>
+                            <polygon points="130,105 152,121 147,116 113,116 108,121"></polygon>
+                        </g>
+                        <!-- Eixos -->
+                        <g class="radar-axis">
+                            <line x1="130" y1="130" x2="130" y2="30"></line>
+                            <line x1="130" y1="130" x2="218" y2="85"></line>
+                            <line x1="130" y1="130" x2="195" y2="185"></line>
+                            <line x1="130" y1="130" x2="65" y2="185"></line>
+                            <line x1="130" y1="130" x2="42" y2="85"></line>
+                        </g>
+                        <!-- Área do radar -->
+                        <polygon class="radar-area"
+                            points="130,60 205,95 170,170 75,165 52,95"
+                            fill="rgba(108,92,231,0.25)" stroke="#6c5ce7" stroke-width="2"></polygon>
+                        <!-- Marcos -->
+                        <g class="radar-dots">
+                            <circle cx="130" cy="60" r="4"></circle>
+                            <circle cx="205" cy="95" r="4"></circle>
+                            <circle cx="170" cy="170" r="4"></circle>
+                            <circle cx="75" cy="165" r="4"></circle>
+                            <circle cx="52" cy="95" r="4"></circle>
+                        </g>
+                        <!-- Rótulos -->
+                        <g class="radar-labels">
+                            <text x="130" y="20" text-anchor="middle">Foco 90%</text>
+                            <text x="232" y="90" text-anchor="middle">Produtiv. 85%</text>
+                            <text x="205" y="200" text-anchor="middle">Disciplina 80%</text>
+                            <text x="55" y="200" text-anchor="middle">Saúde 60%</text>
+                            <text x="28" y="90" text-anchor="middle">Estudos 70%</text>
+                        </g>
+                    </svg>
                 </div>
             </section>
 
@@ -237,7 +268,7 @@
                 <div class="chart" id="weeklyChart"></div>
             </section>
 
-            <!-- ===== FAIXA 5: Música (player) ===== -->
+            <!-- ===== FAIXA 5: Música (agora abaixo do Progresso Semanal) ===== -->
             <section class="widget widget--music">
                 <header class="widget__head">
                     <h3 class="widget__title">🎵 Música</h3>
@@ -258,6 +289,48 @@
                         <button class="music-item music-item--dz" data-service="deezer">🎶 Deezer</button>
                         <button class="music-item music-item--sc" data-service="soundcloud">☁️ SoundCloud</button>
                     </div>
+                </div>
+            </section>
+
+            <!-- ===== FAIXA 6: Acesso Rápido (nova grade) ===== -->
+            <section class="widget widget--quickaccess">
+                <h3 class="widget__title">⚡ Acesso Rápido</h3>
+                <div class="qa-grid">
+                    <a href="app.html?app=life-os" class="qa-card qa-card--life">
+                        <span class="qa-icon">🧬</span>
+                        <span class="qa-name">Life OS</span>
+                        <span class="qa-go">Acessar →</span>
+                    </a>
+                    <a href="app.html?app=cyber-desk" class="qa-card qa-card--cyber">
+                        <span class="qa-icon">🖥️</span>
+                        <span class="qa-name">Cyber Desk</span>
+                        <span class="qa-go">Acessar →</span>
+                    </a>
+                    <a href="app.html?app=code-vault" class="qa-card qa-card--vault">
+                        <span class="qa-icon">📦</span>
+                        <span class="qa-name">Code Vault</span>
+                        <span class="qa-go">Acessar →</span>
+                    </a>
+                    <a href="app.html?app=second-brain" class="qa-card qa-card--brain">
+                        <span class="qa-icon">🧠</span>
+                        <span class="qa-name">Second Brain</span>
+                        <span class="qa-go">Acessar →</span>
+                    </a>
+                    <a href="app.html?app=project-generator" class="qa-card qa-card--proj">
+                        <span class="qa-icon">🛠️</span>
+                        <span class="qa-name">Project Generator</span>
+                        <span class="qa-go">Acessar →</span>
+                    </a>
+                    <a href="app.html?app=analytics-center" class="qa-card qa-card--analy">
+                        <span class="qa-icon">📈</span>
+                        <span class="qa-name">Analytics Center</span>
+                        <span class="qa-go">Acessar →</span>
+                    </a>
+                    <a href="app.html?app=automation-hub" class="qa-card qa-card--auto">
+                        <span class="qa-icon">🤖</span>
+                        <span class="qa-name">Automation Hub</span>
+                        <span class="qa-go">Acessar →</span>
+                    </a>
                 </div>
             </section>
 
