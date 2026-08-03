@@ -1,8 +1,21 @@
+# ====================================================================
+# CORRECAO: docker-compose.yaml - Movido para a RAIZ do projeto
+# MOTIVO: O arquivo original estava DENTRO de uma pasta "docker-compose/"
+#         com o nome "yaml" (sem extensao). Docker-compose so reconhece
+#         arquivos com o nome "docker-compose.yaml" ou "docker-compose.yml"
+#         na raiz do projeto ou via flag -f.
+#
+#         MUDANCA ADICIONAL: O build agora aponta para ./Backend (pasta correta)
+#         em vez de ./backend (que nao existe).
+# ====================================================================
 version: "3.9"
 
 services:
 
   backend:
+    # CORRECAO: "build: ./backend" -> "build: ./Backend"
+    # MOTIVO: A pasta se chama "Backend" (maiusculo), nao "backend" (minusculo).
+    #         No Linux (onde o Docker roda), isso e case-sensitive!
     build: ./Backend
     container_name: nexus_backend
 
@@ -17,9 +30,7 @@ services:
 
   db:
     image: postgres:17
-
     container_name: nexus_postgres
-
     restart: always
 
     environment:
@@ -35,4 +46,3 @@ services:
 
 volumes:
   postgres_data:
-
