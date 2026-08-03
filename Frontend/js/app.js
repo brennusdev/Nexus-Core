@@ -100,6 +100,25 @@
         form.addEventListener("input", (e) => setError(form, e.target.name, ""));
     });
 
+    /* --- Tema escuro/claro (login) --- */
+    const themeToggle = document.getElementById("themeToggle");
+
+    function applyTheme(theme) {
+        document.documentElement.setAttribute("data-theme", theme);
+        localStorage.setItem("nexus_theme", theme);
+        if (themeToggle) themeToggle.textContent = theme === "dark" ? "☀️" : "🌙";
+    }
+
+    // Aplica tema salvo ao carregar
+    applyTheme(localStorage.getItem("nexus_theme") || "light");
+
+    if (themeToggle) {
+        themeToggle.addEventListener("click", () => {
+            const current = document.documentElement.getAttribute("data-theme");
+            applyTheme(current === "dark" ? "light" : "dark");
+        });
+    }
+
     /* --- Init --- */
     if (yearEl) yearEl.textContent = new Date().getFullYear();
     const active = document.querySelector(".auth-tabs__tab--active");
