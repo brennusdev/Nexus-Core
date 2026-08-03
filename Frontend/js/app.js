@@ -163,7 +163,6 @@
 
         // Limpa o erro do campo assim que o usuário digita
         form.addEventListener("input", (e) => {
-            if (form.dataset.formName === undefined) return;
             setError(form, e.target.name, "");
         });
     });

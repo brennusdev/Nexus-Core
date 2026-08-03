@@ -11,11 +11,16 @@
 | 5 | `Backend/App/core/database.py` | engine, SessionLocal, Base e get_db() adicionados | ✅ |
 | 6 | `Backend/App/models/user.py` | Import corrigido: `app.core` → `App.core` | ✅ |
 
-## 🚧 Frontend - Reestruturação
+## ✅ Frontend - Reestruturação
 
 | # | Arquivo | Correcao | Status |
 |---|---------|----------|--------|
-| 1 | `Frontend/index.html` | Criar página com login/registro Nexus Core | 🚧 |
-| 2 | `Frontend/cores.css` | Reorganizar: variáveis `:root`, remover duplicações, seções comentadas | 🚧 |
-| 3 | `Frontend/js/app.js` | Criar interatividade (tabs, validação, submit) | 🚧 |
+| 1 | `Frontend/index.html` | Página criada com login/registro Nexus Core | ✅ |
+| 2 | `Frontend/cores.css` | Reorganizado: `:root` com variáveis, sem duplicações, seções comentadas | ✅ |
+| 3 | `Frontend/js/app.js` | Interatividade: tabs, validação, loader | ✅ |
+
+## 📌 Como executar
+
+1. **Backend:** `cd Backend && uvicorn App.main:app --reload`
+2. **Frontend:** abrir `Frontend/index.html` no navegador
 
