@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nexus Core | Dashboard</title>
+    <link rel="stylesheet" href="cores.css" />
+    <link rel="stylesheet" href="dashboard.css" />
+</head>
+<body class="dash-body">
+
+    <!-- ===================== SIDEBAR / NAVBAR ===================== -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar__brand">
+            <div class="sidebar__mark">NX</div>
+            <span class="sidebar__name">Nexus Core</span>
+        </div>
+
+        <nav class="sidebar__nav" aria-label="Navegação principal">
+
+            <p class="sidebar__label">Acesso Rápido</p>
+            <a href="app.html?app=life-os" class="sidebar__item"><span class="si">🧬</span> Life OS</a>
+            <a href="app.html?app=cyber-desk" class="sidebar__item"><span class="si">🖥️</span> Cyber Desk</a>
+            <a href="app.html?app=code-vault" class="sidebar__item"><span class="si">📦</span> Code Vault</a>
+            <a href="app.html?app=second-brain" class="sidebar__item"><span class="si">🧠</span> Second Brain</a>
+            <a href="app.html?app=project-generator" class="sidebar__item"><span class="si">🛠️</span> Project Generator</a>
+            <a href="app.html?app=analytics-center" class="sidebar__item"><span class="si">📈</span> Analytics Center</a>
+            <a href="app.html?app=automation-hub" class="sidebar__item"><span class="si">🤖</span> Automation Hub</a>
+
+            <p class="sidebar__label">Ferramentas</p>
+            <a href="app.html?app=terminal" class="sidebar__item"><span class="si">💻</span> Terminal</a>
+            <a href="app.html?app=database" class="sidebar__item"><span class="si">🗄️</span> Database</a>
+            <a href="app.html?app=api-hub" class="sidebar__item"><span class="si">🔌</span> Api Hub</a>
+            <a href="app.html?app=snippets" class="sidebar__item"><span class="si">📄</span> Snippets</a>
+            <a href="app.html?app=file-manager" class="sidebar__item"><span class="si">📁</span> File Manager</a>
+            <a href="app.html?app=notas-rapidas" class="sidebar__item"><span class="si">🗒️</span> Notas Rápidas</a>
+
+            <p class="sidebar__label">Sistema</p>
+            <a href="app.html?app=configuracoes" class="sidebar__item"><span class="si">⚙️</span> Configurações</a>
+            <a href="app.html?app=temas" class="sidebar__item"><span class="si">🎨</span> Temas</a>
+            <a href="app.html?app=perfil" class="sidebar__item"><span class="si">👤</span> Perfil</a>
+            <a href="app.html?app=seguranca" class="sidebar__item"><span class="si">🔒</span> Segurança</a>
+            <a href="app.html?app=backup-restore" class="sidebar__item"><span class="si">💾</span> Backup &amp; Restore</a>
+        </nav>
+
+        <div class="sidebar__footer">
+            <div class="sidebar__user">
+                <div class="sidebar__avatar" id="userAvatar">B</div>
+                <div>
+                    <p class="sidebar__user-name" id="userName">BlackCode</p>
+                    <p class="sidebar__user-role">Administrador</p>
+                </div>
+            </div>
+            <button class="sidebar__logout" id="logoutBtn" title="Sair">⎋</button>
+        </div>
+    </aside>
+
+    <!-- ===================== CONTEÚDO ===================== -->
+    <main class="main">
+
+        <!-- Topbar com busca, dark mode e perfil -->
+        <header class="topbar">
+            <button class="topbar__toggle" id="sidebarToggle" aria-label="Alternar menu">☰</button>
+            <div class="topbar__search">
+                <input type="text" placeholder="Buscar no Nexus Core…" aria-label="Buscar" />
+            </div>
+            <div class="topbar__actions">
+                <button class="icon-btn" id="themeToggle" title="Alternar modo escuro" aria-label="Alternar tema">🌙</button>
+                <span class="topbar__bell">🔔</span>
+                <a class="topbar__avatar" href="app.html?app=perfil" id="avatarTop">B</a>
+            </div>
+        </header>
+
+        <!-- ================================================================
+             GRADE PRINCIPAL
+             ================================================================ -->
+        <div class="dash-grid">
+
+            <!-- ===== FAIXA 1: Saudação compacta + 5 indicadores + Hora ===== -->
+            <section class="widget widget--hello">
+                <h2 class="widget__title hello-title">Olá, <span id="welcomeName">BlackCode</span> 👋</h2>
+                <p class="hello-msg">Bora produzir! 🚀</p>
+            </section>
+
+            <section class="widget widget--stat">
+                <h3 class="widget__title">🎯 Foco do Dia</h3>
+                <div class="widget__progress"><span style="width:75%"></span></div>
+                <p class="widget__value">75%</p>
+            </section>
+
+            <section class="widget widget--stat">
+                <h3 class="widget__title">📋 Tarefas</h3>
+                <p class="widget__value big">12</p>
+                <p class="widget__meta">4 pendentes</p>
+            </section>
+
+            <section class="widget widget--stat">
+                <h3 class="widget__title">📚 Estudos</h3>
+                <p class="widget__value big">6h 40m</p>
+                <p class="widget__meta">⏱ tempo ativo</p>
+            </section>
+
+            <section class="widget widget--stat">
+                <h3 class="widget__title">🏆 Metas</h3>
+                <div class="widget__progress"><span style="width:62%"></span></div>
+                <p class="widget__value">62%</p>
+            </section>
+
+            <section class="widget widget--clock">
+                <h3 class="widget__title">🕐 Hora</h3>
+                <p class="clock-time" id="clockTime">--:--:--</p>
+            </section>
+
+            <!-- ===== FAIXA 2: Calendário (abaixo da hora) + Widgets Rápidos ===== -->
+            <section class="widget widget--calendar">
+                <h3 class="widget__title">📅 Calendário</h3>
+                <div class="cal-head">
+                    <button id="calPrev" type="button">‹</button>
+                    <span id="calMonthLabel" class="cal-month-label">Mês</span>
+                    <button id="calNext" type="button">›</button>
+                </div>
+                <div class="cal-grid" id="calGrid"></div>
+                <div class="cal-add">
+                    <input type="text" id="calTask" placeholder="Adicionar tarefa do dia…" aria-label="Nova tarefa do dia" />
+                    <button id="calAddBtn" type="button" title="Adicionar">＋</button>
+                </div>
+                <ul class="cal-tasks" id="calTasks"></ul>
+            </section>
+
+            <!-- Widgets Rápidos (mini gradient) -->
+            <section class="widget widget--quick">
+                <h3 class="widget__title">⚡ Widgets Rápidos</h3>
+                <div class="quick-grid" id="quickGrid">
+                    <button class="qmini qmini--notes" data-open="notas-rapidas">
+                        <span class="qmini-icon">🗒️</span> Notas Rápidas
+                    </button>
+                    <button class="qmini qmini--term" data-open="terminal">
+                        <span class="qmini-icon">💻</span> Terminal
+                    </button>
+                    <button class="qmini qmini--snip" data-open="snippets">
+                        <span class="qmini-icon">📄</span> Snippets
+                    </button>
+                    <button class="qmini qmini--pomo" data-open="pomodoro">
+                        <span class="qmini-icon">🍅</span> Pomodoro
+                    </button>
+                    <button class="qmini qmini--calc" data-open="calculadora">
+                        <span class="qmini-icon">🧮</span> Calculadora
+                    </button>
+                    <button class="qmini qmini--conv" data-open="conversor">
+                        <span class="qmini-icon">💱</span> Conversor
+                    </button>
+                    <button class="qmini qmini--stop" data-open="cronometro">
+                        <span class="qmini-icon">⏱️</span> Cronômetro
+                    </button>
+                    <button class="qmini qmini--notif" data-open="notificacoes">
+                        <span class="qmini-icon">🔔</span> Notificações
+                    </button>
+                </div>
+            </section>
+
+            <!-- ===== FAIXA 3: Tarefa do Dia + Metas do Mês + Resumo Financeiro ===== -->
+            <section class="widget widget--todolist">
+                <header class="widget__head">
+                    <h3 class="widget__title">📝 Tarefa do Dia</h3>
+                    <button class="btn btn--primary btn--sm" id="todoAdd">＋ Adicionar</button>
+                </header>
+                <ul class="todo-list" id="todoList">
+                    <li><label><input type="checkbox" /> Revisar projeto Nexus</label></li>
+                    <li><label><input type="checkbox" /> Estudar FastAPI 30min</label></li>
+                    <li><label><input type="checkbox" /> Treinar 1h</label></li>
+                </ul>
+            </section>
+
+            <section class="widget widget--metas">
+                <header class="widget__head">
+                    <h3 class="widget__title">🎯 Metas do Mês</h3>
+                    <button class="btn btn--sm" id="metasBtn" onclick="location.href='app.html?app=metas'">Ver todas</button>
+                </header>
+                <ul class="meta-list">
+                    <li>Concluir projeto <span class="meta-progress"><span style="width:80%"></span></span></li>
+                    <li>Ler 2 livros <span class="meta-progress"><span style="width:50%"></span></span></li>
+                    <li>Economizar R$500 <span class="meta-progress"><span style="width:30%"></span></span></li>
+                </ul>
+            </section>
+
+            <section class="widget widget--finance">
+                <header class="widget__head">
+                    <h3 class="widget__title">💰 Resumo Financeiro</h3>
+                    <button class="btn btn--sm" onclick="location.href='app.html?app=financeiro'">Ver relatório</button>
+                </header>
+                <div class="finance-cards">
+                    <div class="f-card f-card--in">Receitas <strong>+R$4.200</strong></div>
+                    <div class="f-card f-card--out">Despesas <strong>-R$2.800</strong></div>
+                    <div class="f-card f-card--inv">Invest. <strong>+R$600</strong></div>
+                    <div class="f-card f-card--bal">Saldo <strong>R$2.000</strong></div>
+                </div>
+                <div class="finance-chart">
+                    <div class="fc-bar fc-bar--ok" style="--h:70%" title="70% planejado"></div>
+                    <div class="fc-bar fc-bar--warn" style="--h:45%" title="45% gasto"></div>
+                    <div class="fc-bar fc-bar--danger" style="--h:18%" title="18% emergencial"></div>
+                </div>
+            </section>
+
+            <!-- ===== FAIXA 4: Visão Geral + Atividade Recente + Progresso Semanal ===== -->
+            <section class="widget widget--overview">
+                <h3 class="widget__title">📊 Visão Geral</h3>
+                <div class="score-list">
+                    <div class="score"><span>Produtividade</span><div class="score-bar"><span style="width:85%"></span></div><em>85%</em></div>
+                    <div class="score"><span>Estudos</span><div class="score-bar"><span style="width:70%"></span></div><em>70%</em></div>
+                    <div class="score"><span>Saúde</span><div class="score-bar"><span style="width:60%"></span></div><em>60%</em></div>
+                    <div class="score"><span>Projetos</span><div class="score-bar"><span style="width:75%"></span></div><em>75%</em></div>
+                    <div class="score"><span>Disciplina</span><div class="score-bar"><span style="width:80%"></span></div><em>80%</em></div>
+                    <div class="score"><span>Foco</span><div class="score-bar"><span style="width:90%"></span></div><em>90%</em></div>
+                </div>
+            </section>
+
+            <section class="widget widget--activity">
+                <h3 class="widget__title">🕓 Atividade Recente</h3>
+                <ul class="activity-list">
+                    <li class="activity-item"><span class="a-dot a-dot--blue"></span><div><p>Concluiu a tarefa "Revisar projeto"</p><time>há 5 min</time></div></li>
+                    <li class="activity-item"><span class="a-dot a-dot--green"></span><div><p>Estudou FastAPI por 30 min</p><time>há 1h</time></div></li>
+                    <li class="activity-item"><span class="a-dot a-dot--purple"></span><div><p>Nova meta criada</p><time>há 3h</time></div></li>
+                    <li class="activity-item"><span class="a-dot a-dot--orange"></span><div><p>Fatura paga</p><time>ontem</time></div></li>
+                </ul>
+            </section>
+
+            <section class="widget widget--weekly">
+                <h3 class="widget__title">📈 Progresso Semanal</h3>
+                <div class="weekly-tabs">
+                    <button class="wtab" data-range="day">Dia</button>
+                    <button class="wtab wtab--active" data-range="week">Semana</button>
+                    <button class="wtab" data-range="month">Mês</button>
+                    <button class="wtab" data-range="year">Ano</button>
+                </div>
+                <div class="chart" id="weeklyChart"></div>
+            </section>
+
+            <!-- ===== FAIXA 5: Música (player) ===== -->
+            <section class="widget widget--music">
+                <header class="widget__head">
+                    <h3 class="widget__title">🎵 Música</h3>
+                    <button class="btn btn--sm" onclick="location.href='music.html'">Configurar serviços</button>
+                </header>
+                <div class="music-wrap">
+                    <div class="music-player" id="musicPlayer">
+                        <div class="mp-cover">🎧</div>
+                        <div class="mp-info">
+                            <p class="mp-title" id="mpTitle">Gerenciado pelo Nexus Core</p>
+                            <p class="mp-artist" id="mpArtist">Conecte seu serviço para ouvir</p>
+                        </div>
+                        <button class="mp-play" id="mpPlayBtn" disabled>▶</button>
+                    </div>
+                    <div class="music-grid" id="musicGrid">
+                        <button class="music-item music-item--yt" data-service="youtube">▶ YouTube</button>
+                        <button class="music-item music-item--sp" data-service="spotify">🎧 Spotify</button>
+                        <button class="music-item music-item--dz" data-service="deezer">🎶 Deezer</button>
+                        <button class="music-item music-item--sc" data-service="soundcloud">☁️ SoundCloud</button>
+                    </div>
+                </div>
+            </section>
+
+        </div><!-- /dash-grid -->
+    </main>
+
+    <script src="js/dashboard.js" defer></script>
+</body>
+</html>
+
