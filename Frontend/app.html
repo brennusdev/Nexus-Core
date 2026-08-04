@@ -50,7 +50,128 @@
             outline: none;
             margin-bottom: 10px;
         }
+
+        /* ===== CONTEÚDO ESPECÍFICO ===== */
+        .app-content { padding: 4px 0; }
+
+        .settings-section { margin-bottom: 28px; }
+        .settings-section__title {
+            font-size: 0.95rem; font-weight: 700;
+            margin-bottom: 12px; color: var(--text-main);
+            display: flex; align-items: center; gap: 6px;
+        }
+
+        /* --- Gradientes de idioma --- */
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 10px;
+        }
+        .lang-card {
+            display: flex; flex-direction: column; align-items: center; gap: 6px;
+            padding: 14px 8px; border-radius: 12px; color: #fff;
+            font-weight: 700; font-size: 0.76rem; text-align: center;
+            cursor: pointer; border: 2px solid transparent;
+            transition: transform .2s, box-shadow .2s, border-color .2s;
+        }
+        .lang-card:hover { transform: translateY(-3px); box-shadow: 0 6px 16px rgba(0,0,0,.18); }
+        .lang-card--active { border-color: #fff; box-shadow: 0 0 0 3px rgba(108,92,231,.45); }
+        .lang-flag { font-size: 1.5rem; }
+
+        .lc-pt  { background: linear-gradient(135deg, #009c3b, #ffdf00); color: #1a2733; }
+        .lc-en  { background: linear-gradient(135deg, #3b82f6, #1e3a8a); }
+        .lc-es  { background: linear-gradient(135deg, #e63946, #fca311); color:#1a2733; }
+        .lc-fr  { background: linear-gradient(135deg, #3c3b6e, #0055a4); }
+        .lc-de  { background: linear-gradient(135deg, #111827, #f59e0b); color:#fff; }
+        .lc-it  { background: linear-gradient(135deg, #009246, #ce2b37); }
+        .lc-jp  { background: linear-gradient(135deg, #dc2626, #f8fafc); color:#1a2733; }
+        .lc-kr  { background: linear-gradient(135deg, #003478, #c60c30); }
+        .lc-zh  { background: linear-gradient(135deg, #dc2626, #fbbf24); color:#1a2733; }
+        .lc-ru  { background: linear-gradient(135deg, #d52b1e, #0039a6); }
+        .lc-ar  { background: linear-gradient(135deg, #1c7d4d, #a8c686); color:#1a2733; }
+        .lc-hi  { background: linear-gradient(135deg, #ff9933, #138808); color:#fff; }
+
+        /* --- Logout card --- */
+        .logout-card {
+            width: 100%; display: flex; align-items: center; gap: 14px;
+            padding: 16px 18px; border-radius: 12px;
+            background: linear-gradient(135deg, #e63946, #ff6b6b);
+            color: #fff; font-weight: 700; font-size: .92rem; cursor: pointer;
+            box-shadow: 0 4px 14px rgba(230, 57, 70, .3);
+            transition: transform .2s, box-shadow .2s;
+        }
+        .logout-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(230,57,70,.4); }
+        .logout-card small { display: block; font-weight: 400; font-size: .74rem; opacity: .85; }
+        .logout-icon {
+            width: 40px; height: 40px; border-radius: 10px;
+            background: rgba(255,255,255,.22); display: grid; place-items: center; font-size: 1.2rem;
+        }
+
+        /* --- Sobre card --- */
+        .about-card {
+            display: flex; align-items: center; gap: 16px; padding: 20px;
+            border-radius: 14px; color: #fff;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe 55%, #00cec9);
+            box-shadow: 0 6px 20px rgba(108, 92, 231, .35);
+        }
+        .about-icon { font-size: 2.2rem; }
+        .about-title { font-weight: 800; font-size: 1.05rem; }
+        .about-text { font-size: .8rem; opacity: .92; margin-top: 2px; }
+        .about-meta { margin-left: auto; text-align: right; font-size: .72rem; opacity: .9; line-height: 1.6; }
+
+        /* ===== PERFIL ===== */
+        .profile-wrap { display: flex; gap: 30px; flex-wrap: wrap; }
+        .profile-avatar-wrap { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+        .profile-avatar {
+            width: 130px; height: 130px; border-radius: 50%;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            display: grid; place-items: center; font-size: 3rem; font-weight: 800; color: #fff;
+            border: 4px solid var(--color-primary); overflow: hidden;
+        }
+        .profile-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+        .profile-upload {
+            cursor: pointer; background: var(--bg-soft-2); padding: 9px 16px; border-radius: 8px;
+            font-size: .8rem; font-weight: 600; color: var(--text-main);
+            border: 1px solid var(--border-input); transition: background .2s;
+        }
+        .profile-upload:hover { background: var(--hover); }
+        .profile-fields { flex: 1; min-width: 260px; display: flex; flex-direction: column; gap: 14px; }
+        .profile-title { font-size: 1.15rem; font-weight: 800; margin-bottom: 2px; }
+        .text-area {
+            width: 100%; padding: 10px 12px; border: 1px solid var(--border-input);
+            border-radius: 8px; background: var(--bg-soft); color: var(--text-main);
+            font-size: .9rem; font-family: inherit; resize: vertical; outline: none;
+        }
+        .text-area:focus { border-color: var(--color-primary); }
+
+        /* ===== TEMAS ===== */
+        .theme-choice { display: flex; gap: 12px; margin-bottom: 18px; }
+        .theme-btn {
+            flex: 1; padding: 18px; border-radius: 12px; border: 2px solid var(--border-input);
+            background: var(--bg-soft); cursor: pointer; display: flex; flex-direction: column;
+            align-items: center; gap: 8px; font-weight: 700; font-size: .9rem; color: var(--text-main);
+            transition: border-color .2s, transform .2s;
+        }
+        .theme-btn:hover { transform: translateY(-2px); }
+        .theme-btn--active { border-color: var(--color-primary); background: rgba(108,92,231,.08); }
+        .accent-swatches { display: flex; gap: 12px; flex-wrap: wrap; }
+        .accent-swatch {
+            width: 46px; height: 46px; border-radius: 12px; cursor: pointer;
+            border: 3px solid transparent; transition: transform .2s, border-color .2s;
+        }
+        .accent-swatch:hover { transform: scale(1.1); }
+        .accent-swatch--active { border-color: var(--text-main); }
+
+        /* --- Toast --- */
+        .nexus-toast {
+            position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(30px);
+            background: #1a1d27; color: #fff; padding: 12px 22px; border-radius: 10px;
+            font-size: .85rem; font-weight: 600; box-shadow: 0 8px 24px rgba(0,0,0,.35);
+            opacity: 0; transition: opacity .3s, transform .3s; z-index: 999; pointer-events: none;
+        }
+        .nexus-toast--show { opacity: 1; transform: translateX(-50%) translateY(0); }
     </style>
+
 </head>
 <body class="dash-body">
 
@@ -153,12 +274,10 @@
 
             const titleEl = document.getElementById("appTitle");
             const descEl = document.getElementById("appDesc");
-            const iconEl = document.getElementById("appIcon");
             const appContent = document.getElementById("appContent");
 
             if (titleEl) titleEl.textContent = meta.title;
             if (descEl) descEl.textContent = meta.desc;
-            if (iconEl) iconEl.textContent = meta.icon;
             if (document.title) document.title = `Nexus Core | ${meta.title}`;
 
             // Destaque do item ativo no sidebar
@@ -168,8 +287,253 @@
                     a.classList.add("sidebar__item--active");
                 }
             });
+
+            /* ============================================================
+               RENDERIZAÇÃO DINÂMICA DE CONTEÚDO POR APLICATIVO
+               ============================================================ */
+            function toast(msg) {
+                let t = document.querySelector(".nexus-toast");
+                if (!t) {
+                    t = document.createElement("div");
+                    t.className = "nexus-toast";
+                    document.body.appendChild(t);
+                }
+                t.textContent = msg;
+                requestAnimationFrame(() => t.classList.add("nexus-toast--show"));
+                clearTimeout(t._timer);
+                t._timer = setTimeout(() => t.classList.remove("nexus-toast--show"), 2200);
+            }
+
+            // Idiomas disponíveis
+            const LANGUAGES = [
+                { code: "pt",  flag: "🇧🇷", name: "Português" },
+                { code: "en",  flag: "🇺🇸", name: "English" },
+                { code: "es",  flag: "🇪🇸", name: "Español" },
+                { code: "fr",  flag: "🇫🇷", name: "Français" },
+                { code: "de",  flag: "🇩🇪", name: "Deutsch" },
+                { code: "it",  flag: "🇮🇹", name: "Italiano" },
+                { code: "jp",  flag: "🇯🇵", name: "日本語" },
+                { code: "kr",  flag: "🇰🇷", name: "한국어" },
+                { code: "zh",  flag: "🇨🇳", name: "中文" },
+                { code: "ru",  flag: "🇷🇺", name: "Русский" },
+                { code: "ar",  flag: "🇸🇦", name: "العربية" },
+                { code: "hi",  flag: "🇮🇳", name: "हिन्दी" }
+            ];
+
+            const ACCENTS = [
+                { id: "roxa",   hex: "#6c5ce7" },
+                { id: "azul",   hex: "#3b82f6" },
+                { id: "verde",  hex: "#10b981" },
+                { id: "laranja",hex: "#f59e0b" },
+                { id: "rosa",   hex: "#ec4899" },
+                { id: "vermelho",hex: "#ef4444" }
+            ];
+
+            const RENDERERS = {
+                "configuracoes": function () {
+                    const savedLang = localStorage.getItem("nexus_lang") || "pt";
+                    const cards = LANGUAGES.map((l) => `
+                        <div class="lang-card lc-${l.code}${savedLang === l.code ? " lang-card--active" : ""}" data-lang="${l.code}">
+                            <span class="lang-flag">${l.flag}</span>
+                            <span>${l.name}</span>
+                        </div>`).join("");
+
+                    appContent.classList.remove("app-placeholder");
+                    appContent.innerHTML = `
+                        <div class="app-content">
+                            <div class="settings-section">
+                                <h3 class="settings-section__title">🌐 Idioma / Language</h3>
+                                <div class="settings-grid">${cards}</div>
+                            </div>
+                            <div class="settings-section">
+                                <h3 class="settings-section__title">👋 Sair da conta</h3>
+                                <button class="logout-card" id="configLogout">
+                                    <span class="logout-icon">⎋</span>
+                                    <span>Encerrar sessão<small>Deslogar do Nexus Core e voltar ao login</small></span>
+                                </button>
+                            </div>
+                            <div class="settings-section">
+                                <h3 class="settings-section__title">ℹ️ Sobre</h3>
+                                <div class="about-card">
+                                    <span class="about-icon">🚀</span>
+                                    <div>
+                                        <p class="about-title">Nexus Core</p>
+                                        <p class="about-text">Plataforma de produtividade integrada (OS pessoal).</p>
+                                    </div>
+                                    <div class="about-meta">
+                                        <strong>v1.0.0</strong><br/>© 2025
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
+
+                    // Seleção de idioma
+                    appContent.querySelectorAll(".lang-card").forEach((card) => {
+                        card.addEventListener("click", () => {
+                            appContent.querySelectorAll(".lang-card").forEach((c) => c.classList.remove("lang-card--active"));
+                            card.classList.add("lang-card--active");
+                            localStorage.setItem("nexus_lang", card.dataset.lang);
+                            const langName = LANGUAGES.find((l) => l.code === card.dataset.lang);
+                            toast(`🌐 Idioma definido: ${langName ? langName.name : card.dataset.lang}`);
+
+                        });
+                    });
+
+                    // Logout
+                    const logoutBtn = document.getElementById("configLogout");
+                    if (logoutBtn) {
+                        logoutBtn.addEventListener("click", () => {
+                            localStorage.removeItem("nexus_user");
+                            localStorage.removeItem("nexus_theme");
+                            window.location.href = "index.html";
+                        });
+                    }
+                },
+
+                "temas": function () {
+                    const savedTheme = localStorage.getItem("nexus_theme") || "light";
+                    const savedAccent = localStorage.getItem("nexus_accent") || "#6c5ce7";
+
+                    const swatches = ACCENTS.map((a) => `
+                        <span class="accent-swatch${savedAccent === a.hex ? " accent-swatch--active" : ""}"
+                              data-accent="${a.hex}" style="background:${a.hex}"></span>`).join("");
+
+                    appContent.classList.remove("app-placeholder");
+                    appContent.innerHTML = `
+                        <div class="app-content">
+                            <div class="settings-section">
+                                <h3 class="settings-section__title">🎨 Modo de exibição</h3>
+                                <div class="theme-choice">
+                                    <button class="theme-btn${savedTheme === "light" ? " theme-btn--active" : ""}" data-theme="light">
+                                        <span style="font-size:1.6rem">☀️</span> Claro
+                                    </button>
+                                    <button class="theme-btn${savedTheme === "dark" ? " theme-btn--active" : ""}" data-theme="dark">
+                                        <span style="font-size:1.6rem">🌙</span> Escuro
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="settings-section">
+                                <h3 class="settings-section__title">🌈 Cor de destaque</h3>
+                                <div class="accent-swatches">${swatches}</div>
+                            </div>
+                        </div>`;
+
+                    appContent.querySelectorAll(".theme-btn").forEach((btn) => {
+                        btn.addEventListener("click", () => {
+                            const theme = btn.dataset.theme;
+                            document.documentElement.setAttribute("data-theme", theme);
+                            localStorage.setItem("nexus_theme", theme);
+                            appContent.querySelectorAll(".theme-btn").forEach((b) => b.classList.remove("theme-btn--active"));
+                            btn.classList.add("theme-btn--active");
+                            const tb = document.getElementById("themeToggle");
+                            if (tb) tb.textContent = theme === "dark" ? "☀️" : "🌙";
+                            toast(theme === "dark" ? "🌙 Modo escuro ativado" : "☀️ Modo claro ativado");
+                        });
+                    });
+
+                    appContent.querySelectorAll(".accent-swatch").forEach((sw) => {
+                        sw.addEventListener("click", () => {
+                            const accent = sw.dataset.accent;
+                            document.documentElement.style.setProperty("--color-primary", accent);
+                            localStorage.setItem("nexus_accent", accent);
+                            appContent.querySelectorAll(".accent-swatch").forEach((s) => s.classList.remove("accent-swatch--active"));
+                            sw.classList.add("accent-swatch--active");
+                            toast("🌈 Cor de destaque alterada");
+                        });
+                    });
+                },
+
+                "perfil": function () {
+                    const userName = localStorage.getItem("nexus_user") || "BlackCode";
+                    const savedBio = localStorage.getItem("nexus_bio") || "";
+                    const savedEmail = localStorage.getItem("nexus_email") || "";
+                    const savedAvatar = localStorage.getItem("nexus_avatar") || "";
+
+                    appContent.classList.remove("app-placeholder");
+                    appContent.innerHTML = `
+                        <div class="app-content">
+                            <div class="profile-wrap">
+                                <div class="profile-avatar-wrap">
+                                    <div class="profile-avatar" id="profileAvatar">
+                                        ${savedAvatar ? `<img src="${savedAvatar}" alt="Foto de perfil" />` : `<span>${userName.charAt(0).toUpperCase()}</span>`}
+                                    </div>
+                                    <label class="profile-upload" for="avatarInput">📷 Adicionar foto</label>
+                                    <input type="file" id="avatarInput" accept="image/*" hidden />
+                                </div>
+                                <div class="profile-fields">
+                                    <h3 class="profile-title">🙋 Sobre você</h3>
+                                    <div class="form-field">
+                                        <label class="form-field__label" for="profileName">Nome de exibição</label>
+                                        <input class="form-field__input" type="text" id="profileName" value="${userName}" />
+                                    </div>
+                                    <div class="form-field">
+                                        <label class="form-field__label" for="profileEmail">E-mail</label>
+                                        <input class="form-field__input" type="email" id="profileEmail" placeholder="seu@email.com" value="${savedEmail}" />
+                                    </div>
+                                    <div class="form-field">
+                                        <label class="form-field__label" for="profileBio">Biografia</label>
+                                        <textarea class="text-area" id="profileBio" rows="3" placeholder="Fale um pouco sobre você…">${savedBio}</textarea>
+                                    </div>
+                                    <button class="btn btn--primary" id="saveProfile">💾 Salvar alterações</button>
+                                </div>
+                            </div>
+                        </div>`;
+
+                    // Upload de avatar
+                    const avatarInput = document.getElementById("avatarInput");
+                    const profileAvatar = document.getElementById("profileAvatar");
+                    if (avatarInput && profileAvatar) {
+                        avatarInput.addEventListener("change", (e) => {
+                            const file = e.target.files[0];
+                            if (!file) return;
+                            const reader = new FileReader();
+                            reader.onload = (ev) => {
+                                const dataUrl = ev.target.result;
+                                localStorage.setItem("nexus_avatar", dataUrl);
+                                profileAvatar.innerHTML = `<img src="${dataUrl}" alt="Foto de perfil" />`;
+                                // atualiza avatar da sidebar/topbar
+                                const avs = document.querySelectorAll(".topbar__avatar, .sidebar__avatar");
+                                avs.forEach((a) => { a.style.backgroundImage = `url(${dataUrl})`; a.style.backgroundSize = "cover"; a.textContent = ""; });
+                                toast("📷 Foto atualizada!");
+                            };
+                            reader.readAsDataURL(file);
+                        });
+                    }
+
+                    // Salvar perfil
+                    const saveBtn = document.getElementById("saveProfile");
+                    if (saveBtn) {
+                        saveBtn.addEventListener("click", () => {
+                            const nameEl = document.getElementById("profileName");
+                            const emailEl = document.getElementById("profileEmail");
+                            const bioEl = document.getElementById("profileBio");
+                            const newName = nameEl.value.trim() || "BlackCode";
+
+                            localStorage.setItem("nexus_user", newName);
+                            localStorage.setItem("nexus_email", emailEl.value.trim());
+                            localStorage.setItem("nexus_bio", bioEl.value.trim());
+
+                            const userNameEl = document.getElementById("userName");
+                            if (userNameEl) userNameEl.textContent = newName;
+                            const avs = document.querySelectorAll(".topbar__avatar, .sidebar__avatar");
+                            avs.forEach((a) => {
+                                const saved = localStorage.getItem("nexus_avatar");
+                                if (!saved) { a.style.backgroundImage = ""; a.textContent = newName.charAt(0).toUpperCase(); }
+                            });
+
+                            toast("✅ Perfil salvo com sucesso!");
+                        });
+                    }
+                }
+            };
+
+            // Executa o renderer da página se existir
+            if (RENDERERS[app]) {
+                RENDERERS[app]();
+            }
         })();
     </script>
+
 </body>
 </html>
 
