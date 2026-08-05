@@ -60,7 +60,10 @@
     flex-direction: column;
     z-index: 50;
     transition: transform 0.3s ease;
+    transform: translateX(-100%);   /* colapsada por padrão */
 }
+.sidebar--open { transform: translateX(0); }
+.sidebar--open ~ .main { margin-left: 250px; }
 .sidebar__brand {
     display: flex;
     align-items: center;
@@ -142,7 +145,7 @@
    MAIN & TOPBAR
    ========================================================================== */
 .main {
-    margin-left: 250px;
+    margin-left: 0;              /* por padrão a sidebar está colapsada */
     padding: 16px 20px 40px;
     min-height: 100vh;
     transition: margin-left 0.3s ease;
@@ -160,7 +163,7 @@
     border-radius: 6px;
 }
 .topbar__toggle:hover { background: var(--hover); }
-.topbar__search { flex: 1; max-width: 420px; }
+.topbar__search { flex: 1; max-width: 420px; margin: 0 auto; text-align: center; }
 .topbar__search input {
     width: 100%;
     padding: 10px 14px;
@@ -221,11 +224,10 @@
 .widget__head .widget__title { margin-bottom: 0; }
 
 /* Distribuição em 12 colunas */
-.widget--hello     { grid-column: span 12; }  /* Saudação ocupa a linha inteira no topo */
-
-/* FAIXA 1: 4 cards de estatística quadrados + Hora ao lado */
+/* FAIXA 1: Olá | Foco | Tarefas | Estudos | Metas | Hora em uma única linha */
+.widget--hello     { grid-column: span 2; }
 .widget--stat      { grid-column: span 2; }
-.widget--clock     { grid-column: span 4; }   /* Hora ao lado dos cards de estatística */
+.widget--clock     { grid-column: span 2; }
 
 /* FAIXA 2: 3 colunas — A (tarefas/metas/finance) | B (calendário) | C (rapidos) */
 .widget--todolist  { grid-column: 1 / 4; }   /* Coluna A */
