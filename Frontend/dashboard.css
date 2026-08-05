@@ -270,13 +270,57 @@
 }
 
 /* ==========================================================================
-   ESTATÍSTICAS
+   ESTATÍSTICAS  — cards coloridos com gráfico de linha
    ========================================================================== */
 .widget__progress { height: 8px; background: var(--chart-bg); border-radius: 99px; overflow: hidden; margin-top: 10px; }
 .widget__progress span { display: block; height: 100%; background: linear-gradient(90deg, var(--color-primary), #a29bfe); border-radius: 99px; }
 .widget__value { font-size: 1.05rem; font-weight: 700; margin-top: 8px; }
 .widget__value.big { font-size: 1.4rem; }
 .widget__meta { font-size: 0.76rem; color: var(--text-soft); margin-top: 4px; }
+
+/* Cards coloridos de estatística */
+.stat--green   { background: linear-gradient(135deg, #10b981, #059669); color: #fff; border: none; }
+.stat--blue    { background: linear-gradient(135deg, #3b82f6, #2563eb); color: #fff; border: none; }
+.stat--purple  { background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: #fff; border: none; }
+.stat--yellow  { background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; border: none; }
+
+.stat--green .widget__title,
+.stat--blue .widget__title,
+.stat--purple .widget__title,
+.stat--yellow .widget__title { color: #fff; }
+
+.stat--green .widget__value,
+.stat--blue .widget__value,
+.stat--purple .widget__value,
+.stat--yellow .widget__value { color: #fff; }
+
+.stat--green .widget__meta,
+.stat--blue .widget__meta,
+.stat--purple .widget__meta,
+.stat--yellow .widget__meta { color: rgba(255, 255, 255, 0.85); }
+
+/* Gráfico de linha dentro dos cards */
+.stat-line {
+    width: 100%;
+    height: 44px;
+    display: block;
+    margin: 6px 0 4px;
+    overflow: visible;
+}
+.stat-line__stroke {
+    fill: none;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+.stat-line__fill {
+    fill: none;
+    stroke-width: 0;
+}
+.stat--green .stat-line__stroke { stroke: #d1fae5; }
+.stat--blue .stat-line__stroke { stroke: #bfdbfe; }
+.stat--purple .stat-line__stroke { stroke: #ddd6fe; }
+.stat--yellow .stat-line__stroke { stroke: #fde68a; }
 
 /* ==========================================================================
    RELÓGIO
