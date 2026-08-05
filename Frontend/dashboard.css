@@ -393,11 +393,11 @@
     display: flex;
     align-items: center;
     gap: 16px;
-    margin-top: 10px;
     padding: 12px;
     border: 1px solid var(--border-card);
     border-radius: 10px;
     background: var(--bg-soft);
+    grid-column: span 2;
 }
 .finance-donut {
     position: relative;
@@ -719,4 +719,5 @@
     .quick-grid { grid-template-columns: 1fr 1fr; }
     .finance-cards { grid-template-columns: 1fr; }
     .f-card--bal { grid-column: span 1; }
+    .finance-chart-wrap { grid-column: span 1; }
 }
