@@ -271,31 +271,9 @@
                 </div>
             </section>
 
-            <!-- ===== FAIXA 5: Música ===== -->
-            <section class="widget widget--music">
-                <header class="widget__head">
-                    <h3 class="widget__title">🎵 Música</h3>
-                    <button class="btn btn--sm" onclick="location.href='music.html'">Configurar serviços</button>
-                </header>
-                <div class="music-wrap">
-                    <div class="music-player" id="musicPlayer">
-                        <div class="mp-cover">🎧</div>
-                        <div class="mp-info">
-                            <p class="mp-title" id="mpTitle">Gerenciado pelo Nexus Core</p>
-                            <p class="mp-artist" id="mpArtist">Conecte seu serviço para ouvir</p>
-                        </div>
-                        <button class="mp-play" id="mpPlayBtn" disabled>▶</button>
-                    </div>
-                    <div class="music-grid" id="musicGrid">
-                        <button class="music-item music-item--yt" data-service="youtube">▶ YouTube</button>
-                        <button class="music-item music-item--sp" data-service="spotify">🎧 Spotify</button>
-                        <button class="music-item music-item--dz" data-service="deezer">🎶 Deezer</button>
-                        <button class="music-item music-item--sc" data-service="soundcloud">☁️ SoundCloud</button>
-                    </div>
-                </div>
-            </section>
+<!-- ===== FAIXA 5: Acesso Rápido | Música (lado a lado) ===== -->
 
-<!-- ===== FAIXA 6: Acesso Rápido (nova grade) ===== -->
+<!-- ===== Acesso Rápido (esquerda) ===== -->
             <section class="widget widget--quickaccess">
                 <h3 class="widget__title">⚡ Acesso Rápido</h3>
                 <div class="qa-grid">
@@ -329,11 +307,35 @@
                         <span class="qa-name">Analytics Center</span>
                         <span class="qa-go">Acessar →</span>
                     </a>
-                    <a href="app.html?app=automation-hub" class="qa-card qa-card--auto">
+<a href="app.html?app=automation-hub" class="qa-card qa-card--auto">
                         <span class="qa-icon">🤖</span>
                         <span class="qa-name">Automation Hub</span>
                         <span class="qa-go">Acessar →</span>
                     </a>
+                </div>
+            </section>
+
+<!-- ===== Música (direita) ===== -->
+            <section class="widget widget--music">
+                <header class="widget__head">
+                    <h3 class="widget__title">🎵 Música</h3>
+                    <button class="btn btn--sm" onclick="location.href='music.html'">Configurar serviços</button>
+                </header>
+                <div class="music-wrap">
+                    <div class="music-player" id="musicPlayer">
+                        <div class="mp-cover">🎧</div>
+                        <div class="mp-info">
+                            <p class="mp-title" id="mpTitle">Gerenciado pelo Nexus Core</p>
+                            <p class="mp-artist" id="mpArtist">Conecte seu serviço para ouvir</p>
+                        </div>
+                        <button class="mp-play" id="mpPlayBtn" disabled>▶</button>
+                    </div>
+                    <div class="music-grid" id="musicGrid">
+                        <button class="music-item music-item--yt" data-service="youtube">▶ YouTube</button>
+                        <button class="music-item music-item--sp" data-service="spotify">🎧 Spotify</button>
+                        <button class="music-item music-item--dz" data-service="deezer">🎶 Deezer</button>
+                        <button class="music-item music-item--sc" data-service="soundcloud">☁️ SoundCloud</button>
+                    </div>
                 </div>
             </section>
 
