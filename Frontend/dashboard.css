@@ -387,6 +387,60 @@
 
 .finance-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
 .f-card { background: var(--bg-soft); border-radius: 8px; padding: 10px; font-size: 0.78rem; display: flex; flex-direction: column; }
+
+/* Gráfico donut financeiro */
+.finance-chart-wrap {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 10px;
+    padding: 12px;
+    border: 1px solid var(--border-card);
+    border-radius: 10px;
+    background: var(--bg-soft);
+}
+.finance-donut {
+    position: relative;
+    width: 96px;
+    height: 96px;
+    flex-shrink: 0;
+}
+.finance-donut svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+.fin-donut-bg {
+    fill: none;
+    stroke: var(--chart-bg);
+    stroke-width: 4;
+}
+.fin-donut-seg {
+    fill: none;
+    stroke-width: 4;
+    stroke-linecap: round;
+    transition: stroke-dasharray 0.4s ease, stroke-dashoffset 0.4s ease;
+}
+.fin-donut--in { stroke: var(--color-success); }
+.fin-donut--out { stroke: var(--color-error); }
+.fin-donut--inv { stroke: var(--color-primary); }
+.fin-donut-center {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.fin-donut-center span { font-size: 0.62rem; color: var(--text-soft); font-weight: 600; }
+.fin-donut-center strong { font-size: 0.78rem; color: var(--text-main); }
+.finance-legend { display: flex; flex-direction: column; gap: 6px; }
+.f-legend { display: flex; align-items: center; gap: 8px; font-size: 0.74rem; color: var(--text-main); }
+.f-legend-dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
+.f-dot--in { background: var(--color-success); }
+.f-dot--out { background: var(--color-error); }
+.f-dot--inv { background: var(--color-primary); }
 .f-card strong { font-size: 0.95rem; margin-top: 2px; }
 .f-card--in strong { color: var(--color-success); }
 .f-card--out strong { color: var(--color-error); }
@@ -460,9 +514,35 @@
 .weekly-tabs { display: flex; gap: 6px; margin-bottom: 10px; }
 .wtab { flex: 1; padding: 6px; background: var(--bg-soft-2); border-radius: 6px; font-size: 0.75rem; font-weight: 600; color: var(--text-main); }
 .wtab--active { background: var(--color-primary); color: #fff; }
-.chart { display: flex; align-items: flex-end; gap: 6px; height: 160px; padding-top: 10px; }
-.chart-bar { flex: 1; background: linear-gradient(180deg, var(--color-primary), #a29bfe); border-radius: 6px 6px 0 0; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; }
-.chart-bar span { font-size: 0.6rem; color: var(--text-soft); padding-top: 4px; }
+.chart { display: flex; align-items: flex-end; gap: 6px; height: 170px; padding-top: 10px; }
+.chart-bar {
+    flex: 1;
+    background: linear-gradient(180deg, var(--color-primary), #a29bfe);
+    border-radius: 6px 6px 0 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    position: relative;
+    min-height: 8px;
+    transition: filter 0.2s;
+}
+.chart-bar:hover { filter: brightness(1.1); }
+.chart-bar .chart-val {
+    position: absolute;
+    top: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.68rem;
+    font-weight: 800;
+    color: var(--text-main);
+    background: var(--bg-card);
+    border: 1px solid var(--border-input);
+    border-radius: 6px;
+    padding: 1px 5px;
+    white-space: nowrap;
+}
+.chart-bar span { font-size: 0.68rem; color: var(--text-soft); padding-top: 4px; font-weight: 600; }
 
 /* ==========================================================================
    MÚSICA (player)
@@ -553,9 +633,12 @@
     fill: var(--color-primary);
 }
 .radar-labels text {
-    font-size: 9px;
-    font-weight: 600;
+    font-size: 13px;
+    font-weight: 800;
     fill: var(--text-main);
+    paint-order: stroke;
+    stroke: var(--bg-card);
+    stroke-width: 3px;
 }
 
 /* ==========================================================================
