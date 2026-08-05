@@ -67,8 +67,14 @@
     const MONTHS = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
 
     const clockTime = document.getElementById("clockTime");
+    const clockWeekday = document.getElementById("clockWeekday");
+    const clockFullDate = document.getElementById("clockFullDate");
+
     function updateClock() {
-        if (clockTime) clockTime.textContent = new Date().toLocaleTimeString("pt-BR", { hour12: false });
+        const now = new Date();
+        if (clockTime) clockTime.textContent = now.toLocaleTimeString("pt-BR", { hour12: false });
+        if (clockWeekday) clockWeekday.textContent = WEEKDAYS[now.getDay()];
+        if (clockFullDate) clockFullDate.textContent = `${now.getDate()} de ${MONTHS[now.getMonth()]} de ${now.getFullYear()}`;
     }
     updateClock();
     setInterval(updateClock, 1000);
@@ -131,6 +137,41 @@
     if (calAddBtn) calAddBtn.addEventListener("click", addTask);
     if (calTaskInput) calTaskInput.addEventListener("keydown", (e) => { if (e.key === "Enter") addTask(); });
     renderCalendar();
+
+/* ============================================================
+       4.5 RESUMO FINANCEIRO — cálculo automático
+       ============================================================ */
+    const finIn = document.getElementById("finIn");
+    const finOut = document.getElementById("finOut");
+    const finInv = document.getElementById("finInv");
+    const finBal = document.getElementById("finBal");
+
+    function formatBRL(v) {
+        return v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+    }
+
+    function updateFinance() {
+        if (!finBal) return;
+        const receitas = parseFloat(finIn && finIn.value ? finIn.value : 0) || 0;
+        const despesas = parseFloat(finOut && finOut.value ? finOut.value : 0) || 0;
+        const invest = parseFloat(finInv && finInv.value ? finInv.value : 0) || 0;
+        const saldo = receitas - despesas + invest;
+        finBal.textContent = formatBRL(saldo);
+        // Salvar valores no localStorage
+        localStorage.setItem("nexus_fin_in", finIn ? finIn.value : "");
+        localStorage.setItem("nexus_fin_out", finOut ? finOut.value : "");
+        localStorage.setItem("nexus_fin_inv", finInv ? finInv.value : "");
+    }
+
+    // Carregar valores salvos
+    if (finIn && localStorage.getItem("nexus_fin_in")) finIn.value = localStorage.getItem("nexus_fin_in");
+    if (finOut && localStorage.getItem("nexus_fin_out")) finOut.value = localStorage.getItem("nexus_fin_out");
+    if (finInv && localStorage.getItem("nexus_fin_inv")) finInv.value = localStorage.getItem("nexus_fin_inv");
+
+    if (finIn) finIn.addEventListener("input", updateFinance);
+    if (finOut) finOut.addEventListener("input", updateFinance);
+    if (finInv) finInv.addEventListener("input", updateFinance);
+    updateFinance();
 
     /* ============================================================
        5. WIDGETS RÁPIDOS (navegação)

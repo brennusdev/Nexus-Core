@@ -102,18 +102,69 @@
                 <p class="widget__meta">⏱ tempo ativo</p>
             </section>
 
-            <section class="widget widget--stat">
+<section class="widget widget--stat">
                 <h3 class="widget__title">🏆 Metas</h3>
                 <div class="widget__progress"><span style="width:62%"></span></div>
                 <p class="widget__value">62%</p>
             </section>
 
+            <!-- ===== FAIXA 2: Coluna esquerda (Tarefas/Metas/Finance) + Meio (Hora/Calendário) + Direita (Rápidos) ===== -->
+
+            <!-- Coluna A (esquerda): Tarefa do Dia -->
+            <section class="widget widget--todolist">
+                <header class="widget__head">
+                    <h3 class="widget__title">📝 Tarefa do Dia</h3>
+                    <button class="btn btn--primary btn--sm" id="todoAdd">＋ Adicionar</button>
+                </header>
+                <ul class="todo-list" id="todoList">
+                    <li><label><input type="checkbox" /> Revisar projeto Nexus</label></li>
+                    <li><label><input type="checkbox" /> Estudar FastAPI 30min</label></li>
+                    <li><label><input type="checkbox" /> Treinar 1h</label></li>
+                </ul>
+            </section>
+
+            <!-- Coluna A: Meta do Mês (entre Tarefas e Finance) -->
+            <section class="widget widget--metames">
+                <header class="widget__head">
+                    <h3 class="widget__title">🎯 Meta do Mês</h3>
+                    <button class="btn btn--sm" id="metasBtn" onclick="location.href='app.html?app=metas'">Ver todas</button>
+                </header>
+                <ul class="meta-list">
+                    <li>Concluir projeto <span class="meta-progress"><span style="width:80%"></span></span></li>
+                    <li>Ler 2 livros <span class="meta-progress"><span style="width:50%"></span></span></li>
+                    <li>Economizar R$500 <span class="meta-progress"><span style="width:30%"></span></span></li>
+                </ul>
+            </section>
+
+            <!-- Coluna A: Resumo Financeiro (editável) -->
+            <section class="widget widget--finance">
+                <header class="widget__head">
+                    <h3 class="widget__title">💰 Resumo Financeiro</h3>
+                    <button class="btn btn--sm" onclick="location.href='app.html?app=financeiro'">Ver relatório</button>
+                </header>
+                <div class="finance-cards">
+                    <div class="f-card f-card--in">Receitas
+                        <div class="f-edit"><span>R$</span><input type="number" id="finIn" value="4200" min="0" step="0.01" /></div>
+                    </div>
+                    <div class="f-card f-card--out">Despesas
+                        <div class="f-edit"><span>R$</span><input type="number" id="finOut" value="2800" min="0" step="0.01" /></div>
+                    </div>
+                    <div class="f-card f-card--inv">Invest.
+                        <div class="f-edit"><span>R$</span><input type="number" id="finInv" value="600" min="0" step="0.01" /></div>
+                    </div>
+                    <div class="f-card f-card--bal" id="finBalCard">Saldo <strong id="finBal">R$2.000</strong></div>
+                </div>
+            </section>
+
+<!-- Coluna B (meio): Hora (com data) -->
             <section class="widget widget--clock">
                 <h3 class="widget__title">🕐 Hora</h3>
                 <p class="clock-time" id="clockTime">--:--:--</p>
+                <p class="clock-date" id="clockWeekday">Segunda-feira</p>
+                <p class="clock-date clock-date--small" id="clockFullDate">1 de Janeiro de 2025</p>
             </section>
 
-            <!-- ===== FAIXA 2: Calendário (abaixo da hora) + Widgets Rápidos ===== -->
+            <!-- Coluna B: Calendário (abaixo da hora) -->
             <section class="widget widget--calendar">
                 <h3 class="widget__title">📅 Calendário</h3>
                 <div class="cal-head">
@@ -129,7 +180,7 @@
                 <ul class="cal-tasks" id="calTasks"></ul>
             </section>
 
-            <!-- Widgets Rápidos (mini gradient) -->
+            <!-- Coluna C (direita): Widgets Rápidos -->
             <section class="widget widget--quick">
                 <h3 class="widget__title">⚡ Widgets Rápidos</h3>
                 <div class="quick-grid" id="quickGrid">
@@ -157,49 +208,6 @@
                     <button class="qmini qmini--notif" data-open="notificacoes">
                         <span class="qmini-icon">🔔</span> Notificações
                     </button>
-                </div>
-            </section>
-
-            <!-- ===== FAIXA 3: Tarefa do Dia + Metas do Mês + Resumo Financeiro ===== -->
-            <section class="widget widget--todolist">
-                <header class="widget__head">
-                    <h3 class="widget__title">📝 Tarefa do Dia</h3>
-                    <button class="btn btn--primary btn--sm" id="todoAdd">＋ Adicionar</button>
-                </header>
-                <ul class="todo-list" id="todoList">
-                    <li><label><input type="checkbox" /> Revisar projeto Nexus</label></li>
-                    <li><label><input type="checkbox" /> Estudar FastAPI 30min</label></li>
-                    <li><label><input type="checkbox" /> Treinar 1h</label></li>
-                </ul>
-            </section>
-
-            <section class="widget widget--metas">
-                <header class="widget__head">
-                    <h3 class="widget__title">🎯 Metas do Mês</h3>
-                    <button class="btn btn--sm" id="metasBtn" onclick="location.href='app.html?app=metas'">Ver todas</button>
-                </header>
-                <ul class="meta-list">
-                    <li>Concluir projeto <span class="meta-progress"><span style="width:80%"></span></span></li>
-                    <li>Ler 2 livros <span class="meta-progress"><span style="width:50%"></span></span></li>
-                    <li>Economizar R$500 <span class="meta-progress"><span style="width:30%"></span></span></li>
-                </ul>
-            </section>
-
-            <section class="widget widget--finance">
-                <header class="widget__head">
-                    <h3 class="widget__title">💰 Resumo Financeiro</h3>
-                    <button class="btn btn--sm" onclick="location.href='app.html?app=financeiro'">Ver relatório</button>
-                </header>
-                <div class="finance-cards">
-                    <div class="f-card f-card--in">Receitas <strong>+R$4.200</strong></div>
-                    <div class="f-card f-card--out">Despesas <strong>-R$2.800</strong></div>
-                    <div class="f-card f-card--inv">Invest. <strong>+R$600</strong></div>
-                    <div class="f-card f-card--bal">Saldo <strong>R$2.000</strong></div>
-                </div>
-                <div class="finance-chart">
-                    <div class="fc-bar fc-bar--ok" style="--h:70%" title="70% planejado"></div>
-                    <div class="fc-bar fc-bar--warn" style="--h:45%" title="45% gasto"></div>
-                    <div class="fc-bar fc-bar--danger" style="--h:18%" title="18% emergencial"></div>
                 </div>
             </section>
 
@@ -265,10 +273,10 @@
                     <button class="wtab" data-range="month">Mês</button>
                     <button class="wtab" data-range="year">Ano</button>
                 </div>
-                <div class="chart" id="weeklyChart"></div>
+<div class="chart" id="weeklyChart"></div>
             </section>
 
-            <!-- ===== FAIXA 5: Música (agora abaixo do Progresso Semanal) ===== -->
+            <!-- ===== FAIXA 5: Música ===== -->
             <section class="widget widget--music">
                 <header class="widget__head">
                     <h3 class="widget__title">🎵 Música</h3>
@@ -292,7 +300,7 @@
                 </div>
             </section>
 
-            <!-- ===== FAIXA 6: Acesso Rápido (nova grade) ===== -->
+<!-- ===== FAIXA 6: Acesso Rápido (nova grade) ===== -->
             <section class="widget widget--quickaccess">
                 <h3 class="widget__title">⚡ Acesso Rápido</h3>
                 <div class="qa-grid">

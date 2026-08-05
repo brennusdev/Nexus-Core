@@ -223,14 +223,14 @@
 /* Distribuição em 12 colunas */
 .widget--hello     { grid-column: span 2; }
 .widget--stat      { grid-column: span 2; }
-.widget--clock     { grid-column: span 2; }
 
-.widget--calendar  { grid-column: span 5; }
-.widget--quick     { grid-column: span 7; }
-
-.widget--todolist  { grid-column: span 4; }
-.widget--metas     { grid-column: span 4; }
-.widget--finance   { grid-column: span 4; }
+/* FAIXA 2: 3 colunas — A (tarefas/metas/finance) | B (hora/calendario) | C (rapidos) */
+.widget--todolist  { grid-column: 1 / 4; }   /* Coluna A */
+.widget--metames   { grid-column: 1 / 4; }   /* Coluna A */
+.widget--finance   { grid-column: 1 / 4; }   /* Coluna A - à esquerda do calendário */
+.widget--clock     { grid-column: 4 / 8; }   /* Coluna B - hora */
+.widget--calendar  { grid-column: 4 / 8; }   /* Coluna B - calendário abaixo da hora */
+.widget--quick     { grid-column: 8 / 13; }  /* Coluna C - widgets rápidos */
 
 .widget--overview  { grid-column: span 4; }
 .widget--activity  { grid-column: span 4; }
@@ -277,6 +277,18 @@
    RELÓGIO
    ========================================================================== */
 .clock-time { font-size: 1.7rem; font-weight: 800; letter-spacing: 0.5px; }
+.clock-date {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-top: 6px;
+}
+.clock-date--small {
+    font-size: 0.68rem;
+    font-weight: 500;
+    color: var(--text-soft);
+    margin-top: 2px;
+}
 
 /* ==========================================================================
    CALENDÁRIO
@@ -380,6 +392,46 @@
 .fc-bar--ok { background: var(--color-success); }
 .fc-bar--warn { background: #f4a261; }
 .fc-bar--danger { background: var(--color-error); }
+
+/* Inputs financeiros editáveis */
+.f-edit {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 4px;
+}
+.f-edit span {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-soft);
+}
+.f-edit input {
+    width: 100%;
+    min-width: 0;
+    padding: 6px 8px;
+    border: 1px solid var(--border-input);
+    border-radius: 6px;
+    background: var(--bg-card);
+    color: var(--text-main);
+    font-size: 0.9rem;
+    font-weight: 700;
+    outline: none;
+    transition: border-color 0.2s;
+}
+.f-edit input:focus { border-color: var(--color-primary); }
+.f-card--in .f-edit input { color: var(--color-success); }
+.f-card--out .f-edit input { color: var(--color-error); }
+.f-card--inv .f-edit input { color: var(--color-primary); }
+.f-card--bal {
+    justify-content: center;
+    align-items: center;
+    grid-column: span 2;
+    text-align: center;
+    background: linear-gradient(135deg, var(--color-primary), #a29bfe);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(108, 92, 231, 0.35);
+}
+.f-card--bal strong { color: #fff; font-size: 1.05rem; }
 
 /* ==========================================================================
    VISÃO GERAL / ATIVIDADE / SEMANAL
@@ -548,12 +600,15 @@
    RESPONSIVO
    ========================================================================== */
 @media (max-width: 1200px) {
-    .widget--calendar, .widget--quick { grid-column: span 12; }
+    .widget--todolist, .widget--metames, .widget--finance { grid-column: 1 / 6; }
+    .widget--clock, .widget--calendar { grid-column: 6 / 13; }
+    .widget--quick { grid-column: span 12; }
     .widget--overview, .widget--activity, .widget--weekly { grid-column: span 4; }
 }
 @media (max-width: 900px) {
-    .widget--hello, .widget--stat, .widget--clock { grid-column: span 4; }
-    .widget--todolist, .widget--metas, .widget--finance { grid-column: span 12; }
+    .widget--hello, .widget--stat { grid-column: span 4; }
+    .widget--todolist, .widget--metames, .widget--finance,
+    .widget--clock, .widget--calendar, .widget--quick { grid-column: span 12; }
     .widget--overview, .widget--activity, .widget--weekly { grid-column: span 6; }
     .quick-grid { grid-template-columns: repeat(4, 1fr); }
     .music-grid { grid-template-columns: 1fr 1fr; }
@@ -563,11 +618,14 @@
     .sidebar--open { transform: translateX(0); box-shadow: 0 0 40px rgba(0,0,0,0.4); }
     .main { margin-left: 0; }
     .widget--hello, .widget--stat, .widget--clock,
-    .widget--todolist, .widget--metas, .widget--finance,
+    .widget--todolist, .widget--metames, .widget--finance,
+    .widget--calendar, .widget--quick,
     .widget--overview, .widget--activity, .widget--weekly { grid-column: span 12; }
     .quick-grid { grid-template-columns: repeat(2, 1fr); }
     .music-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 480px) {
     .quick-grid { grid-template-columns: 1fr 1fr; }
+    .finance-cards { grid-template-columns: 1fr; }
+    .f-card--bal { grid-column: span 1; }
 }
