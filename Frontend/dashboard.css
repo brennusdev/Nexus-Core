@@ -241,7 +241,7 @@
 .widget--weekly    { grid-column: span 3; }
 .widget--calendar  { grid-column: span 3; }
 
-.widget--music     { grid-column: span 12; }
+.widget--music     { grid-column: span 4; }
 
 /* Saudação compacta */
 .hello-title {
@@ -561,7 +561,7 @@
 /* ==========================================================================
    ACESSO RÁPIDO (nova grade)
    ========================================================================== */
-.widget--quickaccess { grid-column: span 12; }
+.widget--quickaccess { grid-column: span 6; }
 
 .qa-grid {
     display: grid;
@@ -616,7 +616,8 @@
     .widget--clock { grid-column: span 6; }
     .widget--todolist, .widget--metames, .widget--finance,
     .widget--calendar, .widget--quick { grid-column: span 12; }
-    .widget--overview, .widget--activity, .widget--weekly, .widget--calendar { grid-column: span 6; }
+.widget--overview, .widget--activity, .widget--weekly, .widget--calendar { grid-column: span 6; }
+    .widget--quickaccess, .widget--music { grid-column: span 12; }
     .quick-grid { grid-template-columns: repeat(4, 1fr); }
     .music-grid { grid-template-columns: 1fr 1fr; }
 }
