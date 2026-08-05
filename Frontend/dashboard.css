@@ -229,11 +229,11 @@
 .widget--stat      { grid-column: span 2; }
 .widget--clock     { grid-column: span 2; }
 
-/* FAIXA 2: 3 colunas — A (tarefas/metas/finance) | B (livre) | C (rapidos) */
-.widget--todolist  { grid-column: 1 / 4; }   /* Coluna A */
-.widget--metames   { grid-column: 1 / 4; }   /* Coluna A */
-.widget--finance   { grid-column: 1 / 4; }   /* Coluna A */
-.widget--quick     { grid-column: 8 / 13; }  /* Coluna C - widgets rápidos */
+/* FAIXA 4.6: Tarefa do Dia | Meta do Mês | Resumo Financeiro | Widgets Rápidos */
+.widget--todolist  { grid-column: span 3; }
+.widget--metames   { grid-column: span 3; }
+.widget--finance   { grid-column: span 3; }
+.widget--quick     { grid-column: span 3; }
 
 /* FAIXA 4: Visão Geral | Atividade Recente | Progresso Semanal | Calendário */
 .widget--overview  { grid-column: span 3; }
@@ -607,8 +607,7 @@
 @media (max-width: 1200px) {
     .widget--stat { grid-column: span 2; }
     .widget--clock { grid-column: span 4; }
-    .widget--todolist, .widget--metames, .widget--finance { grid-column: 1 / 6; }
-    .widget--quick { grid-column: span 12; }
+    .widget--todolist, .widget--metames, .widget--finance, .widget--quick { grid-column: span 6; }
     .widget--overview, .widget--activity, .widget--weekly, .widget--calendar { grid-column: span 3; }
 }
 @media (max-width: 900px) {
