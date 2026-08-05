@@ -150,7 +150,7 @@
         return v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
     }
 
-    function updateFinance() {
+function updateFinance() {
         if (!finBal) return;
         const receitas = parseFloat(finIn && finIn.value ? finIn.value : 0) || 0;
         const despesas = parseFloat(finOut && finOut.value ? finOut.value : 0) || 0;
@@ -161,6 +161,36 @@
         localStorage.setItem("nexus_fin_in", finIn ? finIn.value : "");
         localStorage.setItem("nexus_fin_out", finOut ? finOut.value : "");
         localStorage.setItem("nexus_fin_inv", finInv ? finInv.value : "");
+        updateFinanceDonut(receitas, despesas, invest);
+    }
+
+    // Atualiza o gráfico donut financeiro com base nos valores
+    function updateFinanceDonut(receitas, despesas, invest) {
+        const segIn = document.getElementById("finSegIn");
+        const segOut = document.getElementById("finSegOut");
+        const segInv = document.getElementById("finSegInv");
+        const totalEl = document.getElementById("finDonutTotal");
+        if (!segIn || !segOut || !segInv) return;
+
+        const total = receitas + despesas + invest;
+        const C = 2 * Math.PI * 15.9; // circunferência do círculo (r=15.9)
+
+        function setSeg(el, value, color) {
+            if (total <= 0 || value <= 0) {
+                el.style.strokeDasharray = "0 " + C;
+                el.style.strokeDashoffset = "0";
+                return;
+            }
+            const frac = value / total;
+            el.style.strokeDasharray = (frac * C) + " " + C;
+            el.style.strokeDashoffset = "0";
+        }
+
+        setSeg(segIn, receitas, "var(--color-success)");
+        setSeg(segOut, despesas, "var(--color-error)");
+        setSeg(segInv, invest, "var(--color-primary)");
+
+        if (totalEl) totalEl.textContent = formatBRL(total);
     }
 
     // Carregar valores salvos
@@ -195,11 +225,11 @@
         if (!weeklyChart) return;
         weeklyChart.innerHTML = "";
         const max = Math.max(...data, 1);
-        data.forEach((v, i) => {
+data.forEach((v, i) => {
             const bar = document.createElement("div");
             bar.className = "chart-bar";
             bar.style.height = (v / max * 100) + "%";
-            bar.innerHTML = `<span>${labels[i]}</span>`;
+            bar.innerHTML = `<span class="chart-val">${v}%</span><span>${labels[i]}</span>`;
             bar.title = `${labels[i]}: ${v}%`;
             weeklyChart.appendChild(bar);
         });
