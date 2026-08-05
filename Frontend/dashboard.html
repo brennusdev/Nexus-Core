@@ -116,86 +116,7 @@
                 <p class="clock-date clock-date--small" id="clockFullDate">1 de Janeiro de 2025</p>
             </section>
 
-            <!-- ===== FAIXA 2: Coluna esquerda (Tarefas/Metas/Finance) + Meio (Hora/Calendário) + Direita (Rápidos) ===== -->
-
-            <!-- Coluna A (esquerda): Tarefa do Dia -->
-            <section class="widget widget--todolist">
-                <header class="widget__head">
-                    <h3 class="widget__title">📝 Tarefa do Dia</h3>
-                    <button class="btn btn--primary btn--sm" id="todoAdd">＋ Adicionar</button>
-                </header>
-                <ul class="todo-list" id="todoList">
-                    <li><label><input type="checkbox" /> Revisar projeto Nexus</label></li>
-                    <li><label><input type="checkbox" /> Estudar FastAPI 30min</label></li>
-                    <li><label><input type="checkbox" /> Treinar 1h</label></li>
-                </ul>
-            </section>
-
-            <!-- Coluna A: Meta do Mês (entre Tarefas e Finance) -->
-            <section class="widget widget--metames">
-                <header class="widget__head">
-                    <h3 class="widget__title">🎯 Meta do Mês</h3>
-                    <button class="btn btn--sm" id="metasBtn" onclick="location.href='app.html?app=metas'">Ver todas</button>
-                </header>
-                <ul class="meta-list">
-                    <li>Concluir projeto <span class="meta-progress"><span style="width:80%"></span></span></li>
-                    <li>Ler 2 livros <span class="meta-progress"><span style="width:50%"></span></span></li>
-                    <li>Economizar R$500 <span class="meta-progress"><span style="width:30%"></span></span></li>
-                </ul>
-            </section>
-
-            <!-- Coluna A: Resumo Financeiro (editável) -->
-            <section class="widget widget--finance">
-                <header class="widget__head">
-                    <h3 class="widget__title">💰 Resumo Financeiro</h3>
-                    <button class="btn btn--sm" onclick="location.href='app.html?app=financeiro'">Ver relatório</button>
-                </header>
-                <div class="finance-cards">
-                    <div class="f-card f-card--in">Receitas
-                        <div class="f-edit"><span>R$</span><input type="number" id="finIn" value="4200" min="0" step="0.01" /></div>
-                    </div>
-                    <div class="f-card f-card--out">Despesas
-                        <div class="f-edit"><span>R$</span><input type="number" id="finOut" value="2800" min="0" step="0.01" /></div>
-                    </div>
-                    <div class="f-card f-card--inv">Invest.
-                        <div class="f-edit"><span>R$</span><input type="number" id="finInv" value="600" min="0" step="0.01" /></div>
-                    </div>
-                    <div class="f-card f-card--bal" id="finBalCard">Saldo <strong id="finBal">R$2.000</strong></div>
-                </div>
-            </section>
-
-<!-- Coluna C (direita): Widgets Rápidos -->
-            <section class="widget widget--quick">
-                <h3 class="widget__title">⚡ Widgets Rápidos</h3>
-                <div class="quick-grid" id="quickGrid">
-                    <button class="qmini qmini--notes" data-open="notas-rapidas">
-                        <span class="qmini-icon">🗒️</span> Notas Rápidas
-                    </button>
-                    <button class="qmini qmini--term" data-open="terminal">
-                        <span class="qmini-icon">💻</span> Terminal
-                    </button>
-                    <button class="qmini qmini--snip" data-open="snippets">
-                        <span class="qmini-icon">📄</span> Snippets
-                    </button>
-                    <button class="qmini qmini--pomo" data-open="pomodoro">
-                        <span class="qmini-icon">🍅</span> Pomodoro
-                    </button>
-                    <button class="qmini qmini--calc" data-open="calculadora">
-                        <span class="qmini-icon">🧮</span> Calculadora
-                    </button>
-                    <button class="qmini qmini--conv" data-open="conversor">
-                        <span class="qmini-icon">💱</span> Conversor
-                    </button>
-                    <button class="qmini qmini--stop" data-open="cronometro">
-                        <span class="qmini-icon">⏱️</span> Cronômetro
-                    </button>
-                    <button class="qmini qmini--notif" data-open="notificacoes">
-                        <span class="qmini-icon">🔔</span> Notificações
-                    </button>
-                </div>
-            </section>
-
-            <!-- ===== FAIXA 4: Visão Geral (pentagonal) + Atividade Recente + Progresso Semanal ===== -->
+<!-- ===== FAIXA 4: Visão Geral + Atividade Recente + Progresso Semanal + Calendário ===== -->
             <section class="widget widget--overview">
                 <h3 class="widget__title">📊 Visão Geral</h3>
                 <div class="radar-wrap">
@@ -273,7 +194,81 @@
                     <input type="text" id="calTask" placeholder="Adicionar tarefa do dia…" aria-label="Nova tarefa do dia" />
                     <button id="calAddBtn" type="button" title="Adicionar">＋</button>
                 </div>
-                <ul class="cal-tasks" id="calTasks"></ul>
+<ul class="cal-tasks" id="calTasks"></ul>
+            </section>
+
+<!-- ===== FAIXA 4.6: Tarefa do Dia + Meta do Mês + Resumo Financeiro + Widgets Rápidos ===== -->
+            <section class="widget widget--todolist">
+                <header class="widget__head">
+                    <h3 class="widget__title">📝 Tarefa do Dia</h3>
+                    <button class="btn btn--primary btn--sm" id="todoAdd">＋ Adicionar</button>
+                </header>
+                <ul class="todo-list" id="todoList">
+                    <li><label><input type="checkbox" /> Revisar projeto Nexus</label></li>
+                    <li><label><input type="checkbox" /> Estudar FastAPI 30min</label></li>
+                    <li><label><input type="checkbox" /> Treinar 1h</label></li>
+                </ul>
+            </section>
+
+            <section class="widget widget--metames">
+                <header class="widget__head">
+                    <h3 class="widget__title">🎯 Meta do Mês</h3>
+                    <button class="btn btn--sm" id="metasBtn" onclick="location.href='app.html?app=metas'">Ver todas</button>
+                </header>
+                <ul class="meta-list">
+                    <li>Concluir projeto <span class="meta-progress"><span style="width:80%"></span></span></li>
+                    <li>Ler 2 livros <span class="meta-progress"><span style="width:50%"></span></span></li>
+                    <li>Economizar R$500 <span class="meta-progress"><span style="width:30%"></span></span></li>
+                </ul>
+            </section>
+
+            <section class="widget widget--finance">
+                <header class="widget__head">
+                    <h3 class="widget__title">💰 Resumo Financeiro</h3>
+                    <button class="btn btn--sm" onclick="location.href='app.html?app=financeiro'">Ver relatório</button>
+                </header>
+                <div class="finance-cards">
+                    <div class="f-card f-card--in">Receitas
+                        <div class="f-edit"><span>R$</span><input type="number" id="finIn" value="4200" min="0" step="0.01" /></div>
+                    </div>
+                    <div class="f-card f-card--out">Despesas
+                        <div class="f-edit"><span>R$</span><input type="number" id="finOut" value="2800" min="0" step="0.01" /></div>
+                    </div>
+                    <div class="f-card f-card--inv">Invest.
+                        <div class="f-edit"><span>R$</span><input type="number" id="finInv" value="600" min="0" step="0.01" /></div>
+                    </div>
+                    <div class="f-card f-card--bal" id="finBalCard">Saldo <strong id="finBal">R$2.000</strong></div>
+                </div>
+            </section>
+
+            <section class="widget widget--quick">
+                <h3 class="widget__title">⚡ Widgets Rápidos</h3>
+                <div class="quick-grid" id="quickGrid">
+                    <button class="qmini qmini--notes" data-open="notas-rapidas">
+                        <span class="qmini-icon">🗒️</span> Notas Rápidas
+                    </button>
+                    <button class="qmini qmini--term" data-open="terminal">
+                        <span class="qmini-icon">💻</span> Terminal
+                    </button>
+                    <button class="qmini qmini--snip" data-open="snippets">
+                        <span class="qmini-icon">📄</span> Snippets
+                    </button>
+                    <button class="qmini qmini--pomo" data-open="pomodoro">
+                        <span class="qmini-icon">🍅</span> Pomodoro
+                    </button>
+                    <button class="qmini qmini--calc" data-open="calculadora">
+                        <span class="qmini-icon">🧮</span> Calculadora
+                    </button>
+                    <button class="qmini qmini--conv" data-open="conversor">
+                        <span class="qmini-icon">💱</span> Conversor
+                    </button>
+                    <button class="qmini qmini--stop" data-open="cronometro">
+                        <span class="qmini-icon">⏱️</span> Cronômetro
+                    </button>
+                    <button class="qmini qmini--notif" data-open="notificacoes">
+                        <span class="qmini-icon">🔔</span> Notificações
+                    </button>
+                </div>
             </section>
 
             <!-- ===== FAIXA 5: Música ===== -->
