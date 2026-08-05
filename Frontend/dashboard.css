@@ -388,16 +388,24 @@
 .finance-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
 .f-card { background: var(--bg-soft); border-radius: 8px; padding: 10px; font-size: 0.78rem; display: flex; flex-direction: column; }
 
-/* Gráfico donut financeiro */
+/* Área do gráfico donut + saldo lado a lado */
+.finance-bottom {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    align-items: center;
+}
+
+/* Gráfico donut financeiro (alinhado à direita) */
 .finance-chart-wrap {
     display: flex;
     align-items: center;
-    gap: 16px;
+    justify-content: flex-end;
+    gap: 12px;
     padding: 12px;
     border: 1px solid var(--border-card);
     border-radius: 10px;
     background: var(--bg-soft);
-    grid-column: span 2;
 }
 .finance-donut {
     position: relative;
@@ -484,7 +492,6 @@
 .f-card--bal {
     justify-content: center;
     align-items: center;
-    grid-column: span 2;
     text-align: center;
     background: linear-gradient(135deg, var(--color-primary), #a29bfe);
     color: #fff;
@@ -718,6 +725,5 @@
 @media (max-width: 480px) {
     .quick-grid { grid-template-columns: 1fr 1fr; }
     .finance-cards { grid-template-columns: 1fr; }
-    .f-card--bal { grid-column: span 1; }
-    .finance-chart-wrap { grid-column: span 1; }
+    .finance-bottom { grid-template-columns: 1fr; }
 }
