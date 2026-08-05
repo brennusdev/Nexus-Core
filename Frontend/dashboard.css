@@ -229,16 +229,17 @@
 .widget--stat      { grid-column: span 2; }
 .widget--clock     { grid-column: span 2; }
 
-/* FAIXA 2: 3 colunas — A (tarefas/metas/finance) | B (calendário) | C (rapidos) */
+/* FAIXA 2: 3 colunas — A (tarefas/metas/finance) | B (livre) | C (rapidos) */
 .widget--todolist  { grid-column: 1 / 4; }   /* Coluna A */
 .widget--metames   { grid-column: 1 / 4; }   /* Coluna A */
-.widget--finance   { grid-column: 1 / 4; }   /* Coluna A - à esquerda do calendário */
-.widget--calendar  { grid-column: 4 / 8; }   /* Coluna B - calendário */
+.widget--finance   { grid-column: 1 / 4; }   /* Coluna A */
 .widget--quick     { grid-column: 8 / 13; }  /* Coluna C - widgets rápidos */
 
-.widget--overview  { grid-column: span 4; }
-.widget--activity  { grid-column: span 4; }
-.widget--weekly    { grid-column: span 4; }
+/* FAIXA 4: Visão Geral | Atividade Recente | Progresso Semanal | Calendário */
+.widget--overview  { grid-column: span 3; }
+.widget--activity  { grid-column: span 3; }
+.widget--weekly    { grid-column: span 3; }
+.widget--calendar  { grid-column: span 3; }
 
 .widget--music     { grid-column: span 12; }
 
@@ -607,9 +608,8 @@
     .widget--stat { grid-column: span 2; }
     .widget--clock { grid-column: span 4; }
     .widget--todolist, .widget--metames, .widget--finance { grid-column: 1 / 6; }
-    .widget--calendar { grid-column: 6 / 13; }
     .widget--quick { grid-column: span 12; }
-    .widget--overview, .widget--activity, .widget--weekly { grid-column: span 4; }
+    .widget--overview, .widget--activity, .widget--weekly, .widget--calendar { grid-column: span 3; }
 }
 @media (max-width: 900px) {
     .widget--hello { grid-column: span 12; }
@@ -617,7 +617,7 @@
     .widget--clock { grid-column: span 6; }
     .widget--todolist, .widget--metames, .widget--finance,
     .widget--calendar, .widget--quick { grid-column: span 12; }
-    .widget--overview, .widget--activity, .widget--weekly { grid-column: span 6; }
+    .widget--overview, .widget--activity, .widget--weekly, .widget--calendar { grid-column: span 6; }
     .quick-grid { grid-template-columns: repeat(4, 1fr); }
     .music-grid { grid-template-columns: 1fr 1fr; }
 }
