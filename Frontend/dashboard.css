@@ -56,22 +56,22 @@
     --color-text-muted: #9aa1b5;       /* Texto enfraquecido */
     --color-sidebar: linear-gradient(180deg, #0d0f1e, #16142e);
 
-    /* ------------------------------------------------------------------
-       TIPOGRAFIA (Escala profissional)
+/* ------------------------------------------------------------------
+       TIPOGRAFIA (Escala padrão profissional)
        ------------------------------------------------------------------
-H1 28px | H2 22px | H3 18px | CardTitle 16px | Body 15px
-       Secundário 14px | Caption 13px | Label 12px
-       (Escala otimizada para legibilidade a 100% de zoom)
+Hierarquia padronizada (escala aumentada p/ visualização e tamanho):
+       Display 34px | H2 28px | H3 24px | Card 20px | Body 18px
+       Secundário 16px | Caption 14px | Label 13px
     ------------------------------------------------------------------ */
     --font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    --font-size-h1: 1.75rem;    /* 28px */
-    --font-size-h2: 1.375rem;   /* 22px */
-    --font-size-h3: 1.125rem;   /* 18px */
-    --font-size-card: 1rem;     /* 16px — título de card legível */
-    --font-size-base: 0.9375rem;/* 15px — legível a 100% */
-    --font-size-sm: 0.875rem;   /* 14px */
-    --font-size-caption: 0.8125rem; /* 13px — mínimo legível */
-    --font-size-label: 0.75rem;  /* 12px — mínimo absoluto */
+    --font-size-display: 2.125rem; /* 34px */
+    --font-size-h2: 1.75rem;       /* 28px */
+    --font-size-h3: 1.5rem;        /* 24px */
+    --font-size-card: 1.25rem;     /* 20px */
+    --font-size-base: 1.125rem;    /* 18px */
+    --font-size-sm: 1rem;          /* 16px */
+    --font-size-caption: 0.875rem; /* 14px */
+    --font-size-label: 0.8125rem;  /* 13px */
     --font-weight-regular: 400;
     --font-weight-medium: 500;
     --font-weight-semibold: 600;
@@ -508,13 +508,13 @@ H1 28px | H2 22px | H3 18px | CardTitle 16px | Body 15px
 
 /* Hierarquia visual: o número (valor) tem MUITO mais destaque que o título */
 .widget__value {
-    font-size: 1.5rem;   /* 24px */
+    font-size: var(--font-size-h2);   /* 24px */
     font-weight: var(--font-weight-extrabold);
     margin-top: var(--space-2);
     color: var(--color-text-primary);
     letter-spacing: var(--letter-spacing-tight);
 }
-.widget__value.big { font-size: 1.75rem; }  /* 28px */
+.widget__value.big { font-size: var(--font-size-display); }  /* 28px */
 .widget__meta {
     font-size: var(--font-size-sm);
     color: var(--color-text-secondary);
@@ -575,7 +575,7 @@ H1 28px | H2 22px | H3 18px | CardTitle 16px | Body 15px
    8. RELÓGIO — hierarquia: hora com máximo destaque
    ========================================================================== */
 .clock-time {
-    font-size: 2rem;   /* 32px */
+    font-size: 2rem;   /* 32px — display de destaque */
     font-weight: var(--font-weight-extrabold);
     letter-spacing: -0.02em;
     color: var(--color-text-primary);
