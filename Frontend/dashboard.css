@@ -220,6 +220,9 @@
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     gap: var(--grid-gap);
+    max-width: 1440px;          /* evita que os widgets estiquem demais em telas muito largas */
+    margin: 0 auto;
+    width: 100%;
 }
 .widget {
     background: var(--bg-card);
@@ -229,6 +232,9 @@
     border: 1px solid var(--border-card);
     min-height: 0;
     transition: background 0.3s, border-color 0.3s;
+    /* garante que os gradientes não fiquem distorcidos */
+    background-size: cover;
+    background-position: center;
 }
 .widget__title { font-size: var(--fs-title); font-weight: 700; margin-bottom: 10px; }
 .widget__subtitle { font-size: 0.9rem; color: var(--text-soft); line-height: 1.5; }
@@ -290,11 +296,20 @@
 .widget__value.big { font-size: calc(var(--fs-value) * 1.2); }
 .widget__meta { font-size: 0.76rem; color: var(--text-soft); margin-top: 4px; }
 
-/* Cards coloridos de estatística */
+/* Cards coloridos de estatística (formato padrão de navegação em computador) */
 .stat--green   { background: linear-gradient(135deg, #10b981, #059669); color: #fff; border: none; }
 .stat--blue    { background: linear-gradient(135deg, #3b82f6, #2563eb); color: #fff; border: none; }
 .stat--purple  { background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: #fff; border: none; }
 .stat--yellow  { background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; border: none; }
+
+/* mantém os cards de estatística proporcionais e sem esticar em telas largas */
+.widget--stat {
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    aspect-ratio: 1 / 1.05;
+}
 
 .stat--green .widget__title,
 .stat--blue .widget__title,
@@ -405,8 +420,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 6px;
-    padding: 16px 8px;
+    aspect-ratio: 1 / 0.85;     /* proporção padrão para navegação em computador */
+    min-height: 76px;
+    padding: 12px 8px;
     border-radius: 12px;
     color: #fff;
     font-size: 0.72rem;
@@ -415,9 +433,11 @@
     transition: transform 0.2s, opacity 0.2s;
     border: none;
     cursor: pointer;
+    background-size: cover;     /* evita distorção do gradiente */
+    background-position: center;
 }
 .qmini:hover { transform: translateY(-3px); opacity: 0.9; }
-.qmini-icon { font-size: 1.3rem; }
+.qmini-icon { font-size: 1.25rem; }
 
 .qmini--notes { background: linear-gradient(135deg, #f6d365, #fda085); color:#333; }
 .qmini--term  { background: linear-gradient(135deg, #0f2027, #203a43); }
@@ -705,20 +725,23 @@
 }
 
 /* ==========================================================================
-   ACESSO RÁPIDO (nova grade)
+   ACESSO RÁPIDO (nova grade) — otimizado para navegação em computador
    ========================================================================== */
 .widget--quickaccess { grid-column: span 8; }
 
 .qa-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 12px;
+    gap: 14px;
+    max-width: 100%;
 }
 .qa-card {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 8px;
+    aspect-ratio: 1 / 0.9;      /* proporção quadrada/retangular padrão para navegação */
     padding: 18px 12px;
     border-radius: 14px;
     color: #fff;
@@ -726,16 +749,18 @@
     text-decoration: none;
     transition: transform 0.2s, box-shadow 0.2s;
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+    background-size: cover;     /* evita distorção do gradiente */
+    background-position: center;
 }
 .qa-card:hover { transform: translateY(-4px); box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2); }
-.qa-icon { font-size: 1.7rem; }
+.qa-icon { font-size: 1.6rem; }
 .qa-name { font-size: 0.82rem; font-weight: 700; letter-spacing: 0.02em; }
 .qa-go {
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     font-weight: 600;
     background: rgba(255, 255, 255, 0.2);
     border-radius: 99px;
-    padding: 4px 14px;
+    padding: 3px 12px;
     backdrop-filter: blur(2px);
 }
 
