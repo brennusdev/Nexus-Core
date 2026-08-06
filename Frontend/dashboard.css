@@ -3,6 +3,7 @@
    ==========================================================================
    Layout: sidebar fixa + conteúdo com grade de widgets
    Suporte a MODO ESCURO via [data-theme="dark"] no <html>
+   Layout 100% responsivo: telefone, tablet, desktop e 1920x1080
    ========================================================================== */
 
 /* ==========================================================================
@@ -20,6 +21,15 @@
     --side-bg: linear-gradient(180deg, #0d0f1e, #16142e);
     --chart-bg: #eceef5;
     --hover: #e2e5f0;
+
+    /* Tipografia e espaçamentos fluidos (responsivos) */
+    --fs-base: clamp(14px, 0.9vw + 0.6rem, 17px);
+    --fs-title: clamp(0.9rem, 1.2vw + 0.5rem, 1.1rem);
+    --fs-value: clamp(1rem, 1.4vw + 0.5rem, 1.4rem);
+    --grid-gap: clamp(10px, 1.2vw + 4px, 20px);
+    --widget-pad: clamp(12px, 1.2vw + 6px, 20px);
+    --main-pad: clamp(10px, 1vw + 6px, 24px);
+    --sidebar-w: clamp(200px, 16vw, 280px);
 }
 
 /* ==========================================================================
@@ -43,6 +53,7 @@
     background: var(--bg-dash);
     color: var(--text-main);
     padding: 0;
+    font-size: var(--fs-base);
 }
 
 /* ==========================================================================
@@ -52,7 +63,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 250px;
+    width: var(--sidebar-w);
     height: 100vh;
     background: var(--side-bg);
     color: #fff;
@@ -63,7 +74,7 @@
     transform: translateX(-100%);   /* colapsada por padrão */
 }
 .sidebar--open { transform: translateX(0); }
-.sidebar--open ~ .main { margin-left: 250px; }
+.sidebar--open ~ .main { margin-left: var(--sidebar-w); }
 .sidebar__brand {
     display: flex;
     align-items: center;
@@ -146,7 +157,8 @@
    ========================================================================== */
 .main {
     margin-left: 0;              /* por padrão a sidebar está colapsada */
-    padding: 16px 20px 40px;
+    padding: var(--main-pad);
+    padding-bottom: 40px;
     min-height: 100vh;
     transition: margin-left 0.3s ease;
 }
@@ -207,18 +219,18 @@
 .dash-grid {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    gap: 16px;
+    gap: var(--grid-gap);
 }
 .widget {
     background: var(--bg-card);
     border-radius: var(--radius);
-    padding: 18px;
+    padding: var(--widget-pad);
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
     border: 1px solid var(--border-card);
     min-height: 0;
     transition: background 0.3s, border-color 0.3s;
 }
-.widget__title { font-size: 0.95rem; font-weight: 700; margin-bottom: 10px; }
+.widget__title { font-size: var(--fs-title); font-weight: 700; margin-bottom: 10px; }
 .widget__subtitle { font-size: 0.9rem; color: var(--text-soft); line-height: 1.5; }
 .widget__head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
 .widget__head .widget__title { margin-bottom: 0; }
@@ -274,8 +286,8 @@
    ========================================================================== */
 .widget__progress { height: 8px; background: var(--chart-bg); border-radius: 99px; overflow: hidden; margin-top: 10px; }
 .widget__progress span { display: block; height: 100%; background: linear-gradient(90deg, var(--color-primary), #a29bfe); border-radius: 99px; }
-.widget__value { font-size: 1.05rem; font-weight: 700; margin-top: 8px; }
-.widget__value.big { font-size: 1.4rem; }
+.widget__value { font-size: var(--fs-value); font-weight: 700; margin-top: 8px; }
+.widget__value.big { font-size: calc(var(--fs-value) * 1.2); }
 .widget__meta { font-size: 0.76rem; color: var(--text-soft); margin-top: 4px; }
 
 /* Cards coloridos de estatística */
@@ -736,25 +748,51 @@
 .qa-card--auto   { background: linear-gradient(135deg, #0f2027, #2c5364); }
 
 /* ==========================================================================
-   RESPONSIVO
+   RESPONSIVO — Padronizado para todos os dispositivos
+   ==========================================================================
+   Breakpoints:
+   - Desktop grande (1920x1080): padrão acima
+   - Laptop/Desktop (<=1440px): 12 colunas
+   - Tablet deitado (<=1024px): reduz spans
+   - Tablet/Portátil (<=900px): 2/3 colunas
+   - Mobile grande (<=768px): 1-2 colunas
+   - Mobile pequeno (<=480px): 1 coluna
    ========================================================================== */
-@media (max-width: 1200px) {
-    .widget--stat { grid-column: span 2; }
-    .widget--clock { grid-column: span 4; }
+
+/* LAPTOP / DESKTOP (<=1440px) */
+@media (max-width: 1440px) {
+    .widget--hello { grid-column: span 2; }
+    .widget--stat  { grid-column: span 2; }
+    .widget--clock { grid-column: span 2; }
+    .widget--quickaccess { grid-column: span 8; }
+    .widget--music { grid-column: span 4; }
+}
+
+/* TABLET DEITADO (<=1024px) */
+@media (max-width: 1024px) {
+    .widget--hello { grid-column: span 3; }
+    .widget--stat  { grid-column: span 2; }
+    .widget--clock { grid-column: span 3; }
     .widget--todolist, .widget--metames, .widget--finance, .widget--quick { grid-column: span 6; }
     .widget--overview, .widget--activity, .widget--weekly, .widget--calendar { grid-column: span 3; }
+    .widget--quickaccess { grid-column: span 12; }
+    .widget--music { grid-column: span 12; }
+    .qa-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
 }
+
+/* TABLET / PORTÁTIL (<=900px) */
 @media (max-width: 900px) {
     .widget--hello { grid-column: span 12; }
     .widget--stat { grid-column: span 3; }
     .widget--clock { grid-column: span 6; }
-.widget--todolist, .widget--metames, .widget--finance,
-    .widget--calendar, .widget--quick { grid-column: span 12; }
+    .widget--todolist, .widget--metames, .widget--finance, .widget--quick { grid-column: span 6; }
     .widget--overview, .widget--activity, .widget--weekly, .widget--calendar { grid-column: span 6; }
     .widget--quickaccess, .widget--music { grid-column: span 12; }
     .quick-grid { grid-template-columns: repeat(4, 1fr); }
     .music-grid { grid-template-columns: 1fr 1fr; }
 }
+
+/* MOBILE GRANDE (<=768px) */
 @media (max-width: 768px) {
     .sidebar { transform: translateX(-100%); box-shadow: none; }
     .sidebar--open { transform: translateX(0); box-shadow: 0 0 40px rgba(0,0,0,0.4); }
@@ -765,9 +803,17 @@
     .widget--overview, .widget--activity, .widget--weekly { grid-column: span 12; }
     .quick-grid { grid-template-columns: repeat(2, 1fr); }
     .music-grid { grid-template-columns: 1fr 1fr; }
+    .topbar { flex-wrap: wrap; }
+    .topbar__search { order: 3; flex-basis: 100%; max-width: none; }
 }
+
+/* MOBILE PEQUENO (<=480px) */
 @media (max-width: 480px) {
     .quick-grid { grid-template-columns: 1fr 1fr; }
     .finance-cards { grid-template-columns: 1fr; }
     .finance-bottom { grid-template-columns: 1fr; }
+    .dash-grid { gap: 10px; }
+    .widget { padding: 12px; }
+    .music-grid { grid-template-columns: 1fr; }
+    .qa-grid { grid-template-columns: 1fr 1fr; }
 }
