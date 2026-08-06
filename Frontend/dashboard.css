@@ -59,18 +59,19 @@
     /* ------------------------------------------------------------------
        TIPOGRAFIA (Escala profissional)
        ------------------------------------------------------------------
-       H1 28px | H2 22px | H3 18px | CardTitle 15px | Body 14px
-       Secundário 13px | Caption 12px | Label 11px
+H1 28px | H2 22px | H3 18px | CardTitle 16px | Body 15px
+       Secundário 14px | Caption 13px | Label 12px
+       (Escala otimizada para legibilidade a 100% de zoom)
     ------------------------------------------------------------------ */
     --font-family: 'Inter', system-ui, -apple-system, sans-serif;
     --font-size-h1: 1.75rem;    /* 28px */
     --font-size-h2: 1.375rem;   /* 22px */
     --font-size-h3: 1.125rem;   /* 18px */
-    --font-size-card: 0.9375rem;/* 15px */
-    --font-size-base: 0.875rem; /* 14px */
-    --font-size-sm: 0.8125rem;  /* 13px */
-    --font-size-caption: 0.75rem;/* 12px */
-    --font-size-label: 0.6875rem;/* 11px */
+    --font-size-card: 1rem;     /* 16px — título de card legível */
+    --font-size-base: 0.9375rem;/* 15px — legível a 100% */
+    --font-size-sm: 0.875rem;   /* 14px */
+    --font-size-caption: 0.8125rem; /* 13px — mínimo legível */
+    --font-size-label: 0.75rem;  /* 12px — mínimo absoluto */
     --font-weight-regular: 400;
     --font-weight-medium: 500;
     --font-weight-semibold: 600;
@@ -418,10 +419,10 @@
     border-color: var(--color-border-strong);
 }
 
-/* --- Título de card: 15px SemiBold --- */
+/* --- Título de card: 16px SemiBold --- */
 .widget__title {
     font-size: var(--font-size-card);
-    font-weight: var(--font-weight-semibold);
+    font-weight: var(--font-weight-bold);
     margin-bottom: var(--space-3);
     text-align: left;
     color: var(--color-text-primary);
