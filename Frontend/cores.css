@@ -50,9 +50,11 @@
     --gradient-login: linear-gradient(135deg, #0d0f1e 0%, #1a1442 45%, #3b2d8f 100%);
 
     /* ------------------------------------------------------------------
-TIPOGRAFIA (escala profissional — Inter)
+       TIPOGRAFIA (escala aumentada — Inter)
+       Display 34px | H2 28px | H3 24px | Card 20px | Body 18px
+       Secundário 16px | Caption 14px | Label 13px
     ------------------------------------------------------------------ */
---font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-family: 'Inter', system-ui, -apple-system, sans-serif;
     --font-size-display: 2.125rem;  /* 34px */
     --font-size-h2: 1.75rem;        /* 28px */
     --font-size-h3: 1.5rem;         /* 24px */
