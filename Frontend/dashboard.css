@@ -457,8 +457,8 @@ Hierarquia padronizada (escala aumentada p/ visualização e tamanho):
 .widget--quick     { grid-column: span 3; }
 
 /* FAIXA 4: Visão Geral | Atividade Recente | Progresso Semanal | Calendário */
-.widget--overview  { grid-column: span 3; }
-.widget--activity  { grid-column: span 3; }
+.widget--overview  { grid-column: span 4; }
+.widget--activity  { grid-column: span 2; }
 .widget--weekly    { grid-column: span 3; }
 .widget--calendar  { grid-column: span 3; }
 
@@ -1079,20 +1079,21 @@ Hierarquia padronizada (escala aumentada p/ visualização e tamanho):
    14. GRÁFICO RADAR (PENTAGONAL) — Visão Geral
    ========================================================================== */
 .radar-wrap { display: flex; justify-content: center; padding: var(--space-2) 0; }
-.radar { width: 100%; max-width: 240px; height: auto; }
+.radar { width: 100%; max-width: 420px; min-width: 280px; height: auto; }
 .radar-grid polygon { fill: none; stroke: var(--color-surface-2); stroke-width: 1; }
 .radar-axis line { stroke: var(--color-surface-2); stroke-width: 1; }
 .radar-area {
     fill: rgba(108, 92, 231, 0.25);
     stroke: var(--color-primary);
     stroke-width: 2;
+    opacity: 0.9;
     transition: fill var(--duration-base) var(--ease);
 }
 .radar-wrap:hover .radar-area { fill: rgba(108, 92, 231, 0.35); }
-.radar-dots circle { fill: var(--color-primary); }
+.radar-dots circle { fill: var(--color-primary); r: 6; }
 .radar-labels text {
-    font-size: var(--font-size-caption);
-    font-weight: var(--font-weight-bold);
+    font-size: 1.125rem;            /* 18px — rótulos bem visíveis */
+    font-weight: var(--font-weight-extrabold);
     fill: var(--color-text-primary);
     paint-order: stroke;
     stroke: var(--color-surface);
