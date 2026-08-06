@@ -1,24 +1,22 @@
-# TODO - Nexus Core (Frontend - Configurações, Temas e Perfil)
+# NEXUS CORE — Design System Refinement
 
-## ✅ Implementado em `Frontend/app.html`
+## Etapas do Plano
 
-### ⚙ Pagina de Configuracoes
-
-- [x] Grade com 12 idiomas em cards gradientes (PT, EN, ES, FR, DE, IT, JP, KR, ZH, RU, AR, HI)
-- [x] Clicavel com destaque ativo + toast de confirmacao
-- [x] Card "Encerrar sessao" em gradiente vermelho com logout funcional
-- [x] Card "Sobre" em gradiente roxo com nome, versao v1.0.0 e ano
-
-### 🎨 Pagina de Temas
-
-- [x] Modo Claro/Escuro com 2 botoes, salva no localStorage e sincroniza topbar
-- [x] 6 cores de destaque (roxo, azul, verde, laranja, rosa, vermelho)
-- [x] Persistencia da cor primaria aplicada em toda interface
-
-### 👤 Pagina de Perfil
-
-- [x] Upload de foto (FileReader + base64 no localStorage)
-- [x] Nome de exibicao editavel e salvo
-- [x] Campo de e-mail e biografia
-- [x] Ao salvar, sidebar e topbar sao atualizados em tempo real
+- [x] 0. Análise da arquitetura atual (cores.css, dashboard.css, dashboard.html)
+- [x] 1. Reescrever `Frontend/dashboard.css` com o novo Design System
+  - [x] Implementar tokens de cores (Color System) + dark theme
+  - [x] Adicionar escala tipográfica Inter (tokens)
+  - [x] Grid de espaçamento de 8pt (tokens)
+  - [x] Padronizar cards: padding 24px, radius 16px, sombra única
+  - [x] Padronizar botões: altura 44px, radius 12px, estados
+  - [x] Ícones 20px, mesmo peso visual
+  - [x] Recriar TODOS os gradientes (2 cores, 135°)
+  - [x] Padronizar gráficos (espessura, raio, fonte, paleta)
+  - [x] Hierarquia visual: números com mais destaque
+  - [x] Acessibilidade (foco visível, contraste AA)
+  - [x] Microinterações (hover/focus/active suaves)
+  - [x] Responsividade com novo padding
+  - [x] Comentários educacionais para reuso
+- [x] 2. Atualizar `Frontend/cores.css` com os mesmos tokens (fonte, escala, 8pt)
+- [ ] 3. Testar visualmente no navegador
 
