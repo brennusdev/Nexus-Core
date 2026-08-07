@@ -170,7 +170,15 @@
                             <text x="55" y="205" text-anchor="middle">Saúde 60%</text>
                             <text x="48" y="66" text-anchor="middle">Estudos 70%</text>
                         </g>
-                    </svg>
+</svg>
+                </div>
+                <!-- Legenda interativa dos indicadores -->
+                <div class="radar-legend" id="radarLegend">
+                    <div class="radar-legend__item" data-ind="0"><span class="rl-dot rl-dot--foco"></span>Foco <strong>90%</strong></div>
+                    <div class="radar-legend__item" data-ind="1"><span class="rl-dot rl-dot--prod"></span>Produtividade <strong>85%</strong></div>
+                    <div class="radar-legend__item" data-ind="2"><span class="rl-dot rl-dot--disc"></span>Disciplina <strong>80%</strong></div>
+                    <div class="radar-legend__item" data-ind="3"><span class="rl-dot rl-dot--saude"></span>Saúde <strong>60%</strong></div>
+                    <div class="radar-legend__item" data-ind="4"><span class="rl-dot rl-dot--est"></span>Estudos <strong>70%</strong></div>
                 </div>
             </section>
 
@@ -227,13 +235,48 @@
             <section class="widget widget--metames">
                 <header class="widget__head">
                     <h3 class="widget__title">🎯 Meta do Mês</h3>
-                    <button class="btn btn--sm" id="metasBtn" onclick="location.href='app.html?app=metas'">Ver todas</button>
+                    <button class="btn btn--primary btn--sm" id="metaAddBtn">＋ Meta</button>
                 </header>
-                <ul class="meta-list">
-                    <li>Concluir projeto <span class="meta-progress"><span style="width:80%"></span></span></li>
-                    <li>Ler 2 livros <span class="meta-progress"><span style="width:50%"></span></span></li>
-                    <li>Economizar R$500 <span class="meta-progress"><span style="width:30%"></span></span></li>
-                </ul>
+                <!-- Formulário de adição de meta -->
+                <form id="metaForm" class="meta-form" hidden>
+                    <div class="meta-form__row">
+                        <select id="metaCat" class="meta-select" aria-label="Categoria da meta">
+                            <option value="desenvolvimento">🧠 Desenvolvimento Pessoal</option>
+                            <option value="networking">🤝 Networking</option>
+                            <option value="hobbie">🎨 Hobbie</option>
+                            <option value="outros">📌 Outros</option>
+                        </select>
+                        <input type="text" id="metaText" class="meta-input" placeholder="Nova meta…" maxlength="80" />
+                    </div>
+                    <div class="meta-form__row">
+                        <label class="meta-progress-label">Progresso</label>
+                        <input type="range" id="metaProg" min="0" max="100" value="0" class="meta-range" />
+                        <span class="meta-range-val" id="metaProgVal">0%</span>
+                    </div>
+                    <div class="meta-form__actions">
+                        <button type="submit" class="btn btn--primary btn--sm">💾 Salvar</button>
+                        <button type="button" class="btn btn--sm" id="metaCancel">Cancelar</button>
+                    </div>
+                </form>
+                <!-- Categorias de metas -->
+                <div class="meta-cats" id="metaCats">
+                    <div class="meta-cat meta-cat--desenvolvimento" data-cat="desenvolvimento">
+                        <h4 class="meta-cat__title">🧠 Desenvolvimento Pessoal</h4>
+                        <ul class="meta-list meta-list--grouped"></ul>
+                    </div>
+                    <div class="meta-cat meta-cat--networking" data-cat="networking">
+                        <h4 class="meta-cat__title">🤝 Networking</h4>
+                        <ul class="meta-list meta-list--grouped"></ul>
+                    </div>
+                    <div class="meta-cat meta-cat--hobbie" data-cat="hobbie">
+                        <h4 class="meta-cat__title">🎨 Hobbie</h4>
+                        <ul class="meta-list meta-list--grouped"></ul>
+                    </div>
+                    <div class="meta-cat meta-cat--outros" data-cat="outros">
+                        <h4 class="meta-cat__title">📌 Outros</h4>
+                        <ul class="meta-list meta-list--grouped"></ul>
+                    </div>
+                </div>
             </section>
 
             <section class="widget widget--finance">
