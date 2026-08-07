@@ -710,7 +710,7 @@ Hierarquia padronizada (escala aumentada p/ visualização e tamanho):
    ========================================================================== */
 .quick-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
     gap: var(--space-2);
 }
 .qmini {
@@ -719,8 +719,7 @@ Hierarquia padronizada (escala aumentada p/ visualização e tamanho):
     align-items: center;
     justify-content: center;
     gap: var(--space-2);
-    aspect-ratio: 1 / 0.85;
-    min-height: 76px;
+    min-height: 96px;
     padding: var(--space-3) var(--space-2);
     border-radius: var(--radius-md);
     color: #fff;
