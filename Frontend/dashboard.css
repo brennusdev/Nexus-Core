@@ -450,6 +450,20 @@ Hierarquia padronizada (escala aumentada p/ visualização e tamanho):
 .widget--stat      { grid-column: span 2; }
 .widget--clock     { grid-column: span 2; }
 
+/* --- FAIXA 1 COMPACTA: cards menores e mais quadrados --- */
+.widget--hello,
+.widget--stat,
+.widget--clock {
+    padding: var(--space-3);          /* 16px em vez de 24px */
+    min-height: 104px;
+}
+.widget--hello .widget__title,
+.widget--stat .widget__title,
+.widget--clock .widget__title {
+    font-size: var(--font-size-base); /* 18px */
+    margin-bottom: var(--space-2);    /* 8px */
+}
+
 /* FAIXA 4.6: Tarefa do Dia | Meta do Mês | Resumo Financeiro | Widgets Rápidos */
 .widget--todolist  { grid-column: span 3; }
 .widget--metames   { grid-column: span 3; }
@@ -466,22 +480,22 @@ Hierarquia padronizada (escala aumentada p/ visualização e tamanho):
 
 /* --- Saudação (H3) --- */
 .hello-title {
-    font-size: var(--font-size-h3);
+    font-size: var(--font-size-card);
     font-weight: var(--font-weight-bold);
-    margin-bottom: var(--space-2);
+    margin-bottom: var(--space-1);
     letter-spacing: var(--letter-spacing-tight);
 }
 
 /* --- Gradiente da mensagem de saudação (2 cores, 135°) --- */
 .hello-gradient {
-    margin-top: var(--space-2);
-    padding: var(--space-2) var(--space-3);
-    border-radius: var(--radius-md);
+    margin-top: var(--space-1);
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-sm);
     background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
     box-shadow: var(--shadow-primary);
 }
 .hello-msg {
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-sm);
     font-weight: var(--font-weight-semibold);
     color: #fff;
     text-align: center;
@@ -508,17 +522,17 @@ Hierarquia padronizada (escala aumentada p/ visualização e tamanho):
 
 /* Hierarquia visual: o número (valor) tem MUITO mais destaque que o título */
 .widget__value {
-    font-size: var(--font-size-h2);   /* 24px */
+    font-size: var(--font-size-card); /* 20px */
     font-weight: var(--font-weight-extrabold);
-    margin-top: var(--space-2);
+    margin-top: var(--space-1);
     color: var(--color-text-primary);
     letter-spacing: var(--letter-spacing-tight);
 }
-.widget__value.big { font-size: var(--font-size-display); }  /* 28px */
+.widget__value.big { font-size: 1.375rem; }  /* 22px */
 .widget__meta {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-caption);
     color: var(--color-text-secondary);
-    margin-top: var(--space-1);
+    margin-top: 2px;
 }
 
 /* --- Cards coloridos de estatística (gradientes 2 cores, 135°) --- */
@@ -528,7 +542,7 @@ Hierarquia padronizada (escala aumentada p/ visualização e tamanho):
 .stat--yellow  { background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%); color: #fff; border: none; }
 
 .widget--stat {
-    min-height: 150px;
+    min-height: 104px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -554,9 +568,9 @@ Hierarquia padronizada (escala aumentada p/ visualização e tamanho):
 /* --- Gráfico de linha dentro dos cards (mesma espessura) --- */
 .stat-line {
     width: 100%;
-    height: 44px;
+    height: 26px;
     display: block;
-    margin: var(--space-2) 0 var(--space-1);
+    margin: var(--space-1) 0 0;
     overflow: visible;
 }
 .stat-line__stroke {
@@ -572,25 +586,39 @@ Hierarquia padronizada (escala aumentada p/ visualização e tamanho):
 .stat--yellow .stat-line__stroke { stroke: #fde68a; }
 
 /* ==========================================================================
-   8. RELÓGIO — hierarquia: hora com máximo destaque
+   8. RELÓGIO — card retangular com hora + data dispostos na horizontal
    ========================================================================== */
+.widget--clock {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: var(--space-3);
+    align-items: center;
+}
+.widget--clock .widget__title { grid-column: 1 / -1; margin-bottom: var(--space-2); }
 .clock-time {
-    font-size: 2rem;   /* 32px — display de destaque */
+    grid-column: 1;
+    grid-row: 2;
+    font-size: 1.5rem;   /* 24px */
     font-weight: var(--font-weight-extrabold);
     letter-spacing: -0.02em;
     color: var(--color-text-primary);
+    line-height: 1.15;
 }
 .clock-date {
+    grid-column: 2;
+    grid-row: 2;
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-semibold);
     color: var(--color-primary);
-    margin-top: var(--space-2);
+    margin-top: 0;
 }
 .clock-date--small {
+    grid-column: 2;
+    grid-row: 3;
     font-size: var(--font-size-caption);
     font-weight: var(--font-weight-medium);
     color: var(--color-text-secondary);
-    margin-top: var(--space-1);
+    margin-top: 2px;
 }
 
 /* ==========================================================================
