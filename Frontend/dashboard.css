@@ -9,7 +9,7 @@
    - 1 única família tipográfica (Inter)
    - Escala tipográfica profissional (H1..Label)
    - Grid de espaçamento de 8 pontos (tudo múltiplo de 8)
-   - Cards com padding 24px, radius 16px e sombra única
+   - Cards com padding 24px, radius 12px (mais quadrados) e sombra única
    - Botões com altura 44px, radius 12px e estados completos
    - Ícones com 20px e mesmo peso visual
    - Gradientes padronizados: 2 cores, 135°, contraste equilibrado
@@ -103,7 +103,7 @@ Hierarquia padronizada (escala aumentada p/ visualização e tamanho):
        ------------------------------------------------------------------ */
     --radius-sm: 8px;
     --radius-md: 12px;
-    --radius-lg: 16px;      /* Cards padrão */
+    --radius-lg: 12px;      /* Cards padrão (mais quadrados) */
     --radius-pill: 999px;
 
     /* ------------------------------------------------------------------
@@ -401,7 +401,7 @@ Hierarquia padronizada (escala aumentada p/ visualização e tamanho):
     align-items: stretch;
 }
 
-/* --- Card padrão: padding 24px, radius 16px, sombra única --- */
+/* --- Card padrão: padding 24px, radius 12px, sombra única --- */
 .widget {
     background: var(--color-surface);
     border-radius: var(--radius-lg);
