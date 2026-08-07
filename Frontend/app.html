@@ -251,7 +251,7 @@
                 "life-os":            { icon: "🧬", title: "Life OS",            desc: "Gerencie sua vida: rotinas, saúde, hábitos e bem-estar." },
                 "cyber-desk":         { icon: "🖥️", title: "Cyber Desk",         desc: "Seu espaço de trabalho digital personalizado." },
                 "code-vault":         { icon: "📦", title: "Code Vault",         desc: "Repositório pessoal de códigos e projetos." },
-                "second-brain":       { icon: "🧠", title: "Second Brain",       desc: "Seu segundo cérebro: ideias, notas e conhecimento." },
+                "second-brain":       { icon: "🧠", title: "Second Brain",       desc: "Painel de Insights IA: resumo diário, recomendações, tendências e notas do seu segundo cérebro." },
                 "project-generator":  { icon: "🛠️", title: "Project Generator",  desc: "Gere projetos novos a partir de templates." },
                 "analytics-center":   { icon: "📈", title: "Analytics Center",   desc: "Análises, métricas e relatórios centralizados." },
                 "automation-hub":     { icon: "🤖", title: "Automation Hub",     desc: "Automatize processos e integrações." },
@@ -521,9 +521,155 @@
                                 if (!saved) { a.style.backgroundImage = ""; a.textContent = newName.charAt(0).toUpperCase(); }
                             });
 
-                            toast("✅ Perfil salvo com sucesso!");
+toast("✅ Perfil salvo com sucesso!");
                         });
                     }
+                },
+
+                "second-brain": function () {
+                    // Dados do painel de insights
+                    const insights = {
+                        resumo: "Hoje seu nível de foco está 15% acima da média. Você completou 8 tarefas e manteve consistência nos estudos.",
+                        recomendacoes: [
+                            { titulo: "Bloqueio de foco", texto: "Agende 2 blocos de 50min para o projeto Nexus — seu pico de produtividade é entre 9h e 11h.", tag: "produtividade" },
+                            { titulo: "Revisão de flashcards", texto: "Seus erros em FastAPI aumentaram 20%. Revise os cards de autenticação hoje.", tag: "estudos" },
+                            { titulo: "Pausa estratégica", texto: "Você está há 3h em frente à tela. Faça uma caminhada de 10min para recarregar.", tag: "saude" }
+                        ],
+                        tendencias: [
+                            { nome: "Foco", valor: "+15%", cor: "#10b981" },
+                            { nome: "Produtividade", valor: "+8%", cor: "#3b82f6" },
+                            { nome: "Estudos", valor: "-5%", cor: "#f59e0b" },
+                            { nome: "Disciplina", valor: "+12%", cor: "#6c5ce7" }
+                        ],
+                        alertas: [
+                            { tipo: "urgencia", texto: "Meta 'Concluir projeto' vence em 3 dias." },
+                            { tipo: "info", texto: "Novo padrão detectado: você estuda melhor à noite." }
+                        ]
+                    };
+
+                    // Notas salvas
+                    const loadNotes = () => {
+                        try { return JSON.parse(localStorage.getItem("nexus_second_brain") || "[]"); }
+                        catch (e) { return []; }
+                    };
+                    let brainNotes = loadNotes();
+                    const saveNotes = () => localStorage.setItem("nexus_second_brain", JSON.stringify(brainNotes));
+
+                    appContent.classList.remove("app-placeholder");
+                    appContent.innerHTML = `
+                        <div class="app-content">
+                            <!-- Abas -->
+                            <div class="brain-tabs">
+                                <button class="brain-tab brain-tab--active" data-brain-tab="insights">🤖 Painel de Insights IA</button>
+                                <button class="brain-tab" data-brain-tab="notas">📝 Notas</button>
+                            </div>
+
+                            <!-- Painel de Insights IA -->
+                            <div class="brain-panel" id="brainPanelInsights">
+                                <div class="brain-hero">
+                                    <span class="brain-hero__icon">🤖</span>
+                                    <div>
+                                        <h3 class="brain-hero__title">Resumo diário da IA</h3>
+                                        <p class="brain-hero__text">${insights.resumo}</p>
+                                    </div>
+                                </div>
+
+                                <h4 class="brain-section-title">💡 Recomendações</h4>
+                                <div class="brain-grid">
+                                    ${insights.recomendacoes.map((r) => `
+                                        <div class="brain-card brain-card--${r.tag}">
+                                            <span class="brain-card__tag">${r.tag}</span>
+                                            <p class="brain-card__title">${r.titulo}</p>
+                                            <p class="brain-card__text">${r.texto}</p>
+                                        </div>`).join("")}
+                                </div>
+
+                                <h4 class="brain-section-title">📈 Tendências</h4>
+                                <div class="brain-trends">
+                                    ${insights.tendencias.map((t) => `
+                                        <div class="brain-trend">
+                                            <span class="brain-trend__dot" style="background:${t.cor}"></span>
+                                            <span class="brain-trend__name">${t.nome}</span>
+                                            <span class="brain-trend__val" style="color:${t.cor}">${t.valor}</span>
+                                        </div>`).join("")}
+                                </div>
+
+                                <h4 class="brain-section-title">🚨 Alertas</h4>
+                                <div class="brain-alerts">
+                                    ${insights.alertas.map((a) => `
+                                        <div class="brain-alert brain-alert--${a.tipo}">
+                                            <span>${a.tipo === "urgencia" ? "🔴" : "ℹ️"}</span>
+                                            <p>${a.texto}</p>
+                                        </div>`).join("")}
+                                </div>
+                            </div>
+
+                            <!-- Notas do Second Brain -->
+                            <div class="brain-panel" id="brainPanelNotas" hidden>
+                                <form class="brain-note-form" id="brainNoteForm">
+                                    <input type="text" id="brainNoteInput" class="text-input" placeholder="Capture uma ideia no seu segundo cérebro…" />
+                                    <button type="submit" class="btn btn--primary btn--sm">＋ Adicionar</button>
+                                </form>
+                                <ul class="brain-note-list" id="brainNoteList"></ul>
+                            </div>
+                        </div>`;
+
+                    // Lógica das abas
+                    appContent.querySelectorAll(".brain-tab").forEach((tab) => {
+                        tab.addEventListener("click", () => {
+                            appContent.querySelectorAll(".brain-tab").forEach((t) => t.classList.remove("brain-tab--active"));
+                            tab.classList.add("brain-tab--active");
+                            const target = tab.dataset.brainTab;
+                            document.getElementById("brainPanelInsights").hidden = target !== "insights";
+                            document.getElementById("brainPanelNotas").hidden = target !== "notas";
+                        });
+                    });
+
+                    // Lógica de notas
+                    const brainNoteForm = document.getElementById("brainNoteForm");
+                    const brainNoteInput = document.getElementById("brainNoteInput");
+                    const brainNoteList = document.getElementById("brainNoteList");
+
+                    function renderBrainNotes() {
+                        brainNoteList.innerHTML = brainNotes.length
+                            ? brainNotes.map((n, i) => `
+                                <li class="brain-note">
+                                    <span>${escapeHtml(n)}</span>
+                                    <button type="button" class="brain-note-del" data-i="${i}" title="Remover">🗑️</button>
+                                </li>`).join("")
+                            : `<li class="brain-note-empty">Nenhuma nota ainda. Suas ideias aparecerão aqui.</li>`;
+                    }
+
+                    function escapeHtml(str) {
+                        const div = document.createElement("div");
+                        div.textContent = str;
+                        return div.innerHTML;
+                    }
+
+                    if (brainNoteForm) {
+                        brainNoteForm.addEventListener("submit", (e) => {
+                            e.preventDefault();
+                            const val = brainNoteInput.value.trim();
+                            if (!val) return;
+                            brainNotes.push(val);
+                            saveNotes();
+                            brainNoteInput.value = "";
+                            renderBrainNotes();
+                            toast("🧠 Ideia salva no Second Brain!");
+                        });
+                    }
+
+                    if (brainNoteList) {
+                        brainNoteList.addEventListener("click", (e) => {
+                            const del = e.target.closest(".brain-note-del");
+                            if (!del) return;
+                            brainNotes.splice(parseInt(del.dataset.i, 10), 1);
+                            saveNotes();
+                            renderBrainNotes();
+                        });
+                    }
+
+                    renderBrainNotes();
                 }
             };
 
