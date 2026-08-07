@@ -300,7 +300,7 @@ data.forEach((v, i) => {
     const todoAdd = document.getElementById("todoAdd");
     const todoList = document.getElementById("todoList");
 
-    if (todoAdd && todoList) {
+if (todoAdd && todoList) {
         todoAdd.addEventListener("click", () => {
             const text = prompt("Nova tarefa do dia:");
             if (!text || !text.trim()) return;
@@ -314,4 +314,162 @@ data.forEach((v, i) => {
             todoList.appendChild(li);
         });
     }
+
+    /* ============================================================
+       9. VISÃO GERAL — legenda interativa do radar
+       ============================================================ */
+    const radarLabels = document.querySelectorAll(".radar-labels text");
+    const radarLegend = document.getElementById("radarLegend");
+
+    function setRadarActive(ind, active) {
+        radarLabels.forEach((t, i) => {
+            if (i === ind) t.classList.toggle("radar-label--active", active);
+        });
+    }
+
+    if (radarLegend) {
+        radarLegend.querySelectorAll(".radar-legend__item").forEach((item) => {
+            item.addEventListener("mouseenter", () => {
+                const ind = parseInt(item.dataset.ind, 10);
+                item.classList.add("radar-legend__item--active");
+                setRadarActive(ind, true);
+            });
+            item.addEventListener("mouseleave", () => {
+                item.classList.remove("radar-legend__item--active");
+                setRadarActive(parseInt(item.dataset.ind, 10), false);
+            });
+            item.addEventListener("click", () => {
+                const ind = parseInt(item.dataset.ind, 10);
+                const isActive = item.classList.toggle("radar-legend__item--active");
+                setRadarActive(ind, isActive);
+            });
+        });
+    }
+
+    /* ============================================================
+       10. META DO MÊS — CRUD com categorias + localStorage
+       ============================================================ */
+    const META_CATS = ["desenvolvimento", "networking", "hobbie", "outros"];
+    const META_STORAGE_KEY = "nexus_metas";
+
+    // Carrega metas salvas ou inicializa com dados de exemplo
+    function loadMetas() {
+        const raw = localStorage.getItem(META_STORAGE_KEY);
+        if (raw) {
+            try { return JSON.parse(raw); } catch (e) { /* ignore */ }
+        }
+        return [
+            { id: Date.now() + 1, cat: "desenvolvimento", text: "Concluir projeto Nexus", prog: 80 },
+            { id: Date.now() + 2, cat: "outros", text: "Ler 2 livros", prog: 50 },
+            { id: Date.now() + 3, cat: "outros", text: "Economizar R$500", prog: 30 }
+        ];
+    }
+
+    let metas = loadMetas();
+
+    function saveMetas() {
+        localStorage.setItem(META_STORAGE_KEY, JSON.stringify(metas));
+    }
+
+    // Renderiza todas as metas nas categorias
+    function renderMetas() {
+        document.querySelectorAll(".meta-cat").forEach((catEl) => {
+            const cat = catEl.dataset.cat;
+            const ul = catEl.querySelector(".meta-list--grouped");
+            if (!ul) return;
+            const items = metas.filter((m) => m.cat === cat);
+            if (items.length === 0) {
+                ul.innerHTML = `<li class="meta-empty">Nenhuma meta ainda.</li>`;
+                return;
+            }
+            ul.innerHTML = items.map((m) => `
+                <li class="meta-item" data-id="${m.id}">
+                    <div class="meta-item__top">
+                        <span class="meta-item__text">${escapeHtml(m.text)}</span>
+                        <span class="meta-item__actions">
+                            <button class="meta-edit" data-id="${m.id}" title="Editar">✏️</button>
+                            <button class="meta-del" data-id="${m.id}" title="Remover">🗑️</button>
+                        </span>
+                    </div>
+                    <div class="meta-progress"><span style="width:${m.prog}%"></span></div>
+                    <span class="meta-progress-val">${m.prog}%</span>
+                </li>`).join("");
+        });
+    }
+
+    function escapeHtml(str) {
+        const div = document.createElement("div");
+        div.textContent = str;
+        return div.innerHTML;
+    }
+
+    // Referências do formulário
+    const metaForm = document.getElementById("metaForm");
+    const metaAddBtn = document.getElementById("metaAddBtn");
+    const metaCancel = document.getElementById("metaCancel");
+    const metaCat = document.getElementById("metaCat");
+    const metaText = document.getElementById("metaText");
+    const metaProg = document.getElementById("metaProg");
+    const metaProgVal = document.getElementById("metaProgVal");
+
+    let editingMetaId = null;
+
+    function openMetaForm(meta) {
+        if (metaForm) metaForm.hidden = false;
+        editingMetaId = meta ? meta.id : null;
+        if (metaCat) metaCat.value = meta ? meta.cat : "desenvolvimento";
+        if (metaText) { metaText.value = meta ? meta.text : ""; metaText.focus(); }
+        if (metaProg) metaProg.value = meta ? meta.prog : 0;
+        if (metaProgVal) metaProgVal.textContent = (meta ? meta.prog : 0) + "%";
+    }
+
+    function closeMetaForm() {
+        if (metaForm) metaForm.hidden = true;
+        editingMetaId = null;
+    }
+
+    if (metaAddBtn) metaAddBtn.addEventListener("click", () => openMetaForm(null));
+    if (metaCancel) metaCancel.addEventListener("click", closeMetaForm);
+    if (metaProg) metaProg.addEventListener("input", () => {
+        if (metaProgVal) metaProgVal.textContent = metaProg.value + "%";
+    });
+
+    if (metaForm) {
+        metaForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const text = metaText.value.trim();
+            if (!text) return;
+            const cat = metaCat.value;
+            const prog = parseInt(metaProg.value, 10) || 0;
+
+            if (editingMetaId) {
+                const m = metas.find((x) => x.id === editingMetaId);
+                if (m) { m.text = text; m.cat = cat; m.prog = prog; }
+            } else {
+                metas.push({ id: Date.now(), cat, text, prog });
+            }
+            saveMetas();
+            renderMetas();
+            closeMetaForm();
+        });
+    }
+
+    // Delegação de eventos para editar/remover metas
+    document.getElementById("metaCats").addEventListener("click", (e) => {
+        const editBtn = e.target.closest(".meta-edit");
+        const delBtn = e.target.closest(".meta-del");
+        if (editBtn) {
+            const id = parseInt(editBtn.dataset.id, 10);
+            const m = metas.find((x) => x.id === id);
+            if (m) openMetaForm(m);
+        }
+        if (delBtn) {
+            const id = parseInt(delBtn.dataset.id, 10);
+            metas = metas.filter((x) => x.id !== id);
+            saveMetas();
+            renderMetas();
+        }
+    });
+
+    renderMetas();
 })();
