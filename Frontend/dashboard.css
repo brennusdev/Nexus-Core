@@ -1248,7 +1248,6 @@ Hierarquia padronizada (escala aumentada p/ visualização e tamanho):
     .widget--todolist, .widget--metames, .widget--finance, .widget--quick { grid-column: span 6; }
     .widget--overview, .widget--activity, .widget--weekly, .widget--calendar { grid-column: span 6; }
     .widget--quickaccess, .widget--music { grid-column: span 12; }
-    .quick-grid { grid-template-columns: repeat(4, 1fr); }
     .music-grid { grid-template-columns: 1fr 1fr; }
 }
 
@@ -1261,7 +1260,6 @@ Hierarquia padronizada (escala aumentada p/ visualização e tamanho):
     .widget--todolist, .widget--metames, .widget--finance,
     .widget--calendar, .widget--quick,
     .widget--overview, .widget--activity, .widget--weekly { grid-column: span 12; }
-    .quick-grid { grid-template-columns: repeat(4, 1fr); }
     .music-grid { grid-template-columns: 1fr 1fr; }
     .topbar { flex-wrap: wrap; }
     .topbar__search { order: 3; flex-basis: 100%; max-width: none; }
