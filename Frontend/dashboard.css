@@ -9,7 +9,7 @@
    - 1 única família tipográfica (Inter)
    - Escala tipográfica profissional (H1..Label)
    - Grid de espaçamento de 8 pontos (tudo múltiplo de 8)
-   - Cards com padding 24px, radius 12px (mais quadrados) e sombra única
+- Cards com padding 24px, radius 12px (mais quadrados) e sombra única
    - Botões com altura 44px, radius 12px e estados completos
    - Ícones com 20px e mesmo peso visual
    - Gradientes padronizados: 2 cores, 135°, contraste equilibrado
@@ -780,6 +780,139 @@ Hierarquia padronizada (escala aumentada p/ visualização e tamanho):
     height: 100%;
     background: var(--color-success);
     border-radius: var(--radius-pill);
+    transition: width var(--duration-base) var(--ease);
+}
+
+/* --- Meta do Mês: categorias demarcadas + CRUD --- */
+.meta-cats {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin-top: var(--space-2);
+    max-height: 320px;
+    overflow-y: auto;
+    padding-right: 2px;
+}
+.meta-cats::-webkit-scrollbar { width: 6px; }
+.meta-cats::-webkit-scrollbar-thumb { background: var(--color-border-strong); border-radius: var(--radius-pill); }
+
+.meta-cat {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--color-surface-hover);
+}
+.meta-cat__title {
+    font-size: var(--font-size-caption);
+    font-weight: var(--font-weight-bold);
+    color: #fff;
+    padding: var(--space-2) var(--space-3);
+    letter-spacing: var(--letter-spacing-normal);
+}
+.meta-cat--desenvolvimento .meta-cat__title { background: linear-gradient(135deg, #6c5ce7, #a29bfe); }
+.meta-cat--networking .meta-cat__title { background: linear-gradient(135deg, #3b82f6, #00c2ff); }
+.meta-cat--hobbie .meta-cat__title { background: linear-gradient(135deg, #f97316, #f9d423); }
+.meta-cat--outros .meta-cat__title { background: linear-gradient(135deg, #64748b, #94a3b8); }
+
+.meta-list--grouped { padding: var(--space-2) var(--space-3); }
+.meta-item {
+    padding: var(--space-1) 0;
+    border-bottom: 1px dashed var(--color-border);
+}
+.meta-item:last-child { border-bottom: none; }
+.meta-item__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+}
+.meta-item__text {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+.meta-item__actions { display: flex; gap: var(--space-1); flex-shrink: 0; }
+.meta-edit, .meta-del {
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius-sm);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    font-size: 0.85rem;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: background var(--duration-fast) var(--ease), border-color var(--duration-fast) var(--ease), transform var(--duration-fast) var(--ease);
+}
+.meta-edit:hover { background: var(--color-primary-soft); border-color: var(--color-primary); }
+.meta-del:hover { background: rgba(230, 57, 70, 0.12); border-color: var(--color-danger); }
+.meta-edit:active, .meta-del:active { transform: scale(0.94); }
+.meta-progress-val {
+    font-size: var(--font-size-label);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-secondary);
+}
+.meta-empty {
+    font-size: var(--font-size-caption);
+    color: var(--color-text-muted);
+    font-style: italic;
+    padding: var(--space-1) 0;
+}
+
+/* --- Formulário de adição/edição de meta --- */
+.meta-form {
+    background: var(--color-surface-hover);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-3);
+    margin-top: var(--space-2);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+.meta-form__row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+.meta-select, .meta-input {
+    flex: 1;
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface);
+    color: var(--color-text-primary);
+    font-family: var(--font-family);
+    font-size: var(--font-size-sm);
+    outline: none;
+    transition: border-color var(--duration-fast) var(--ease), box-shadow var(--duration-fast) var(--ease);
+}
+.meta-select:focus, .meta-input:focus { border-color: var(--color-primary); box-shadow: var(--shadow-input); }
+.meta-progress-label {
+    font-size: var(--font-size-caption);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+}
+.meta-range {
+    flex: 1;
+    accent-color: var(--color-primary);
+    cursor: pointer;
+}
+.meta-range-val {
+    font-size: var(--font-size-caption);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    min-width: 36px;
+    text-align: right;
+}
+.meta-form__actions {
+    display: flex;
+    gap: var(--space-2);
+    justify-content: flex-end;
 }
 
 /* --- Financeiro --- */
@@ -1125,7 +1258,49 @@ Hierarquia padronizada (escala aumentada p/ visualização e tamanho):
     paint-order: stroke;
     stroke: var(--color-surface);
     stroke-width: 3px;
+    transition: fill var(--duration-fast) var(--ease), stroke var(--duration-fast) var(--ease);
 }
+.radar-label--active {
+    fill: var(--color-primary);
+    stroke: var(--color-surface);
+    font-weight: var(--font-weight-extrabold);
+}
+
+/* --- Legenda interativa do radar --- */
+.radar-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    justify-content: center;
+    margin-top: var(--space-2);
+}
+.radar-legend__item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-pill);
+    background: var(--color-surface-hover);
+    border: 1px solid var(--color-border);
+    font-size: var(--font-size-caption);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    cursor: pointer;
+    transition: background var(--duration-fast) var(--ease), border-color var(--duration-fast) var(--ease), transform var(--duration-fast) var(--ease);
+}
+.radar-legend__item:hover { transform: translateY(-2px); border-color: var(--color-border-strong); }
+.radar-legend__item--active {
+    background: var(--color-primary-soft);
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-input);
+}
+.radar-legend__item strong { font-weight: var(--font-weight-extrabold); color: var(--color-text-primary); }
+.rl-dot { width: 10px; height: 10px; border-radius: var(--radius-pill); flex-shrink: 0; }
+.rl-dot--foco  { background: #f59e0b; }
+.rl-dot--prod  { background: #3b82f6; }
+.rl-dot--disc  { background: var(--color-primary); }
+.rl-dot--saude { background: var(--color-success); }
+.rl-dot--est   { background: var(--color-danger); }
 
 /* ==========================================================================
    15. ACESSO RÁPIDO (grade) — cards com gradiente
@@ -1211,6 +1386,174 @@ Hierarquia padronizada (escala aumentada p/ visualização e tamanho):
 .btn:not(.btn--primary):hover { background: var(--color-surface-hover); border-color: var(--color-border-strong); }
 .btn:not(.btn--primary):active { transform: translateY(0); }
 .btn:not(.btn--primary):focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+
+/* ==========================================================================
+   16.5 SECOND BRAIN — Painel de Insights IA + Notas
+   ========================================================================== */
+.brain-tabs {
+    display: flex;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+    flex-wrap: wrap;
+}
+.brain-tab {
+    flex: 1;
+    min-width: 180px;
+    padding: var(--space-3);
+    border-radius: var(--radius-md);
+    background: var(--color-surface-hover);
+    border: 1px solid var(--color-border);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: background var(--duration-fast) var(--ease), color var(--duration-fast) var(--ease), border-color var(--duration-fast) var(--ease), transform var(--duration-fast) var(--ease);
+}
+.brain-tab:hover { transform: translateY(-2px); border-color: var(--color-border-strong); }
+.brain-tab--active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #fff;
+    box-shadow: var(--shadow-primary);
+}
+.brain-panel { display: block; }
+
+.brain-hero {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+    background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+    color: #fff;
+    margin-bottom: var(--space-4);
+    box-shadow: var(--shadow-primary);
+}
+.brain-hero__icon {
+    font-size: 2.2rem;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    flex-shrink: 0;
+}
+.brain-hero__title {
+    font-size: var(--font-size-card);
+    font-weight: var(--font-weight-extrabold);
+    margin-bottom: var(--space-1);
+}
+.brain-hero__text { font-size: var(--font-size-sm); opacity: 0.95; line-height: var(--line-height-base); }
+
+.brain-section-title {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin: var(--space-4) 0 var(--space-2);
+}
+
+/* --- Cards de recomendação --- */
+.brain-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--space-3);
+}
+.brain-card {
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    padding: var(--space-4);
+    background: var(--color-surface-hover);
+    border-left: 4px solid var(--color-primary);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    transition: transform var(--duration-fast) var(--ease), box-shadow var(--duration-fast) var(--ease), border-color var(--duration-fast) var(--ease);
+}
+.brain-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-card-hover); border-color: var(--color-border-strong); }
+.brain-card--produtividade { border-left-color: #3b82f6; }
+.brain-card--estudos { border-left-color: #8b5cf6; }
+.brain-card--saude { border-left-color: #10b981; }
+.brain-card__tag {
+    align-self: flex-start;
+    font-size: var(--font-size-label);
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+    color: var(--color-text-secondary);
+    background: var(--color-surface);
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+}
+.brain-card__title { font-size: var(--font-size-sm); font-weight: var(--font-weight-bold); color: var(--color-text-primary); }
+.brain-card__text { font-size: var(--font-size-sm); color: var(--color-text-secondary); line-height: var(--line-height-base); }
+
+/* --- Tendências --- */
+.brain-trends {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: var(--space-2);
+}
+.brain-trend {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3);
+    background: var(--color-surface-hover);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+}
+.brain-trend__dot { width: 10px; height: 10px; border-radius: var(--radius-pill); flex-shrink: 0; }
+.brain-trend__name {
+    flex: 1;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+}
+.brain-trend__val { font-size: var(--font-size-sm); font-weight: var(--font-weight-extrabold); }
+
+/* --- Alertas --- */
+.brain-alerts { display: flex; flex-direction: column; gap: var(--space-2); }
+.brain-alert {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3);
+    border-radius: var(--radius-md);
+    border-left: 4px solid var(--color-warning);
+    background: var(--color-surface-hover);
+}
+.brain-alert p { font-size: var(--font-size-sm); color: var(--color-text-primary); }
+.brain-alert--urgencia { border-left-color: var(--color-danger); }
+
+/* --- Notas --- */
+.brain-note-form { display: flex; gap: var(--space-2); align-items: flex-end; margin-bottom: var(--space-3); }
+.brain-note-form .text-input { flex: 1; margin-bottom: 0; }
+.brain-note-list { list-style: none; }
+.brain-note {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    padding: var(--space-3);
+    background: var(--color-surface-hover);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-2);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-primary);
+}
+.brain-note-del {
+    width: 30px;
+    height: 30px;
+    border-radius: var(--radius-sm);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    font-size: 0.9rem;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background var(--duration-fast) var(--ease), border-color var(--duration-fast) var(--ease);
+}
+.brain-note-del:hover { background: rgba(230, 57, 70, 0.12); border-color: var(--color-danger); }
+.brain-note-empty { font-size: var(--font-size-sm); color: var(--color-text-muted); font-style: italic; padding: var(--space-2); }
 
 /* ==========================================================================
    17. RESPONSIVIDADE
