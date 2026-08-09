@@ -144,8 +144,9 @@
         }
         .text-area:focus { border-color: var(--color-primary); }
 
-        /* ===== TEMAS ===== */
+/* ===== TEMAS ===== */
         .theme-choice { display: flex; gap: 12px; margin-bottom: 18px; }
+        .theme-choice--grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
         .theme-btn {
             flex: 1; padding: 18px; border-radius: 12px; border: 2px solid var(--color-border);
             background: var(--color-surface-hover); cursor: pointer; display: flex; flex-direction: column;
@@ -390,7 +391,7 @@
                     }
                 },
 
-                "temas": function () {
+"temas": function () {
                     const savedTheme = localStorage.getItem("nexus_theme") || "light";
                     const savedAccent = localStorage.getItem("nexus_accent") || "#6c5ce7";
 
@@ -398,19 +399,33 @@
                         <span class="accent-swatch${savedAccent === a.hex ? " accent-swatch--active" : ""}"
                               data-accent="${a.hex}" style="background:${a.hex}"></span>`).join("");
 
+                    // 5 temas disponíveis
+                    const THEMES = [
+                        { id: "light",      icon: "☀️", label: "Claro" },
+                        { id: "dark",       icon: "🌙", label: "Escuro" },
+                        { id: "cyberpunk",  icon: "🌆", label: "Cyberpunk" },
+                        { id: "minimalista",icon: "◻️", label: "Minimalista" },
+                        { id: "classico",   icon: "🏛️", label: "Clássico" }
+                    ];
+                    const THEME_TOAST = {
+                        light: "☀️ Modo claro ativado",
+                        dark: "🌙 Modo escuro ativado",
+                        cyberpunk: "🌆 Tema cyberpunk ativado",
+                        minimalista: "◻️ Tema minimalista ativado",
+                        classico: "🏛️ Tema clássico ativado"
+                    };
+
+                    const themeBtns = THEMES.map((t) => `
+                        <button class="theme-btn${savedTheme === t.id ? " theme-btn--active" : ""}" data-theme="${t.id}">
+                            <span style="font-size:1.6rem">${t.icon}</span> ${t.label}
+                        </button>`).join("");
+
                     appContent.classList.remove("app-placeholder");
                     appContent.innerHTML = `
                         <div class="app-content">
                             <div class="settings-section">
-                                <h3 class="settings-section__title">🎨 Modo de exibição</h3>
-                                <div class="theme-choice">
-                                    <button class="theme-btn${savedTheme === "light" ? " theme-btn--active" : ""}" data-theme="light">
-                                        <span style="font-size:1.6rem">☀️</span> Claro
-                                    </button>
-                                    <button class="theme-btn${savedTheme === "dark" ? " theme-btn--active" : ""}" data-theme="dark">
-                                        <span style="font-size:1.6rem">🌙</span> Escuro
-                                    </button>
-                                </div>
+                                <h3 class="settings-section__title">🎨 Tema</h3>
+                                <div class="theme-choice theme-choice--grid">${themeBtns}</div>
                             </div>
                             <div class="settings-section">
                                 <h3 class="settings-section__title">🌈 Cor de destaque</h3>
@@ -426,8 +441,8 @@
                             appContent.querySelectorAll(".theme-btn").forEach((b) => b.classList.remove("theme-btn--active"));
                             btn.classList.add("theme-btn--active");
                             const tb = document.getElementById("themeToggle");
-                            if (tb) tb.textContent = theme === "dark" ? "☀️" : "🌙";
-                            toast(theme === "dark" ? "🌙 Modo escuro ativado" : "☀️ Modo claro ativado");
+                            if (tb) tb.textContent = THEMES.find((t) => t.id === theme)?.icon || "🎨";
+                            toast(THEME_TOAST[theme] || "🎨 Tema atualizado");
                         });
                     });
 
