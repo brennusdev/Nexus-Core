@@ -1,0 +1,47 @@
+# ====================================================================
+# CORRECAO: docker-compose.yml - Arquivo movido da estrutura errada
+# MOTIVO: O arquivo original estava em ./docker-compose/yaml (pasta
+#         "docker-compose" + arquivo "yaml"). O Docker Compose espera
+#         um unico arquivo na raiz chamado "docker-compose.yml" ou
+#         "docker-compose.yaml". Alem disso, o build referenciava
+#         "./backend" (minusculo), mas o diretorio real e "./Backend"
+#         (maiusculo) - no Linux/Docker os nomes sao case-sensitive.
+# ====================================================================
+version: "3.9"
+
+services:
+
+  backend:
+    build: ./Backend
+    container_name: nexus_backend
+
+    ports:
+      - "8000:8000"
+
+    env_file:
+      - ./Backend/.env
+
+    depends_on:
+      - db
+
+  db:
+    image: postgres:17
+
+    container_name: nexus_postgres
+
+    restart: always
+
+    environment:
+      POSTGRES_DB: nexus
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+
+  postgres_data:
