@@ -358,6 +358,62 @@ Hierarquia padronizada (escala aumentada p/ visualização e tamanho):
 .topbar__actions { display: flex; align-items: center; gap: var(--space-2); margin-left: auto; }
 .topbar__bell { font-size: 1.25rem; cursor: pointer; line-height: 1; }
 
+/* --- Seletor de tema (dropdown) --- */
+.theme-picker { position: relative; }
+.theme-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 190px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card-hover);
+    padding: var(--space-2);
+    z-index: var(--z-topbar);
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+    transition: opacity var(--duration-fast) var(--ease), transform var(--duration-fast) var(--ease);
+}
+.theme-picker.is-open .theme-menu {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+.theme-menu__title {
+    font-size: var(--font-size-label);
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+    color: var(--color-text-muted);
+    padding: var(--space-1) var(--space-2) var(--space-2);
+}
+.theme-opt {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    width: 100%;
+    padding: var(--space-2) var(--space-2);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-family);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+    text-align: left;
+    cursor: pointer;
+    transition: background var(--duration-fast) var(--ease);
+}
+.theme-opt:hover { background: var(--color-surface-hover); }
+.theme-opt.is-active { background: var(--color-primary-soft); color: var(--color-primary); font-weight: var(--font-weight-bold); }
+.theme-swatch {
+    width: 18px;
+    height: 18px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border-strong);
+    flex-shrink: 0;
+}
+
 /* --- Botão de ícone padronizado (20px de ícone) --- */
 .icon-btn {
     background: var(--color-surface);
