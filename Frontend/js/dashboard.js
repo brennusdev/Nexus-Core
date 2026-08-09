@@ -42,23 +42,88 @@
         window.location.href = "index.html";
     });
 
-    /* ============================================================
-       2. TEMA ESCURO / CLARO
+/* ============================================================
+       2. TEMA — 5 temas customizáveis (claro, escuro, cyberpunk,
+          minimalista, clássico)
        ============================================================ */
     const themeToggle = document.getElementById("themeToggle");
+    const themePicker = document.querySelector(".theme-picker");
+    const themeMenu = document.getElementById("themeMenu");
+    const themeOptions = document.querySelectorAll(".theme-opt");
 
-    function applyTheme(theme) {
-        document.documentElement.setAttribute("data-theme", theme);
-        localStorage.setItem("nexus_theme", theme);
-        if (themeToggle) themeToggle.textContent = theme === "dark" ? "☀️" : "🌙";
+    // Lista ordenada de temas disponíveis (cicla ao clicar)
+    const THEME_ORDER = ["light", "dark", "cyberpunk", "minimalista", "classico"];
+
+    // Rótulos/ícones de cada tema (para o botão mostrar o próximo)
+    const THEME_META = {
+        light:      { icon: "☀️", label: "Claro" },
+        dark:       { icon: "🌙", label: "Escuro" },
+        cyberpunk:  { icon: "🌆", label: "Cyberpunk" },
+        minimalista:{ icon: "◻️", label: "Minimalista" },
+        classico:   { icon: "🏛️", label: "Clássico" }
+    };
+
+    // Aplica o tema salvo no carregamento
+    function initTheme() {
+        const saved = localStorage.getItem("nexus_theme") || "light";
+        applyTheme(saved, false);
     }
 
-    if (themeToggle) {
-        themeToggle.addEventListener("click", () => {
-            const current = document.documentElement.getAttribute("data-theme");
-            applyTheme(current === "dark" ? "light" : "dark");
+    function applyTheme(theme, persist) {
+        if (persist !== false) persist = true;
+        document.documentElement.setAttribute("data-theme", theme);
+        if (persist) localStorage.setItem("nexus_theme", theme);
+
+        // Marca o tema ativo no menu
+        themeOptions.forEach((opt) => {
+            opt.classList.toggle("is-active", opt.dataset.theme === theme);
+        });
+
+        // Atualiza o ícone do toggle para o PRÓXIMO tema (dica de navegação)
+        if (themeToggle) {
+            const idx = THEME_ORDER.indexOf(theme);
+            const next = THEME_ORDER[(idx + 1) % THEME_ORDER.length];
+            const meta = THEME_META[next];
+            themeToggle.textContent = meta ? meta.icon : "🎨";
+            themeToggle.title = `Tema: ${(THEME_META[theme] || { label: theme }).label} · Próximo: ${meta ? meta.label : ""}`;
+        }
+    }
+
+    // Abre/fecha o dropdown ao clicar no botão do tema
+    if (themeToggle && themePicker) {
+        themeToggle.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const isOpen = themePicker.classList.toggle("is-open");
+            if (themeMenu) themeMenu.hidden = !isOpen;
         });
     }
+
+    // Seleciona um tema diretamente pela lista
+    themeOptions.forEach((opt) => {
+        opt.addEventListener("click", () => {
+            applyTheme(opt.dataset.theme);
+            if (themePicker) themePicker.classList.remove("is-open");
+            if (themeMenu) themeMenu.hidden = true;
+        });
+    });
+
+    // Fecha o dropdown ao clicar fora
+    document.addEventListener("click", (e) => {
+        if (themePicker && !themePicker.contains(e.target)) {
+            themePicker.classList.remove("is-open");
+            if (themeMenu) themeMenu.hidden = true;
+        }
+    });
+
+    // Esc fecha o dropdown
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && themePicker) {
+            themePicker.classList.remove("is-open");
+            if (themeMenu) themeMenu.hidden = true;
+        }
+    });
+
+    initTheme();
 
     /* ============================================================
        3. RELÓGIO
