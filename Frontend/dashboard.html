@@ -326,7 +326,7 @@
                     <button class="qmini qmini--snip" data-open="snippets">
                         <span class="qmini-icon">📄</span> Snippets
                     </button>
-                    <button class="qmini qmini--pomo" data-open="pomodoro">
+<button class="qmini qmini--pomo" data-open="pomodoro" id="pomoFocusBtn">
                         <span class="qmini-icon">🍅</span> Pomodoro
                     </button>
                     <button class="qmini qmini--calc" data-open="calculadora">
@@ -412,8 +412,43 @@
                 </div>
             </section>
 
-        </div><!-- /dash-grid -->
+</div><!-- /dash-grid -->
     </main>
+
+    <!-- ===================== MODE FOCUS OVERLAY ===================== -->
+    <div class="focus-overlay" id="focusOverlay" hidden>
+        <div class="focus-panel">
+            <button class="focus-close" id="focusClose" title="Sair do Modo Foco">✕</button>
+
+            <div class="focus-head">
+                <span class="focus-icon">🍅</span>
+                <div>
+                    <h2 class="focus-title">Modo Foco</h2>
+                    <p class="focus-sub">Reduz distrações e destaca apenas a sua tarefa atual</p>
+                </div>
+            </div>
+
+            <!-- Timer -->
+            <div class="focus-timer" id="focusTimer">25:00</div>
+            <p class="focus-mode-label" id="focusModeLabel">🎯 Foco</p>
+
+            <!-- Tarefa atual -->
+            <div class="focus-task">
+                <label class="focus-task__label" for="focusTaskSelect">Tarefa atual</label>
+                <select id="focusTaskSelect" class="focus-task__select"></select>
+            </div>
+
+            <!-- Controles -->
+            <div class="focus-controls">
+                <button class="btn btn--primary" id="focusStartBtn">▶ Iniciar Foco</button>
+                <button class="btn" id="focusResetBtn">⟲ Reiniciar</button>
+            </div>
+
+            <div class="focus-cycles">
+                <span id="focusCycleText">Ciclo 1/4</span>
+            </div>
+        </div>
+    </div>
 
     <script src="js/dashboard.js" defer></script>
 </body>
