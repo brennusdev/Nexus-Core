@@ -100,13 +100,29 @@
         form.addEventListener("input", (e) => setError(form, e.target.name, ""));
     });
 
-    /* --- Tema escuro/claro (login) --- */
+/* --- Tema (5 temas customizáveis no login) --- */
     const themeToggle = document.getElementById("themeToggle");
+
+    // Mesma ordem e rótulos do dashboard
+    const THEME_ORDER = ["light", "dark", "cyberpunk", "minimalista", "classico"];
+    const THEME_META = {
+        light:      { icon: "☀️", label: "Claro" },
+        dark:       { icon: "🌙", label: "Escuro" },
+        cyberpunk:  { icon: "🌆", label: "Cyberpunk" },
+        minimalista:{ icon: "◻️", label: "Minimalista" },
+        classico:   { icon: "🏛️", label: "Clássico" }
+    };
 
     function applyTheme(theme) {
         document.documentElement.setAttribute("data-theme", theme);
         localStorage.setItem("nexus_theme", theme);
-        if (themeToggle) themeToggle.textContent = theme === "dark" ? "☀️" : "🌙";
+        if (themeToggle) {
+            const idx = THEME_ORDER.indexOf(theme);
+            const next = THEME_ORDER[(idx + 1) % THEME_ORDER.length];
+            const meta = THEME_META[next];
+            themeToggle.textContent = meta ? meta.icon : "🎨";
+            themeToggle.title = `Tema: ${(THEME_META[theme] || { label: theme }).label} · Próximo: ${meta ? meta.label : ""}`;
+        }
     }
 
     // Aplica tema salvo ao carregar
@@ -115,7 +131,9 @@
     if (themeToggle) {
         themeToggle.addEventListener("click", () => {
             const current = document.documentElement.getAttribute("data-theme");
-            applyTheme(current === "dark" ? "light" : "dark");
+            const idx = THEME_ORDER.indexOf(current);
+            const next = THEME_ORDER[(idx + 1) % THEME_ORDER.length] || "light";
+            applyTheme(next);
         });
     }
 
