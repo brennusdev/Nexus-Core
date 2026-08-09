@@ -1,36 +1,38 @@
 # ====================================================================
-# CORRECAO: requirements.txt - Versoes corrigidas
-# MOTIVO: As versoes originais nao existiam no PyPI, causando erro
-#         ao executar `pip install -r requirements.txt`.
+# NEXUS CORE - Backend Dependencies
+# ====================================================================
+# ESTRATEGIA DE VERSIONAMENTO:
+# Usamos ranges flexiveis (>=) em vez de pinning exato (==).
+# MOTIVO: Com "==" qualquer nova versao lancada no PyPI quebra o
+#         `pip install -r requirements.txt`. Com ">=" o pip resolve
+#         automaticamente para a versao mais recente compativel,
+#         eliminando a necessidade de editar este arquivo no futuro.
+#
+# Para garantir reproducibilidade, gere um lock file com:
+#     pip freeze > requirements.lock.txt
 # ====================================================================
 
-# CORRECAO: uvicorn[standard]==0.35.0 -> 0.34.0
-# MOTIVO: Versao 0.35.0 NAO EXISTE no PyPI. A versao estavel mais
-#         recente disponivel e 0.34.0.
-fastapi==0.116.1
-uvicorn[standard]==0.34.0
+# --- Web framework ---
+fastapi>=0.116.1
+uvicorn[standard]>=0.35.0
 
-sqlalchemy==2.0.41
-psycopg2-binary==2.9.10
-alembic==1.16.4
+# --- Banco de dados / ORM ---
+sqlalchemy>=2.0.41
+psycopg2-binary>=2.9.10
+alembic>=1.16.4
 
-# CORRECAO: python-jose[cryptography]==3.5.0 -> 3.3.0
-# MOTIVO: Versao 3.5.0 NAO EXISTE no PyPI. A ultima versao
-#         disponivel do python-jose e 3.3.0.
-python-jose[cryptography]==3.3.0
+# --- Autenticacao / Seguranca ---
+python-jose[cryptography]>=3.5.0
+passlib[bcrypt]>=1.7.4
+python-multipart>=0.0.20
 
-passlib[bcrypt]==1.7.4
-python-multipart==0.0.20
-python-dotenv==1.1.1
+# --- Configuracao / Validacao ---
+python-dotenv>=1.1.1
+pydantic[email]>=2.11.7
 
-# CORRECAO: pydantic[email]==2.11.7 -> 2.13.4
-# MOTIVO: Versao 2.11.7 NAO EXISTE no PyPI. A versao atual
-#         estavel e 2.13.4. Alem disso, pydantic[email] esta
-#         depreciado - o suporte a email foi movido para
-#         pydantic-extra-types, mas manteremos assim por
-#         compatibilidade com o codigo existente.
-pydantic[email]==2.13.4
+# --- Cache / Filas ---
+redis>=6.2.0
 
-redis==6.2.0
-pytest==8.4.1
-httpx==0.28.1
+# --- Testes ---
+pytest>=8.4.1
+httpx>=0.28.1
