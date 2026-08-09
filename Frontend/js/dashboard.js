@@ -203,14 +203,171 @@ function updateFinance() {
     if (finInv) finInv.addEventListener("input", updateFinance);
     updateFinance();
 
-    /* ============================================================
+/* ============================================================
        5. WIDGETS RÁPIDOS (navegação)
        ============================================================ */
     document.querySelectorAll(".qmini").forEach((btn) => {
         btn.addEventListener("click", () => {
+            // O widget Pomodoro abre o Modo Foco (overlay) em vez de navegar
+            if (btn.id === "pomoFocusBtn") {
+                openFocusMode();
+                return;
+            }
             const app = btn.dataset.open;
             window.location.href = `app.html?app=${app}`;
         });
+    });
+
+    /* ============================================================
+       5.1 MODO FOCO — Pomodoro + Tarefa Atual (overlay tela cheia)
+       ============================================================ */
+    const focusOverlay = document.getElementById("focusOverlay");
+    const focusClose = document.getElementById("focusClose");
+    const focusTimer = document.getElementById("focusTimer");
+    const focusModeLabel = document.getElementById("focusModeLabel");
+    const focusTaskSelect = document.getElementById("focusTaskSelect");
+    const focusStartBtn = document.getElementById("focusStartBtn");
+    const focusResetBtn = document.getElementById("focusResetBtn");
+    const focusCycleText = document.getElementById("focusCycleText");
+
+    const FOCUS_WORK = 25 * 60;   // 25 min
+    const FOCUS_BREAK = 5 * 60;   // 5 min
+    const FOCUS_CYCLES = 4;
+
+    let focusTimerId = null;
+    let focusRemaining = FOCUS_WORK;
+    let focusRunning = false;
+    let focusIsBreak = false;
+    let focusCycle = 1;
+
+    // Lê as tarefas pendentes da lista "Tarefa do Dia"
+    function getTodoTasks() {
+        const todoList = document.getElementById("todoList");
+        const tasks = [];
+        if (todoList) {
+            todoList.querySelectorAll("li").forEach((li) => {
+                const cb = li.querySelector('input[type="checkbox"]');
+                const textEl = li.querySelector("label");
+                if (!textEl) return;
+                // Ignora tarefas já concluídas (checkbox marcado)
+                if (cb && cb.checked) return;
+                const text = textEl.textContent.trim().replace(/\s+/g, " ");
+                if (text) tasks.push(text);
+            });
+        }
+        return tasks;
+    }
+
+    function renderFocusTasks() {
+        const tasks = getTodoTasks();
+        const current = focusTaskSelect.value;
+        focusTaskSelect.innerHTML = tasks.length
+            ? tasks.map((t, i) => `<option value="${i}">${escapeHtml(t)}</option>`).join("")
+            : `<option value="">Nenhuma tarefa pendente</option>`;
+        // Tenta preservar a seleção anterior
+        if (tasks.length) {
+            const idx = parseInt(current, 10);
+            focusTaskSelect.value = (idx >= 0 && idx < tasks.length) ? idx : 0;
+        }
+    }
+
+    function formatFocusTime(sec) {
+        const m = String(Math.floor(sec / 60)).padStart(2, "0");
+        const s = String(sec % 60).padStart(2, "0");
+        return `${m}:${s}`;
+    }
+
+    function updateFocusUI() {
+        if (focusTimer) focusTimer.textContent = formatFocusTime(focusRemaining);
+        if (focusModeLabel) focusModeLabel.textContent = focusIsBreak ? "☕ Pausa" : "🎯 Foco";
+        if (focusCycleText) focusCycleText.textContent = `Ciclo ${focusCycle}/${FOCUS_CYCLES}`;
+        if (focusStartBtn) focusStartBtn.textContent = focusRunning ? "⏸ Pausar" : "▶ Iniciar Foco";
+    }
+
+    function tickFocus() {
+        focusRemaining--;
+        if (focusRemaining <= 0) {
+            // Troca entre foco e pausa
+            if (!focusIsBreak) {
+                // Foco terminou -> pausa
+                focusIsBreak = true;
+                focusRemaining = FOCUS_BREAK;
+            } else {
+                // Pausa terminou -> próximo ciclo de foco
+                focusIsBreak = false;
+                focusCycle = (focusCycle % FOCUS_CYCLES) + 1;
+                // Após o 4º ciclo, volta ao início
+                if (focusCycle === 1) {
+                    stopFocusTimer();
+                    focusRemaining = FOCUS_WORK;
+                    updateFocusUI();
+                    return;
+                }
+                focusRemaining = FOCUS_WORK;
+            }
+        }
+        updateFocusUI();
+    }
+
+    function startFocusTimer() {
+        if (focusTimerId) return;
+        focusRunning = true;
+        focusTimerId = setInterval(tickFocus, 1000);
+        updateFocusUI();
+    }
+
+    function stopFocusTimer() {
+        if (focusTimerId) {
+            clearInterval(focusTimerId);
+            focusTimerId = null;
+        }
+        focusRunning = false;
+        updateFocusUI();
+    }
+
+    function resetFocusTimer() {
+        stopFocusTimer();
+        focusRemaining = FOCUS_WORK;
+        focusIsBreak = false;
+        focusCycle = 1;
+        updateFocusUI();
+    }
+
+    function openFocusMode() {
+        renderFocusTasks();
+        resetFocusTimer();
+        if (focusOverlay) focusOverlay.hidden = false;
+    }
+
+    function closeFocusMode() {
+        stopFocusTimer();
+        if (focusOverlay) focusOverlay.hidden = true;
+    }
+
+    if (focusClose) focusClose.addEventListener("click", closeFocusMode);
+    if (focusOverlay) {
+        focusOverlay.addEventListener("click", (e) => {
+            if (e.target === focusOverlay) closeFocusMode();
+        });
+    }
+    if (focusStartBtn) {
+        focusStartBtn.addEventListener("click", () => {
+            if (focusRunning) {
+                stopFocusTimer();
+            } else {
+                // Se não há tarefa selecionada (nenhuma pendente), ainda permite focar
+                startFocusTimer();
+            }
+        });
+    }
+    if (focusResetBtn) focusResetBtn.addEventListener("click", resetFocusTimer);
+    if (focusTaskSelect) focusTaskSelect.addEventListener("change", renderFocusTasks);
+
+    // Esc (tecla) fecha o modo foco
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && focusOverlay && !focusOverlay.hidden) {
+            closeFocusMode();
+        }
     });
 
     /* ============================================================
