@@ -162,10 +162,108 @@
     --color-text-primary: #e7e9f0;
     --color-text-secondary: #9aa1b5;
     --color-text-muted: #6b7280;
+    --color-sidebar: linear-gradient(180deg, #0d0f1e, #16142e);
+    --gradient-login: linear-gradient(135deg, #0d0f1e 0%, #1a1442 45%, #3b2d8f 100%);
     --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.4);
     --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.5);
     --shadow-primary: 0 4px 14px rgba(162, 155, 254, 0.35);
     --shadow-input: 0 0 0 3px rgba(162, 155, 254, 0.2);
+}
+
+/* --------------------------------------------------------------------------
+   1.2 TEMA CYBERPUNK ([data-theme="cyberpunk"])
+   --------------------------------------------------------------------------
+   Neon escuro: fundo preto-azulado, destaques magenta/ciano/verde neon.
+   Sidebar e login ganham glow cibernético.
+   -------------------------------------------------------------------------- */
+[data-theme="cyberpunk"] {
+    --color-primary: #00f5ff;          /* Ciano neon */
+    --color-primary-hover: #39ffd4;
+    --color-primary-soft: #0a2a33;
+    --color-secondary: #9d7bff;
+    --color-accent: #ff00e5;           /* Magenta neon */
+    --color-success: #00ff9d;          /* Verde neon */
+    --color-warning: #ffe600;
+    --color-danger: #ff2d55;
+    --color-surface: #0b0f1d;
+    --color-surface-hover: #121a2e;
+    --color-surface-2: #1a2440;
+    --color-border: #2a3a66;
+    --color-border-strong: #3b4f8a;
+    --color-background: #05070f;
+    --color-text-primary: #e6f7ff;
+    --color-text-secondary: #9fb4d8;
+    --color-text-muted: #5f739c;
+    --color-sidebar: linear-gradient(180deg, #050518, #120a2e);
+    --gradient-login: linear-gradient(135deg, #05070f 0%, #0a0a2e 45%, #2e0a4e 100%);
+    --shadow-card: 0 0 0 1px rgba(0, 245, 255, 0.12), 0 4px 20px rgba(0, 245, 255, 0.08);
+    --shadow-card-hover: 0 0 0 1px rgba(0, 245, 255, 0.35), 0 10px 30px rgba(255, 0, 229, 0.15);
+    --shadow-primary: 0 0 18px rgba(0, 245, 255, 0.45);
+    --shadow-input: 0 0 0 3px rgba(0, 245, 255, 0.25);
+}
+
+/* --------------------------------------------------------------------------
+   1.3 TEMA MINIMALISTA ([data-theme="minimalista"])
+   --------------------------------------------------------------------------
+   Monocromático, muito branco, tipografia limpa, sombras quase ausentes.
+   Foco total em conteúdo e espaçamento.
+   -------------------------------------------------------------------------- */
+[data-theme="minimalista"] {
+    --color-primary: #1a1a1a;          /* Preto sóbrio */
+    --color-primary-hover: #000000;
+    --color-primary-soft: #f0f0f0;
+    --color-secondary: #8a8a8a;
+    --color-accent: #3a3a3a;
+    --color-success: #2f9e44;
+    --color-warning: #b08968;
+    --color-danger: #c92a2a;
+    --color-surface: #ffffff;
+    --color-surface-hover: #fafafa;
+    --color-surface-2: #f3f3f3;
+    --color-border: #e8e8e8;
+    --color-border-strong: #cccccc;
+    --color-background: #f7f7f7;
+    --color-text-primary: #181818;
+    --color-text-secondary: #5c5c5c;
+    --color-text-muted: #9a9a9a;
+    --color-sidebar: linear-gradient(180deg, #ffffff, #f1f1f1);
+    --gradient-login: linear-gradient(135deg, #ffffff 0%, #ececec 50%, #e0e0e0 100%);
+    --shadow-card: none;
+    --shadow-card-hover: 0 1px 4px rgba(0, 0, 0, 0.06);
+    --shadow-primary: 0 1px 3px rgba(0, 0, 0, 0.12);
+    --shadow-input: 0 0 0 2px rgba(0, 0, 0, 0.08);
+}
+
+/* --------------------------------------------------------------------------
+   1.4 TEMA CLÁSSICO ([data-theme="classico"])
+   --------------------------------------------------------------------------
+   Azul clássico estilo Windows/empresarial, superfícies leves e sóbrias.
+   Aparência confiável e tradicional.
+   -------------------------------------------------------------------------- */
+[data-theme="classico"] {
+    --color-primary: #0a6cff;          /* Azul clássico */
+    --color-primary-hover: #0053d6;
+    --color-primary-soft: #e8f0fe;
+    --color-secondary: #64748b;
+    --color-accent: #3b82f6;
+    --color-success: #16a34a;
+    --color-warning: #d97706;
+    --color-danger: #dc2626;
+    --color-surface: #ffffff;
+    --color-surface-hover: #f4f7fb;
+    --color-surface-2: #e9eef5;
+    --color-border: #d1d9e6;
+    --color-border-strong: #b3c0d4;
+    --color-background: #eef2f7;
+    --color-text-primary: #1e293b;
+    --color-text-secondary: #475569;
+    --color-text-muted: #94a3b8;
+    --color-sidebar: linear-gradient(180deg, #1e3a5f, #16283f);
+    --gradient-login: linear-gradient(135deg, #1e3a5f 0%, #2b4a76 50%, #3f6fb5 100%);
+    --shadow-card: 0 1px 2px rgba(15, 30, 60, 0.08), 0 1px 1px rgba(15, 30, 60, 0.04);
+    --shadow-card-hover: 0 6px 20px rgba(15, 30, 60, 0.12);
+    --shadow-primary: 0 4px 14px rgba(10, 108, 255, 0.3);
+    --shadow-input: 0 0 0 3px rgba(10, 108, 255, 0.15);
 }
 
 /* --------------------------------------------------------------------------
