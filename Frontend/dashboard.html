@@ -64,8 +64,18 @@
             <div class="topbar__search">
                 <input type="text" placeholder="Buscar no Nexus Core…" aria-label="Buscar" />
             </div>
-            <div class="topbar__actions">
-                <button class="icon-btn" id="themeToggle" title="Alternar modo escuro" aria-label="Alternar tema">🌙</button>
+<div class="topbar__actions">
+                <div class="theme-picker">
+                    <button class="icon-btn" id="themeToggle" title="Ciclar tema" aria-label="Selecionar tema">🎨</button>
+                    <div class="theme-menu" id="themeMenu" hidden>
+                        <p class="theme-menu__title">Tema</p>
+                        <button class="theme-opt" data-theme="light"><span class="theme-swatch" style="background:#6c5ce7"></span>☀️ Claro</button>
+                        <button class="theme-opt" data-theme="dark"><span class="theme-swatch" style="background:#1a1d27"></span>🌙 Escuro</button>
+                        <button class="theme-opt" data-theme="cyberpunk"><span class="theme-swatch" style="background:#00f5ff"></span>🌆 Cyberpunk</button>
+                        <button class="theme-opt" data-theme="minimalista"><span class="theme-swatch" style="background:#1a1a1a"></span>◻️ Minimalista</button>
+                        <button class="theme-opt" data-theme="classico"><span class="theme-swatch" style="background:#0a6cff"></span>🏛️ Clássico</button>
+                    </div>
+                </div>
                 <span class="topbar__bell">🔔</span>
                 <a class="topbar__avatar" href="app.html?app=perfil" id="avatarTop">B</a>
             </div>
