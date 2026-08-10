@@ -239,14 +239,29 @@
 <!-- ===== FAIXA 4.6: Tarefa do Dia + Meta do Mês + Resumo Financeiro + Widgets Rápidos ===== -->
             <section class="widget widget--todolist">
                 <header class="widget__head">
-                    <h3 class="widget__title">📝 Tarefa do Dia</h3>
+                    <h3 class="widget__title">📝 Tarefas &amp; Conquistas</h3>
                     <button class="btn btn--primary btn--sm" id="todoAdd">＋ Adicionar</button>
                 </header>
-                <ul class="todo-list" id="todoList">
-                    <li><label><input type="checkbox" /> Revisar projeto Nexus</label></li>
-                    <li><label><input type="checkbox" /> Estudar FastAPI 30min</label></li>
-                    <li><label><input type="checkbox" /> Treinar 1h</label></li>
-                </ul>
+                <div class="todo-tabs" role="tablist" aria-label="Estados das tarefas">
+                    <button class="todo-tab todo-tab--active" data-filter="pending" role="tab">Pendentes</button>
+                    <button class="todo-tab" data-filter="active" role="tab">Não concluídas</button>
+                    <button class="todo-tab" data-filter="done" role="tab">Concluídas</button>
+                </div>
+                <ul class="todo-list" id="todoList"></ul>
+                <div class="achievements" id="achievementsPanel">
+                    <div class="achievement-card">
+                        <span class="achievement-card__value" id="streakValue">0</span>
+                        <span class="achievement-card__label">Streak</span>
+                    </div>
+                    <div class="achievement-card">
+                        <span class="achievement-card__value" id="goalsValue">0</span>
+                        <span class="achievement-card__label">Metas alcançadas</span>
+                    </div>
+                    <div class="achievement-card achievement-card--wide">
+                        <span class="achievement-card__value" id="evolutionValue">0%</span>
+                        <span class="achievement-card__label">Evolução</span>
+                    </div>
+                </div>
             </section>
 
             <section class="widget widget--metames">
