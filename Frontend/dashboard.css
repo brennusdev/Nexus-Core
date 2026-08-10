@@ -1153,32 +1153,33 @@ Hierarquia padronizada (escala aumentada p/ visualização e tamanho):
 /* --- Área do gráfico donut + saldo lado a lado --- */
 .finance-bottom {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-2);
-    align-items: center;
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 1fr);
+    gap: var(--space-3);
+    align-items: stretch;
 }
 
 .finance-chart-wrap {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    gap: var(--space-3);
-    padding: var(--space-3);
+    justify-content: center;
+    gap: var(--space-4);
+    padding: var(--space-4);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
-    background: var(--color-surface-hover);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-card);
 }
 .finance-donut {
     position: relative;
-    width: 96px;
-    height: 96px;
+    width: 124px;
+    height: 124px;
     flex-shrink: 0;
 }
 .finance-donut svg { width: 100%; height: 100%; transform: rotate(-90deg); }
-.fin-donut-bg { fill: none; stroke: var(--color-surface-2); stroke-width: 4; }
+.fin-donut-bg { fill: none; stroke: var(--color-surface-2); stroke-width: 5; }
 .fin-donut-seg {
     fill: none;
-    stroke-width: 4;
+    stroke-width: 5;
     stroke-linecap: round;
     transition: stroke-dasharray var(--duration-base) var(--ease), stroke-dashoffset var(--duration-base) var(--ease);
 }
@@ -1193,23 +1194,49 @@ Hierarquia padronizada (escala aumentada p/ visualização e tamanho):
     align-items: center;
     justify-content: center;
     text-align: center;
-    gap: 2px;
+    gap: 3px;
 }
-.fin-donut-center span { font-size: var(--font-size-label); color: var(--color-text-secondary); font-weight: var(--font-weight-semibold); }
-.fin-donut-center strong { font-size: var(--font-size-sm); color: var(--color-text-primary); }
+.fin-donut-center span {
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    font-weight: var(--font-weight-bold);
+}
+.fin-donut-center strong {
+    font-size: 0.92rem;
+    color: var(--color-text-primary);
+    font-weight: var(--font-weight-extrabold);
+}
 
-.finance-legend { display: flex; flex-direction: column; gap: var(--space-2); }
+.finance-legend {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    min-width: 118px;
+}
 .f-legend {
     display: flex;
     align-items: center;
     gap: var(--space-2);
-    font-size: var(--font-size-sm);
+    font-size: 0.86rem;
     color: var(--color-text-primary);
+    font-weight: var(--font-weight-medium);
 }
-.f-legend-dot { width: 12px; height: 12px; border-radius: var(--radius-sm); flex-shrink: 0; }
+.f-legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
 .f-dot--in { background: var(--color-success); }
 .f-dot--out { background: var(--color-danger); }
 .f-dot--inv { background: var(--color-primary); }
+
+@media (max-width: 640px) {
+    .finance-bottom {
+        grid-template-columns: 1fr;
+    }
+    .finance-chart-wrap {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+}
 
 .f-card strong { font-size: var(--font-size-base); margin-top: var(--space-1); }
 .f-card--in strong { color: var(--color-success); }
