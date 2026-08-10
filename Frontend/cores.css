@@ -266,6 +266,54 @@
     --shadow-input: 0 0 0 3px rgba(10, 108, 255, 0.15);
 }
 
+[data-theme="cyberpunk"] .sidebar,
+[data-theme="cyberpunk"] .topbar,
+[data-theme="cyberpunk"] .widget,
+[data-theme="cyberpunk"] .notes-card,
+[data-theme="cyberpunk"] .app-card,
+[data-theme="cyberpunk"] .theme-menu {
+    background: linear-gradient(135deg, rgba(11, 15, 29, 0.96), rgba(18, 26, 46, 0.96));
+    border-color: var(--color-border);
+    box-shadow: var(--shadow-card-hover);
+}
+
+[data-theme="cyberpunk"] .btn--primary,
+[data-theme="cyberpunk"] .theme-btn--active {
+    box-shadow: 0 0 0 1px rgba(0, 245, 255, 0.28), 0 0 16px rgba(0, 245, 255, 0.2);
+}
+
+[data-theme="minimalista"] .sidebar,
+[data-theme="minimalista"] .topbar,
+[data-theme="minimalista"] .widget,
+[data-theme="minimalista"] .notes-card,
+[data-theme="minimalista"] .app-card,
+[data-theme="minimalista"] .theme-menu {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+    box-shadow: var(--shadow-card);
+}
+
+[data-theme="minimalista"] .btn--primary {
+    background: #111111;
+    color: #ffffff;
+}
+
+[data-theme="classico"] .sidebar,
+[data-theme="classico"] .topbar,
+[data-theme="classico"] .widget,
+[data-theme="classico"] .notes-card,
+[data-theme="classico"] .app-card,
+[data-theme="classico"] .theme-menu {
+    background: linear-gradient(135deg, #f8fbff 0%, #eef4ff 100%);
+    border-color: #cfdcf0;
+    box-shadow: var(--shadow-card);
+}
+
+[data-theme="classico"] .btn--primary {
+    background: var(--color-primary);
+    color: #ffffff;
+}
+
 /* --------------------------------------------------------------------------
    2. RESET
    -------------------------------------------------------------------------- */
