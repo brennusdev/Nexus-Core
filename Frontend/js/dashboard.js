@@ -411,10 +411,7 @@ function updateFinance() {
             }
             const app = btn.dataset.open;
             if (app === "terminal") {
-                const terminalScript = "open-nexus-admin-terminal.vbs";
-                const basePath = window.location.href.replace(/[^/]+$/, "");
-                const finalPath = `${basePath}${terminalScript}`;
-                window.location.assign(finalPath);
+                window.location.href = "app.html?app=terminal";
                 return;
             }
             window.location.href = `app.html?app=${app}`;
