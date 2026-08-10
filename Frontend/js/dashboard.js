@@ -51,6 +51,137 @@
     const themeMenu = document.getElementById("themeMenu");
     const themeOptions = document.querySelectorAll(".theme-opt");
 
+    const assistantToggle = document.getElementById("assistantToggle");
+    const assistantPanel = document.getElementById("assistantPanel");
+    const assistantClose = document.getElementById("assistantClose");
+    const assistantMessages = document.getElementById("assistantMessages");
+    const assistantForm = document.getElementById("assistantForm");
+    const assistantInput = document.getElementById("assistantInput");
+    const assistantChips = document.querySelectorAll(".assistant-chip");
+
+    const ASSISTANT_STORAGE_KEY = "nexus_assistant_messages";
+    const ASSISTANT_OPEN_KEY = "nexus_assistant_open";
+
+    let assistantConversation = JSON.parse(localStorage.getItem(ASSISTANT_STORAGE_KEY) || "[]");
+    if (!assistantConversation.length) {
+        assistantConversation = [
+            { role: "bot", text: "Olá! Eu sou o Assistente Nexus. Posso te ajudar com foco, organização e sugestões de navegação." }
+        ];
+    }
+
+    function escapeHtml(value) {
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/\"/g, "&quot;");
+    }
+
+    function renderAssistantMessages() {
+        if (!assistantMessages) return;
+        assistantMessages.innerHTML = assistantConversation
+            .map((message) => `<div class="assistant-msg assistant-msg--${message.role}">${escapeHtml(message.text)}</div>`)
+            .join("");
+        assistantMessages.scrollTop = assistantMessages.scrollHeight;
+    }
+
+    function saveAssistantConversation() {
+        localStorage.setItem(ASSISTANT_STORAGE_KEY, JSON.stringify(assistantConversation));
+    }
+
+    function openAssistantPanel() {
+        if (!assistantPanel) return;
+        assistantPanel.classList.add("assistant-panel--open");
+        assistantPanel.setAttribute("aria-hidden", "false");
+        document.body.classList.add("assistant-open");
+        if (assistantToggle) assistantToggle.classList.add("is-active");
+        localStorage.setItem(ASSISTANT_OPEN_KEY, "1");
+        if (assistantInput) assistantInput.focus();
+    }
+
+    function closeAssistantPanel() {
+        if (!assistantPanel) return;
+        assistantPanel.classList.remove("assistant-panel--open");
+        assistantPanel.setAttribute("aria-hidden", "true");
+        document.body.classList.remove("assistant-open");
+        if (assistantToggle) assistantToggle.classList.remove("is-active");
+        localStorage.setItem(ASSISTANT_OPEN_KEY, "0");
+    }
+
+    function answerAssistant(prompt) {
+        const text = prompt.trim().toLowerCase();
+        if (text.includes("resumo") || text.includes("semana")) {
+            return "Seu fluxo está equilibrado: foco, estudos e metas estão em alta. Recomendo revisar duas tarefas de alto impacto hoje.";
+        }
+        if (text.includes("tarefa") || text.includes("organizar")) {
+            return "Posso te ajudar a priorizar em ordem: 1) concluir o bloco mais importante, 2) revisar pendências curtas e 3) deixar espaço para descanso.";
+        }
+        if (text.includes("foco") || text.includes("produtividade")) {
+            return "Para ganhar foco, use ciclos curtos de 25 minutos e registre o próximo passo antes de começar.";
+        }
+        return "Estou aqui para apoiar sua rotina: posso resumir sua semana, organizar tarefas ou sugerir um plano de foco.";
+    }
+
+    function sendAssistantPrompt(prompt) {
+        const value = prompt.trim();
+        if (!value) return;
+        assistantConversation.push({ role: "user", text: value });
+        saveAssistantConversation();
+        renderAssistantMessages();
+        window.setTimeout(() => {
+            assistantConversation.push({ role: "bot", text: answerAssistant(value) });
+            saveAssistantConversation();
+            renderAssistantMessages();
+        }, 220);
+    }
+
+    if (assistantToggle) {
+        assistantToggle.addEventListener("click", (event) => {
+            event.stopPropagation();
+            if (assistantPanel && assistantPanel.classList.contains("assistant-panel--open")) {
+                closeAssistantPanel();
+            } else {
+                openAssistantPanel();
+            }
+        });
+    }
+
+    if (assistantClose) assistantClose.addEventListener("click", closeAssistantPanel);
+    if (assistantPanel) {
+        assistantPanel.addEventListener("click", (event) => {
+            if (event.target === assistantPanel) closeAssistantPanel();
+        });
+    }
+
+    if (assistantForm) {
+        assistantForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            if (assistantInput) sendAssistantPrompt(assistantInput.value);
+            if (assistantInput) assistantInput.value = "";
+        });
+    }
+
+    assistantChips.forEach((chip) => {
+        chip.addEventListener("click", () => sendAssistantPrompt(chip.dataset.prompt));
+    });
+
+    document.addEventListener("click", (event) => {
+        if (assistantPanel && assistantPanel.classList.contains("assistant-panel--open") && !assistantPanel.contains(event.target) && event.target !== assistantToggle) {
+            closeAssistantPanel();
+        }
+    });
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && assistantPanel && assistantPanel.classList.contains("assistant-panel--open")) {
+            closeAssistantPanel();
+        }
+    });
+
+    renderAssistantMessages();
+    if (localStorage.getItem(ASSISTANT_OPEN_KEY) === "1") {
+        openAssistantPanel();
+    }
+
     // Lista ordenada de temas disponíveis (cicla ao clicar)
     const THEME_ORDER = ["light", "dark", "cyberpunk", "minimalista", "classico"];
 
