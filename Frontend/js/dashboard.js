@@ -652,25 +652,121 @@ data.forEach((v, i) => {
     }
 
     /* ============================================================
-       8. TAREFA DO DIA (adicionar)
+       8. TAREFA DO DIA + CONQUISTAS
        ============================================================ */
     const todoAdd = document.getElementById("todoAdd");
     const todoList = document.getElementById("todoList");
+    const todoTabs = document.querySelectorAll(".todo-tab");
+    const streakValue = document.getElementById("streakValue");
+    const goalsValue = document.getElementById("goalsValue");
+    const evolutionValue = document.getElementById("evolutionValue");
 
-if (todoAdd && todoList) {
+    const TODO_STORAGE_KEY = "nexus_todos";
+    let todoFilter = "pending";
+    let todos = JSON.parse(localStorage.getItem(TODO_STORAGE_KEY) || "[]");
+
+    if (!todos.length) {
+        todos = [
+            { id: Date.now(), text: "Revisar projeto Nexus", done: false, createdAt: Date.now() },
+            { id: Date.now() + 1, text: "Estudar FastAPI 30min", done: false, createdAt: Date.now() },
+            { id: Date.now() + 2, text: "Treinar 1h", done: true, createdAt: Date.now() }
+        ];
+    }
+
+    function saveTodos() {
+        localStorage.setItem(TODO_STORAGE_KEY, JSON.stringify(todos));
+    }
+
+    function getVisibleTodos() {
+        if (todoFilter === "done") return todos.filter((todo) => todo.done);
+        if (todoFilter === "active") return todos.filter((todo) => !todo.done);
+        return todos.filter((todo) => !todo.done);
+    }
+
+    function updateAchievements() {
+        const completed = todos.filter((todo) => todo.done).length;
+        const pending = todos.filter((todo) => !todo.done).length;
+        const streak = Math.min(7, completed + 1);
+        const goals = Math.min(10, completed);
+        const evolution = Math.min(100, Math.round((completed / Math.max(1, todos.length)) * 100));
+
+        if (streakValue) streakValue.textContent = streak;
+        if (goalsValue) goalsValue.textContent = goals;
+        if (evolutionValue) evolutionValue.textContent = `${evolution}%`;
+
+        const achievementText = `${completed} concluídas · ${pending} pendentes`;
+        if (evolutionValue) evolutionValue.title = achievementText;
+    }
+
+    function renderTodos() {
+        if (!todoList) return;
+        const visible = getVisibleTodos();
+        if (!visible.length) {
+            todoList.innerHTML = '<li class="todo-empty">Nenhuma tarefa para esta aba.</li>';
+            updateAchievements();
+            return;
+        }
+
+        todoList.innerHTML = visible.map((todo) => `
+            <li class="${todo.done ? "is-done" : ""}" data-id="${todo.id}">
+                <label>
+                    <input type="checkbox" ${todo.done ? "checked" : ""} data-id="${todo.id}" />
+                    <span>${escapeHtml(todo.text)}</span>
+                </label>
+                <button type="button" class="todo-del" data-id="${todo.id}" title="Remover">🗑️</button>
+            </li>`).join("");
+
+        updateAchievements();
+    }
+
+    function escapeHtml(text) {
+        const div = document.createElement("div");
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    if (todoAdd && todoList) {
         todoAdd.addEventListener("click", () => {
             const text = prompt("Nova tarefa do dia:");
             if (!text || !text.trim()) return;
-            const li = document.createElement("li");
-            const label = document.createElement("label");
-            const cb = document.createElement("input");
-            cb.type = "checkbox";
-            label.appendChild(cb);
-            label.appendChild(document.createTextNode(" " + text.trim()));
-            li.appendChild(label);
-            todoList.appendChild(li);
+            todos.unshift({ id: Date.now(), text: text.trim(), done: false, createdAt: Date.now() });
+            saveTodos();
+            renderTodos();
         });
     }
+
+    if (todoTabs.length) {
+        todoTabs.forEach((tab) => {
+            tab.addEventListener("click", () => {
+                todoTabs.forEach((item) => item.classList.remove("todo-tab--active"));
+                tab.classList.add("todo-tab--active");
+                todoFilter = tab.dataset.filter || "pending";
+                renderTodos();
+            });
+        });
+    }
+
+    todoList.addEventListener("change", (event) => {
+        const checkbox = event.target.closest('input[type="checkbox"]');
+        if (!checkbox) return;
+        const id = Number(checkbox.dataset.id);
+        const task = todos.find((item) => item.id === id);
+        if (!task) return;
+        task.done = checkbox.checked;
+        saveTodos();
+        renderTodos();
+    });
+
+    todoList.addEventListener("click", (event) => {
+        const btn = event.target.closest(".todo-del");
+        if (!btn) return;
+        const id = Number(btn.dataset.id);
+        todos = todos.filter((item) => item.id !== id);
+        saveTodos();
+        renderTodos();
+    });
+
+    renderTodos();
 
     /* ============================================================
        9. VISÃO GERAL — legenda interativa do radar
