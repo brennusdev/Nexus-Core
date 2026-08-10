@@ -51,6 +51,76 @@
             margin-bottom: 10px;
         }
 
+        .terminal-shell {
+            display: flex;
+            flex-direction: column;
+            min-height: 420px;
+            border-radius: 16px;
+            border: 1px solid var(--color-border);
+            background: linear-gradient(135deg, #0f172a, #111827);
+            color: #e2e8f0;
+            overflow: hidden;
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.22);
+        }
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: rgba(255,255,255,0.06);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+        .terminal-dots {
+            display: flex;
+            gap: 8px;
+        }
+        .terminal-dots span {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .terminal-dots span:nth-child(1) { background: #f87171; }
+        .terminal-dots span:nth-child(2) { background: #fbbf24; }
+        .terminal-dots span:nth-child(3) { background: #34d399; }
+        .terminal-output {
+            flex: 1;
+            padding: 16px;
+            font-family: Consolas, 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.55;
+            overflow: auto;
+            background: rgba(2, 6, 23, 0.8);
+        }
+        .terminal-line { margin-bottom: 8px; }
+        .terminal-line--prompt { color: #8b5cf6; }
+        .terminal-line--output { color: #dbeafe; white-space: pre-wrap; }
+        .terminal-line--error { color: #fda4af; }
+        .terminal-form {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.04);
+        }
+        .terminal-prompt {
+            color: #34d399;
+            font-family: Consolas, 'Courier New', monospace;
+            font-weight: 700;
+        }
+        .terminal-input {
+            flex: 1;
+            border: 0;
+            background: transparent;
+            color: #fff;
+            outline: none;
+            font-family: Consolas, 'Courier New', monospace;
+            font-size: 0.95rem;
+        }
+
         /* ===== CONTEÚDO ESPECÍFICO ===== */
         .app-content { padding: 4px 0; }
 
@@ -371,6 +441,121 @@
             ];
 
             const RENDERERS = {
+                "terminal": function () {
+                    appContent.classList.remove("app-placeholder");
+                    appContent.innerHTML = `
+                        <div class="app-content">
+                            <div class="terminal-shell">
+                                <div class="terminal-header">
+                                    <div class="terminal-dots"><span></span><span></span><span></span></div>
+                                    <span>Nexus Core Terminal</span>
+                                </div>
+                                <div class="terminal-output" id="terminalOutput"></div>
+                                <form class="terminal-form" id="terminalForm">
+                                    <span class="terminal-prompt">nexus@core:~$</span>
+                                    <input class="terminal-input" id="terminalInput" type="text" autocomplete="off" spellcheck="false" placeholder="Digite um comando..." />
+                                </form>
+                            </div>
+                        </div>`;
+
+                    const output = document.getElementById("terminalOutput");
+                    const form = document.getElementById("terminalForm");
+                    const input = document.getElementById("terminalInput");
+                    const state = { cwd: "/Nexus Core" };
+
+                    function appendLine(type, value) {
+                        const line = document.createElement("div");
+                        line.className = `terminal-line terminal-line--${type}`;
+                        line.textContent = value;
+                        output.appendChild(line);
+                    }
+
+                    function renderBanner() {
+                        appendLine("output", "Bem-vindo ao terminal Nexus Core");
+                        appendLine("output", "Use help para listar comandos, open cyber para abrir o Cyber Desk e code . para estudar o workspace.");
+                    }
+
+                    function runCommand(command) {
+                        const trimmed = command.trim();
+                        if (!trimmed) return;
+
+                        const [cmd, ...args] = trimmed.split(/\s+/);
+                        appendLine("prompt", `${state.cwd} $ ${trimmed}`);
+
+                        switch (cmd.toLowerCase()) {
+                            case "help":
+                                appendLine("output", "Comandos disponíveis: help, clear, pwd, ls, cd, echo, open, code, about");
+                                break;
+                            case "clear":
+                                output.innerHTML = "";
+                                break;
+                            case "pwd":
+                                appendLine("output", state.cwd);
+                                break;
+                            case "ls":
+                                appendLine("output", "Backend  Frontend  docs  imagens  README.md");
+                                break;
+                            case "cd": {
+                                const target = (args[0] || "").toLowerCase();
+                                if (!target || target === "~" || target === "/") {
+                                    state.cwd = "/Nexus Core";
+                                    appendLine("output", state.cwd);
+                                } else if (target === "frontend") {
+                                    state.cwd = "/Nexus Core/Frontend";
+                                    appendLine("output", state.cwd);
+                                } else if (target === "backend") {
+                                    state.cwd = "/Nexus Core/Backend";
+                                    appendLine("output", state.cwd);
+                                } else {
+                                    appendLine("error", `bash: cd: ${target}: No such file or directory`);
+                                }
+                                break;
+                            }
+                            case "echo":
+                                appendLine("output", args.join(" "));
+                                break;
+                            case "open": {
+                                const target = (args[0] || "").toLowerCase();
+                                if (target === "cyber" || target === "cyber-desk") {
+                                    appendLine("output", "Abrindo Cyber Desk...");
+                                    window.location.href = "app.html?app=cyber-desk";
+                                } else if (target === "dashboard") {
+                                    appendLine("output", "Abrindo dashboard...");
+                                    window.location.href = "dashboard.html";
+                                } else {
+                                    appendLine("error", "Use: open cyber | open dashboard");
+                                }
+                                break;
+                            }
+                            case "code":
+                                appendLine("output", "Workspace pronto para estudos. Abra os arquivos do projeto no seu editor favorito e continue codando.");
+                                break;
+                            case "about":
+                                appendLine("output", "Nexus Core Terminal — ambiente para estudar, testar e navegar pelo projeto.");
+                                break;
+                            default:
+                                appendLine("error", `bash: ${cmd}: command not found`);
+                                break;
+                        }
+                    }
+
+                    if (!output.innerHTML) {
+                        renderBanner();
+                    }
+
+                    if (form) {
+                        form.addEventListener("submit", (event) => {
+                            event.preventDefault();
+                            if (!input) return;
+                            runCommand(input.value);
+                            input.value = "";
+                            output.scrollTop = output.scrollHeight;
+                        });
+                    }
+
+                    if (input) input.focus();
+                },
+
                 "configuracoes": function () {
                     const savedLang = localStorage.getItem("nexus_lang") || "pt";
                     const cards = LANGUAGES.map((l) => `
