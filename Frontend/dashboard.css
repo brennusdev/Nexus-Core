@@ -954,6 +954,7 @@ Hierarquia padronizada (escala aumentada p/ visualização e tamanho):
 
 /* Gradientes de 2 cores, 135° — com cores escuras para texto legível */
 .qmini--notes { background: linear-gradient(135deg, #f59e0b 0%, #fda085 100%); color: #333; }
+.qmini--brain { background: linear-gradient(135deg, #7c3aed 0%, #dc2430 100%); }
 .qmini--term  { background: linear-gradient(135deg, #0f2027 0%, #203a43 100%); }
 .qmini--snip  { background: linear-gradient(135deg, #3b82f6 0%, #00c2ff 100%); color: #1a2733; }
 .qmini--pomo  { background: linear-gradient(135deg, #f97316 0%, #f9d423 100%); color: #333; }
