@@ -76,6 +76,13 @@
                         <button class="theme-opt" data-theme="classico"><span class="theme-swatch" style="background:#0a6cff"></span>🏛️ Clássico</button>
                     </div>
                 </div>
+                <button class="icon-btn assistant-btn" id="assistantToggle" title="Assistente Nexus" aria-label="Abrir Assistente Nexus">
+                    <svg class="icon-btn__svg" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M7 5h10a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H11l-3 3v-3H7a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z"></path>
+                        <path d="M9 9h6"></path>
+                        <path d="M9 12h4"></path>
+                    </svg>
+                </button>
                 <span class="topbar__bell">🔔</span>
                 <a class="topbar__avatar" href="app.html?app=perfil" id="avatarTop">B</a>
             </div>
@@ -424,6 +431,39 @@
 
 </div><!-- /dash-grid -->
     </main>
+
+    <aside class="assistant-panel" id="assistantPanel" aria-label="Assistente Nexus" aria-hidden="true">
+        <div class="assistant-panel__header">
+            <div>
+                <p class="assistant-panel__eyebrow">Assistente Nexus</p>
+                <h3 class="assistant-panel__title">IA do seu fluxo</h3>
+            </div>
+            <button class="assistant-panel__close" id="assistantClose" title="Fechar assistente" aria-label="Fechar assistente">✕</button>
+        </div>
+
+        <div class="assistant-panel__body">
+            <div class="assistant-panel__hero">
+                <div class="assistant-panel__avatar">NX</div>
+                <div>
+                    <p>Pronto para ajudar com foco, organização e decisões rápidas.</p>
+                    <span>Ativo agora</span>
+                </div>
+            </div>
+
+            <div class="assistant-panel__suggestions">
+                <button class="assistant-chip" data-prompt="Resumo da minha semana">Resumo da semana</button>
+                <button class="assistant-chip" data-prompt="Ajude a organizar minhas tarefas">Organizar tarefas</button>
+                <button class="assistant-chip" data-prompt="Quero uma dica de produtividade">Dica de foco</button>
+            </div>
+
+            <div class="assistant-panel__messages" id="assistantMessages"></div>
+
+            <form class="assistant-panel__composer" id="assistantForm">
+                <input type="text" id="assistantInput" placeholder="Pergunte algo ao Nexus…" aria-label="Mensagem para o assistente" />
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+    </aside>
 
     <!-- ===================== MODE FOCUS OVERLAY ===================== -->
     <div class="focus-overlay" id="focusOverlay" hidden>
