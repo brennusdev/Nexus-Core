@@ -39,6 +39,7 @@
     if (toggle) toggle.addEventListener("click", () => sidebar.classList.toggle("sidebar--open"));
     if (logoutBtn) logoutBtn.addEventListener("click", () => {
         localStorage.removeItem("nexus_user");
+        localStorage.removeItem("nexus_token"); // JWT da sessão autenticada
         window.location.href = "index.html";
     });
 
@@ -614,18 +615,22 @@ data.forEach((v, i) => {
     const mpArtist = document.getElementById("mpArtist");
     const mpPlayBtn = document.getElementById("mpPlayBtn");
 
+    // Rótulos/URLs vindos de music.js (fonte única). Fallback caso
+    //         music.js não tenha sido carregado.
+    const MUSIC_LABELS = window.NEXUS_MUSIC_SERVICES || {
+        youtube: "YouTube Music", spotify: "Spotify", deezer: "Deezer", soundcloud: "SoundCloud"
+    };
+    const MUSIC_URLS = window.NEXUS_MUSIC_URLS || {
+        youtube: "https://music.youtube.com", spotify: "https://open.spotify.com",
+        deezer: "https://www.deezer.com", soundcloud: "https://soundcloud.com"
+    };
+
     if (musicGrid) {
         musicGrid.querySelectorAll(".music-item").forEach((btn) => {
             btn.addEventListener("click", () => {
                 localStorage.setItem("nexus_music_service", btn.dataset.service);
-                const labels = {
-                    youtube: "YouTube Music",
-                    spotify: "Spotify",
-                    deezer: "Deezer",
-                    soundcloud: "SoundCloud"
-                };
-                localStorage.setItem("nexus_music_name", labels[btn.dataset.service]);
-                if (mpTitle) mpTitle.textContent = `Conectado ao ${labels[btn.dataset.service]}`;
+                localStorage.setItem("nexus_music_name", MUSIC_LABELS[btn.dataset.service] || btn.dataset.service);
+                if (mpTitle) mpTitle.textContent = `Conectado ao ${MUSIC_LABELS[btn.dataset.service]}`;
                 if (mpArtist) mpArtist.textContent = "Clique em ▶ para tocar";
                 if (mpPlayBtn) mpPlayBtn.disabled = false;
             });
@@ -641,13 +646,7 @@ data.forEach((v, i) => {
     if (mpPlayBtn) {
         mpPlayBtn.addEventListener("click", () => {
             const service = localStorage.getItem("nexus_music_service") || "spotify";
-            const urls = {
-                youtube: "https://music.youtube.com",
-                spotify: "https://open.spotify.com",
-                deezer: "https://www.deezer.com",
-                soundcloud: "https://soundcloud.com"
-            };
-            window.open(urls[service] || urls.spotify, "_blank");
+            window.open(MUSIC_URLS[service] || MUSIC_URLS.spotify, "_blank");
         });
     }
 
@@ -719,11 +718,8 @@ data.forEach((v, i) => {
         updateAchievements();
     }
 
-    function escapeHtml(text) {
-        const div = document.createElement("div");
-        div.textContent = text;
-        return div.innerHTML;
-    }
+    // NOTA: escapeHtml ja esta definido no topo (linha ~72). A duplicata
+    //         que existia aqui foi removida (strict mode = SyntaxError).
 
     if (todoAdd && todoList) {
         todoAdd.addEventListener("click", () => {
@@ -850,12 +846,6 @@ data.forEach((v, i) => {
         });
     }
 
-    function escapeHtml(str) {
-        const div = document.createElement("div");
-        div.textContent = str;
-        return div.innerHTML;
-    }
-
     // Referências do formulário
     const metaForm = document.getElementById("metaForm");
     const metaAddBtn = document.getElementById("metaAddBtn");
@@ -908,7 +898,8 @@ data.forEach((v, i) => {
     }
 
     // Delegação de eventos para editar/remover metas
-    document.getElementById("metaCats").addEventListener("click", (e) => {
+    const metaCats = document.getElementById("metaCats");
+    if (metaCats) metaCats.addEventListener("click", (e) => {
         const editBtn = e.target.closest(".meta-edit");
         const delBtn = e.target.closest(".meta-del");
         if (editBtn) {
