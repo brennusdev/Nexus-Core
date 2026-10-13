@@ -9,12 +9,21 @@ import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-# CORRECAO: Importando DATABASE_URL do config.py para EVITAR DUPLICACAO
-# MOTIVO: config.py ja define DATABASE_URL, SECRET_KEY, etc. Nao faz
-#         sentido database.py redefinir as mesmas variaveis.
-from App.core.config import DATABASE_URL
+# IMPORTANTE: Importar config.py carrega o .env (load_dotenv) ANTES de
+#         lermos DATABASE_URL. Sem este import, se database.py for o
+#         primeiro modulo a ser carregado, o .env nunca seria lido.
+import App.core.config  # noqa: F401
 
-# engine: ponto de conexao com o banco de dados PostgreSQL
+DATABASE_URL = os.getenv("DATABASE_URL") or ""
+
+# CORRECAO: create_engine com DATABASE_URL vazio quebrava com erro
+#         obsuro. Agora valida cedo com mensagem clara.
+if not DATABASE_URL:
+    raise RuntimeError(
+        "DATABASE_URL nao definida. Verifique Backend/.env "
+        "(veja .env.example)."
+    )
+
 engine = create_engine(DATABASE_URL)
 
 # SessionLocal: fabrica/factory de sessoes do SQLAlchemy
