@@ -76,25 +76,87 @@
 
     const validators = { login: validateLogin, register: validateRegister };
 
-    /* --- Submit + Redirecionamento --- */
+    /* ============================================================
+       API — URL do backend FastAPI
+       MOTIVO: Frontend e backend rodam em portas diferentes (Live
+       Server :5500 vs Uvicorn :8000). CORS_ORIGINS no .env do backend
+       ja autoriza essas origens.
+       ============================================================ */
+    const API_BASE = "http://localhost:8000";
+
+    /* --- Submit + chamada real a API --- */
     Object.entries(forms).forEach(([name, form]) => {
         if (!form) return;
 
-        form.addEventListener("submit", (e) => {
+        form.addEventListener("submit", async (e) => {
             e.preventDefault();
 
             if (!validators[name](form)) return;
 
-            // Mostra loader
+            // Mostra loader e trava o formulario
             loader.hidden = false;
             form.querySelectorAll("input, button").forEach((el) => (el.disabled = true));
 
-            // Sem backend, guarda nome do usuário e vai pro dashboard
-            setTimeout(() => {
-                const userName = form.name ? form.name.value.trim() : "BlackCode";
-                localStorage.setItem("nexus_user", userName || "BlackCode");
+            const isRegister = name === "register";
+            const url = isRegister ? `${API_BASE}/auth/register` : `${API_BASE}/auth/login`;
+            const body = isRegister
+                ? {
+                    name: form.name.value.trim(),
+                    email: form.email.value.trim(),
+                    password: form.password.value
+                }
+                : {
+                    email: form.email.value.trim(),
+                    password: form.password.value
+                };
+
+            try {
+                const response = await fetch(url, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(body)
+                });
+
+                const data = await response.json().catch(() => ({}));
+
+                if (!response.ok) {
+                    // 409 = e-mail ja cadastrado; 401 = credenciais invalidas;
+                    // 422 = erro de validacao do Pydantic.
+                    const msg = data.detail
+                        ? (typeof data.detail === "string"
+                            ? data.detail
+                            : "Verifique os campos e tente novamente.")
+                        : `Erro ${response.status}. Tente novamente.`;
+                    setError(form, isRegister ? "email" : "email", msg);
+                    return; // finally reabilita o formulario
+                }
+
+                // Sucesso: guarda token + usuario e vai pro dashboard
+                if (isRegister) {
+                    // Cadastro nao retorna token: faz login automatico
+                    const loginRes = await fetch(`${API_BASE}/auth/login`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ email: body.email, password: body.password })
+                    });
+                    if (!loginRes.ok) throw new Error("auto-login falhou");
+                    const loginData = await loginRes.json();
+                    localStorage.setItem("nexus_token", loginData.access_token);
+                    localStorage.setItem("nexus_user", loginData.user.name);
+                } else {
+                    localStorage.setItem("nexus_token", data.access_token);
+                    localStorage.setItem("nexus_user", data.user.name);
+                }
+
                 window.location.href = "dashboard.html";
-            }, 900);
+            } catch (err) {
+                // Backend offline ou erro de rede/CORS
+                setError(form, "email",
+                    "Nao foi possivel conectar ao servidor. Verifique se a API esta rodando em " + API_BASE + ".");
+            } finally {
+                loader.hidden = true;
+                form.querySelectorAll("input, button").forEach((el) => (el.disabled = false));
+            }
         });
 
         form.addEventListener("input", (e) => setError(form, e.target.name, ""));
