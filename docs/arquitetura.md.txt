@@ -1,0 +1,61 @@
+O Nexus Core foi projetado utilizando arquitetura modular.
+
+Cada módulo possui responsabilidade única.
+
+Frontend
+
+↓
+
+API
+
+↓
+
+Serviços
+
+↓
+
+Banco de Dados
+
+↓
+
+Analytics
+
+↓
+
+IA
+
+---
+
+## Módulos
+
+Auth
+
+Responsável pela autenticação.
+
+Users
+
+Gerenciamento de usuários.
+
+Habits
+
+Controle de hábitos.
+
+Goals
+
+Metas.
+
+Analytics
+
+Processamento estatístico.
+
+Reports
+
+Relatórios.
+
+Notifications
+
+Notificações.
+
+AI
+
+Motor de Inteligência Artificial.
