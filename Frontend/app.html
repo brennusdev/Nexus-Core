@@ -978,6 +978,7 @@
                     if (logoutBtn) {
                         logoutBtn.addEventListener("click", () => {
                             localStorage.removeItem("nexus_user");
+                            localStorage.removeItem("nexus_token"); // JWT
                             localStorage.removeItem("nexus_theme");
                             window.location.href = "index.html";
                         });
