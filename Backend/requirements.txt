@@ -24,6 +24,10 @@ alembic>=1.16.4
 # --- Autenticacao / Seguranca ---
 python-jose[cryptography]>=3.5.0
 passlib[bcrypt]>=1.7.4
+# FIX: passlib 1.7.4 quebra com bcrypt >= 4.1 (AttributeError __about__ /
+# ValueError 72 bytes). Pin em 4.0.1 ate passlib ser substituido (ex. por
+# pwdlib ou bcrypt puro).
+bcrypt==4.0.1
 python-multipart>=0.0.20
 
 # --- Configuracao / Validacao ---
