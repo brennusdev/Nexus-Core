@@ -1,0 +1,77 @@
+# Requisitos Funcionais
+
+RF001
+Cadastrar usuários.
+
+RF002
+Realizar autenticação.
+
+RF003
+Registrar hábitos.
+
+RF004
+Registrar estudos.
+
+RF005
+Registrar metas.
+
+RF006
+Exibir Dashboard.
+
+RF007
+Gerar estatísticas.
+
+RF008
+Gerar gráficos.
+
+RF009
+Controlar Pomodoro.
+
+RF010
+Gerenciar calendário.
+
+RF011
+Enviar notificações.
+
+RF012
+Gerar relatórios.
+
+RF013
+Registrar evolução diária.
+
+RF014
+Permitir personalização do painel.
+
+RF015
+Integrar Inteligência Artificial.
+
+---
+
+# Requisitos Não Funcionais
+
+RNF001
+Resposta inferior a 2 segundos.
+
+RNF002
+API REST.
+
+RNF003
+Autenticação JWT.
+
+RNF004
+Sistema responsivo.
+
+RNF005
+Arquitetura em Camadas.
+
+RNF006
+Banco PostgreSQL.
+
+RNF007
+Código documentado.
+
+RNF008
+Cobertura mínima de testes.
+
+RNF009
+Execução em Docker.
