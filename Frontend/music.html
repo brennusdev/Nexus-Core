@@ -8,14 +8,19 @@
     <link rel="stylesheet" href="dashboard.css" />
     <style>
         .music-config { max-width: 720px; margin: 0 auto; padding: 20px; }
+        /* CORREÇÃO: Variáveis --bg-card, --border-card, --text-soft,
+           --bg-soft, --border-input, --text-main, --bg-soft-2, --hover e
+           --radius não existem em cores.css (os nomes reais são
+           --color-surface, --color-border, etc.). O card ficava sem
+           background/borda visíveis. Agora usa os tokens corretos. */
         .config-card {
-            background: var(--bg-card);
-            border-radius: var(--radius);
-            border: 1px solid var(--border-card);
+            background: var(--color-surface);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--color-border);
             padding: 30px;
         }
         .config-title { font-size: 1.4rem; font-weight: 800; margin-bottom: 6px; }
-        .config-desc { color: var(--text-soft); margin-bottom: 24px; }
+        .config-desc { color: var(--color-text-secondary); margin-bottom: 24px; }
         .service-list { display: flex; flex-direction: column; gap: 12px; }
         .service-option {
             display: flex;
@@ -23,8 +28,8 @@
             gap: 14px;
             padding: 16px;
             border-radius: 12px;
-            border: 1px solid var(--border-input);
-            background: var(--bg-soft);
+            border: 1px solid var(--color-border);
+            background: var(--color-surface-hover);
             cursor: pointer;
             transition: border-color 0.2s, background 0.2s;
         }
@@ -41,7 +46,7 @@
             flex-shrink: 0;
         }
         .service-name { font-weight: 700; font-size: 1rem; }
-        .service-status { font-size: 0.8rem; color: var(--text-soft); }
+        .service-status { font-size: 0.8rem; color: var(--color-text-secondary); }
         .service-check { margin-left: auto; font-size: 1.2rem; color: var(--color-primary); }
         .yt { background: #ff0000; }
         .sp { background: #1db954; }
@@ -51,16 +56,16 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: var(--bg-soft-2);
+            background: var(--color-surface-2);
             border-radius: 8px;
             padding: 8px 14px;
             font-size: 0.85rem;
             font-weight: 600;
-            color: var(--text-main);
-            border: 1px solid var(--border-input);
+            color: var(--color-text-primary);
+            border: 1px solid var(--color-border);
             margin-bottom: 20px;
         }
-        .back-btn:hover { background: var(--hover); }
+        .back-btn:hover { background: var(--color-surface-hover); }
         .save-btn {
             margin-top: 20px;
             width: 100%;
@@ -71,7 +76,7 @@
             font-weight: 700;
             font-size: 1rem;
         }
-        .save-btn:hover { background: var(--color-primary-dark); }
+        .save-btn:hover { background: var(--color-primary); opacity: 0.9; }
     </style>
 </head>
 <body class="dash-body">
