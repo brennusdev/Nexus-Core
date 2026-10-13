@@ -1,16 +1,32 @@
-/* ==========================================================================
+/* ============================================================
    NEXUS CORE — Configuração de Música
    ========================================================================== */
 
 (function () {
     "use strict";
 
+    // CORREÇÃO: Centralizado aqui (era duplicado com dashboard.js).
+    // MOTIVO: Se um novo serviço for adicionado, só precisa editar aqui.
     const serviceNames = {
         youtube: "YouTube Music",
         spotify: "Spotify",
         deezer: "Deezer",
         soundcloud: "SoundCloud"
     };
+
+    // CORREÇÃO: Adicionado mapping de URL por serviço.
+    // MOTIVO: dashboard.js tinha os URLs hardcoded; agora a fonte única de
+    //         verdade para labels e URLs fica neste objeto compartilhado.
+    const serviceUrls = {
+        youtube: "https://music.youtube.com",
+        spotify: "https://open.spotify.com",
+        deezer: "https://www.deezer.com",
+        soundcloud: "https://soundcloud.com"
+    };
+
+    // Expõe para o dashboard.js (carregado antes) via window.
+    window.NEXUS_MUSIC_SERVICES = serviceNames;
+    window.NEXUS_MUSIC_URLS = serviceUrls;
 
     const options = document.querySelectorAll(".service-option");
     const saveBtn = document.getElementById("saveMusicConfig");
