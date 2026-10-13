@@ -1,0 +1,51 @@
+# Casos de Uso
+
+## Usuário
+
+Pode:
+
+- Criar conta.
+- Fazer login.
+- Editar perfil.
+- Registrar hábitos.
+- Registrar estudos.
+- Criar metas.
+- Registrar tarefas.
+- Visualizar estatísticas.
+- Receber recomendações.
+- Acompanhar evolução.
+- Gerar relatórios.
+
+---
+
+## Administrador
+
+Pode:
+
+- Gerenciar usuários.
+- Gerenciar permissões.
+- Monitorar sistema.
+- Visualizar métricas gerais. 
+----------------------------------------------------
+
+Usuário
+
+↓
+
+Login
+
+↓
+
+Dashboard
+
+↓
+
+Registrar Estudo
+
+↓
+
+Analytics
+
+↓
+
+Relatório
