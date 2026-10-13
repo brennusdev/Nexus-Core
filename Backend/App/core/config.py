@@ -19,3 +19,7 @@ ALGORITHM = os.getenv("ALGORITHM")
 ACCESS_TOKEN_EXPIRE_MINUTES = int(
     os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 60)
 )
+
+# Origens CORS permitidas (separadas por virgula). Ex:
+#   CORS_ORIGINS=http://localhost:5500,http://127.0.0.1:5500
+CORS_ORIGINS = os.getenv("CORS_ORIGINS", "")
