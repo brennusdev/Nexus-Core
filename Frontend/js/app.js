@@ -76,13 +76,8 @@
 
     const validators = { login: validateLogin, register: validateRegister };
 
-    /* ============================================================
-       API — URL do backend FastAPI
-       MOTIVO: Frontend e backend rodam em portas diferentes (Live
-       Server :5500 vs Uvicorn :8000). CORS_ORIGINS no .env do backend
-       ja autoriza essas origens.
-       ============================================================ */
-    const API_BASE = "http://localhost:8000";
+    /* URL da API FastAPI definida em js/config.js. */
+    const API_BASE = window.NEXUS_API_URL.replace(/\/+$/, "");
 
     /* --- Submit + chamada real a API --- */
     Object.entries(forms).forEach(([name, form]) => {
@@ -204,4 +199,3 @@
     const active = document.querySelector(".auth-tabs__tab--active");
     if (active) activateTab(active.dataset.tab);
 })();
-
