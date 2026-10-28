@@ -197,37 +197,27 @@ Permite acompanhar:
 O projeto foi estruturado visando separação de responsabilidades e possibilidade de evolução.
 
 ```text
-nexus-core/
-│
-├── frontend/
-│   ├── dashboard/
-│   ├── profile/
-│   ├── analytics/
-│   ├── habits/
-│   ├── goals/
-│   └── settings/
-│
-├── backend/
-│   ├── auth/
-│   ├── users/
-│   ├── habits/
-│   ├── goals/
-│   ├── analytics/
-│   └── reports/
-│
-├── database/
-│   ├── users/
-│   ├── activities/
-│   ├── habits/
-│   ├── goals/
-│   └── statistics/
-│
+Nexus Core/
+├── Frontend/              # Site estático multipágina (HTML, CSS e JavaScript)
+│   ├── index.html         # Entrada do site
+│   └── js/
+│       ├── config.js      # URL da API
+│       ├── app.js         # Login e cadastro
+│       └── ...
+├── Backend/               # API FastAPI, persistência e autenticação
+│   ├── App/
+│   │   ├── api/
+│   │   ├── core/
+│   │   ├── models/
+│   │   ├── schemas/
+│   │   └── services/
+│   └── migrations/        # Migrações Alembic
 ├── docs/
-│
-└── README.md
+├── docker-compose.yaml
+└── vercel.json            # Publica Frontend/ como diretório estático
 ```
 
-A separação permite evoluir cada camada independentemente e facilita a manutenção, testes e expansão da aplicação.
+O frontend e a API são deploys separados: o Vercel publica somente os arquivos estáticos em `Frontend/`; o FastAPI e o PostgreSQL precisam ser hospedados/configurados separadamente.
 
 ---
 
@@ -348,6 +338,20 @@ docker compose up --build
 
 Isso permite executar os principais serviços do projeto utilizando um ambiente reproduzível.
 
+## 🚀 Deploy do frontend na Vercel
+
+Importe o repositório na Vercel usando a raiz do projeto como **Root Directory** (não selecione `Backend/`). O `vercel.json` desativa a detecção automática de frameworks, desativa o comando de build e define `Frontend/` como diretório de saída; como essa pasta contém `index.html`, a URL raiz passa a abrir a tela de login em vez de retornar `NOT_FOUND` ou procurar `App/main.py` na raiz.
+
+Se o projeto Vercel já existir, confirme em **Settings → Build and Deployment** que **Root Directory** é a raiz do repositório. O `vercel.json` força o preset **Other**; não configure o projeto como FastAPI.
+
+A Vercel publica apenas o frontend. Para login e cadastro funcionarem em produção:
+
+1. Hospede o backend FastAPI e o PostgreSQL em serviços compatíveis.
+2. Em `Frontend/js/config.js`, troque `http://localhost:8000` pela URL pública da API e faça um novo deploy.
+3. Configure `CORS_ORIGINS` no backend com a origem exata do domínio Vercel (incluindo `https://`).
+
+O endereço `localhost` é apenas para desenvolvimento local; ele aponta para o computador de cada visitante quando usado pelo navegador em produção.
+
 ---
 
 ## 📚 Documentação
@@ -438,5 +442,3 @@ O Nexus Core é um projeto em evolução contínua. Novas funcionalidades, melho
 Desenvolvido como projeto de estudo e portfólio em engenharia de software.
 
 **Nexus Core — Build. Measure. Analyze. Evolve.**
-
-
