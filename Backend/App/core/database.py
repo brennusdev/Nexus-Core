@@ -5,16 +5,15 @@
 #         Era necessario ter: engine, SessionLocal, Base e get_db()
 #         para o ORM SQLAlchemy funcionar com os models (User, etc.).
 # ====================================================================
-import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
 # IMPORTANTE: Importar config.py carrega o .env (load_dotenv) ANTES de
 #         lermos DATABASE_URL. Sem este import, se database.py for o
 #         primeiro modulo a ser carregado, o .env nunca seria lido.
-import App.core.config  # noqa: F401
+from App.core.config import DATABASE_URL as configured_database_url
 
-DATABASE_URL = os.getenv("DATABASE_URL") or ""
+DATABASE_URL = configured_database_url or ""
 
 # CORRECAO: create_engine com DATABASE_URL vazio quebrava com erro
 #         obsuro. Agora valida cedo com mensagem clara.
