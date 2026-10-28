@@ -23,7 +23,11 @@ app = FastAPI(
 # FRONTALIZADO: CORS_ORIGINS no .env (lista separada por virgula),
 #         com fallback para os portes de dev mais comuns.
 _default_origins = "http://localhost:5500,http://127.0.0.1:5500,http://localhost:3000,http://localhost:8080"
-CORS_ORIGINS = os.getenv("CORS_ORIGINS", _default_origins).split(",")
+CORS_ORIGINS = [
+    origin.strip()
+    for origin in os.getenv("CORS_ORIGINS", _default_origins).split(",")
+    if origin.strip()
+]
 
 app.add_middleware(
     CORSMiddleware,
