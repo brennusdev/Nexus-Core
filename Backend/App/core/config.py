@@ -11,6 +11,8 @@ BACKEND_DIR = Path(__file__).resolve().parent.parent.parent  # .../Backend
 load_dotenv(BACKEND_DIR / ".env")
 
 DATABASE_URL = os.getenv("DATABASE_URL")
+if DATABASE_URL and DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
