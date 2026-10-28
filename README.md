@@ -346,11 +346,12 @@ Se o projeto Vercel já existir, confirme em **Settings → Build and Deployment
 
 A Vercel publica apenas o frontend. Para login e cadastro funcionarem em produção:
 
-1. Hospede o backend FastAPI e o PostgreSQL em serviços compatíveis.
-2. Em `Frontend/js/config.js`, troque `http://localhost:8000` pela URL pública da API e faça um novo deploy.
-3. Configure `CORS_ORIGINS` no backend com a origem exata do domínio Vercel (incluindo `https://`).
+1. Crie um Blueprint no Render a partir deste repositório e revise os recursos antes de confirmar. O `render.yaml` cria o PostgreSQL e o serviço FastAPI, conecta a API ao banco, executa as migrações Alembic e define o domínio informado como origem CORS; a chave JWT é gerada pelo Render.
+2. Este Blueprint usa o plano gratuito de PostgreSQL, que é temporário e pode expirar após 30 dias. Não use esse banco para guardar dados permanentes; faça upgrade para um plano persistente antes de produção.
+3. Após o deploy, copie o endereço público do serviço `nexus-core-api` (terminado em `onrender.com`) e defina-o em `Frontend/js/config.js` no lugar de `http://localhost:8000`; faça um novo deploy na Vercel.
+4. Verifique `https://<url-do-servico-render>/health`. O resultado deve indicar `healthy` e `database: up`.
 
-O endereço `localhost` é apenas para desenvolvimento local; ele aponta para o computador de cada visitante quando usado pelo navegador em produção.
+O endereço `localhost` é apenas para desenvolvimento local; ele aponta para o computador de cada visitante quando usado pelo navegador em produção. O plano gratuito do Render pode suspender o serviço após inatividade, causando demora na primeira requisição.
 
 ---
 
