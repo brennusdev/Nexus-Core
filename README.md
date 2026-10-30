@@ -235,6 +235,7 @@ O frontend e a API são deploys separados: o Vercel publica somente os arquivos 
 * HTML5
 * CSS3
 * JavaScript
+* Layout responsivo para celulares, tablets e desktops
 
 ### Database
 
