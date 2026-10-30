@@ -97,6 +97,10 @@ Gerenciamento dos projetos em desenvolvimento, permitindo acompanhar:
 * Atualizações
 * Métricas
 
+### 🛠️ Project Generator
+
+O gerador oferece templates iniciais para aplicações web, SaaS/dashboards, APIs e projetos full-stack. No MVP atual, é possível criar um dashboard inicial por projeto, ativar módulos padrão, adicionar funcionalidades personalizadas, vincular uma URL de repositório existente e exportar a configuração em JSON. Os dados são armazenados localmente no navegador; criação de repositórios GitHub e sincronização com a conta ainda não estão disponíveis.
+
 ### 🔔 Intelligent Notifications
 
 Sistema responsável por identificar eventos importantes e gerar notificações.
