@@ -1747,7 +1747,7 @@ toast("✅ Perfil salvo com sucesso!");
                             checkins: { ...state.checkins, [dayKey]: checkin }
                         })) {
                             render();
-                            sendBrowserNotification(getAlerts(checkin, getTodayCompletions(), getDailyScore(checkin, getTodayCompletions())));
+                            sendBrowserNotification();
                             toast("✅ Check-in salvo. Suas metas foram atualizadas.");
                         }
                     });
@@ -1778,7 +1778,7 @@ toast("✅ Perfil salvo com sucesso!");
                             : current.filter((habitId) => habitId !== id);
                         if (saveState({ ...state, completions: { ...state.completions, [dayKey]: next } })) {
                             render();
-                            sendBrowserNotification(getAlerts(state.checkins[dayKey] || null, next, getDailyScore(state.checkins[dayKey] || null, next)));
+                            sendBrowserNotification();
                         }
                     });
 
@@ -1839,7 +1839,10 @@ toast("✅ Perfil salvo com sucesso!");
                             ...state,
                             supportEnabled,
                             notificationsEnabled: supportEnabled && state.notificationsEnabled
-                        })) render();
+                        })) {
+                            render();
+                            sendBrowserNotification();
+                        }
                     });
 
                     notificationButton.addEventListener("click", async () => {
