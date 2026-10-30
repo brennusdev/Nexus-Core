@@ -432,6 +432,54 @@
         }
         .nexus-toast--show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
+        .snippets-shell { display: flex; flex-direction: column; gap: 16px; text-align: left; }
+        .snippets-toolbar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+        .snippets-toolbar .text-input { flex: 1 1 220px; margin: 0; }
+        .snippets-toolbar select,
+        .snippet-form input,
+        .snippet-form select,
+        .snippet-form textarea {
+            width: 100%;
+            min-width: 0;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            padding: 10px 12px;
+            background: var(--color-surface-hover);
+            color: var(--color-text-primary);
+            font: inherit;
+        }
+        .snippets-toolbar select { flex: 0 1 190px; }
+        .snippets-summary { color: var(--color-text-secondary); font-size: .85rem; }
+        .snippet-form {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+            padding: 16px;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            background: var(--color-surface-hover);
+        }
+        .snippet-form__full { grid-column: 1 / -1; }
+        .snippet-form textarea { min-height: 190px; resize: vertical; font-family: Consolas, "Courier New", monospace; }
+        .snippet-form__actions { display: flex; gap: 8px; flex-wrap: wrap; }
+        .snippet-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+        .snippet-card {
+            min-width: 0;
+            overflow: hidden;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            background: var(--color-surface);
+        }
+        .snippet-card__head { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; padding: 14px 14px 8px; }
+        .snippet-card__title { min-width: 0; overflow-wrap: anywhere; font-weight: 800; color: var(--color-text-primary); }
+        .snippet-card__meta { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 14px 10px; }
+        .snippet-chip { padding: 4px 8px; border-radius: 999px; background: var(--color-primary-soft); color: var(--color-primary); font-size: .72rem; font-weight: 700; }
+        .snippet-card__description { padding: 0 14px 10px; color: var(--color-text-secondary); font-size: .85rem; overflow-wrap: anywhere; }
+        .snippet-code { max-height: 260px; overflow: auto; margin: 0; padding: 14px; background: #10131d; color: #e7e9f0; font: .82rem/1.55 Consolas, "Courier New", monospace; tab-size: 4; }
+        .snippet-code code { white-space: pre; }
+        .snippet-card__actions { display: flex; gap: 8px; flex-wrap: wrap; padding: 12px 14px; border-top: 1px solid var(--color-border); }
+        .snippet-empty { grid-column: 1 / -1; padding: 24px; border: 1px dashed var(--color-border-strong); border-radius: var(--radius-md); color: var(--color-text-secondary); text-align: center; }
+
         @media (max-width: 640px) {
             .app-shell { padding: 12px; }
             .app-card { padding: 18px; min-height: 0; }
@@ -448,6 +496,10 @@
             .theme-choice--grid,
             .settings-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
             .theme-btn { min-width: 0; padding: 12px; }
+            .snippet-form,
+            .snippet-list { grid-template-columns: minmax(0, 1fr); }
+            .snippet-form__full { grid-column: auto; }
+            .snippets-toolbar select { flex: 1 1 100%; }
         }
     </style>
 
@@ -1151,6 +1203,228 @@
 toast("✅ Perfil salvo com sucesso!");
                         });
                     }
+                },
+
+                "snippets": function () {
+                    const storageKey = "nexus_snippets_v1";
+                    const languages = ["JavaScript", "TypeScript", "Python", "HTML/CSS", "SQL", "Bash", "Outro"];
+                    let snippets = [];
+                    let editingId = null;
+
+                    try {
+                        const saved = JSON.parse(localStorage.getItem(storageKey) || "[]");
+                        if (!Array.isArray(saved)) throw new TypeError("O armazenamento de snippets não contém uma lista.");
+                        snippets = saved.filter((item) =>
+                            item &&
+                            typeof item.id === "string" &&
+                            typeof item.title === "string" &&
+                            typeof item.code === "string"
+                        );
+                    } catch (error) {
+                        console.error("Não foi possível carregar os snippets salvos.", error);
+                        toast("Não foi possível ler os snippets salvos neste navegador.");
+                    }
+
+                    appContent.classList.remove("app-placeholder");
+                    appContent.innerHTML = `
+                        <div class="app-content snippets-shell">
+                            <div>
+                                <h2 class="profile-title">📚 Sua biblioteca de código</h2>
+                                <p class="notes-subtitle">Guarde, organize, pesquise e reutilize seus trechos de código.</p>
+                            </div>
+                            <form class="snippet-form" id="snippetForm">
+                                <input id="snippetTitle" type="text" maxlength="80" placeholder="Nome do snippet" aria-label="Nome do snippet" required />
+                                <select id="snippetLanguage" aria-label="Linguagem do código">
+                                    ${languages.map((language) => `<option value="${language}">${language}</option>`).join("")}
+                                </select>
+                                <input class="snippet-form__full" id="snippetTags" type="text" maxlength="120" placeholder="Tags separadas por vírgula (ex.: API, autenticação)" aria-label="Tags" />
+                                <input class="snippet-form__full" id="snippetDescription" type="text" maxlength="180" placeholder="Descrição (opcional)" aria-label="Descrição" />
+                                <textarea class="snippet-form__full" id="snippetCode" spellcheck="false" placeholder="Cole ou escreva seu código aqui..." aria-label="Código do snippet" required></textarea>
+                                <div class="snippet-form__actions snippet-form__full">
+                                    <button class="btn btn--primary btn--sm" id="snippetSubmit" type="submit">＋ Salvar snippet</button>
+                                    <button class="btn btn--sm" id="snippetCancel" type="button" hidden>Cancelar edição</button>
+                                </div>
+                            </form>
+                            <div class="snippets-toolbar">
+                                <input class="text-input" id="snippetSearch" type="search" placeholder="Buscar por nome, código ou tag..." aria-label="Buscar snippets" />
+                                <select id="snippetFilter" aria-label="Filtrar por linguagem">
+                                    <option value="">Todas as linguagens</option>
+                                    ${languages.map((language) => `<option value="${language}">${language}</option>`).join("")}
+                                </select>
+                            </div>
+                            <p class="snippets-summary" id="snippetCount" aria-live="polite"></p>
+                            <div class="snippet-list" id="snippetList"></div>
+                        </div>`;
+
+                    const form = appContent.querySelector("#snippetForm");
+                    const titleInput = appContent.querySelector("#snippetTitle");
+                    const languageInput = appContent.querySelector("#snippetLanguage");
+                    const tagsInput = appContent.querySelector("#snippetTags");
+                    const descriptionInput = appContent.querySelector("#snippetDescription");
+                    const codeInput = appContent.querySelector("#snippetCode");
+                    const submitButton = appContent.querySelector("#snippetSubmit");
+                    const cancelButton = appContent.querySelector("#snippetCancel");
+                    const searchInput = appContent.querySelector("#snippetSearch");
+                    const filterInput = appContent.querySelector("#snippetFilter");
+                    const countLabel = appContent.querySelector("#snippetCount");
+                    const snippetList = appContent.querySelector("#snippetList");
+
+                    function escapeHtml(value) {
+                        const element = document.createElement("span");
+                        element.textContent = value;
+                        return element.innerHTML;
+                    }
+
+                    function persist(nextSnippets) {
+                        try {
+                            localStorage.setItem(storageKey, JSON.stringify(nextSnippets));
+                            return true;
+                        } catch (error) {
+                            console.error("Não foi possível salvar os snippets.", error);
+                            toast("Não foi possível salvar. O armazenamento do navegador pode estar cheio.");
+                            return false;
+                        }
+                    }
+
+                    function resetForm() {
+                        form.reset();
+                        editingId = null;
+                        submitButton.textContent = "＋ Salvar snippet";
+                        cancelButton.hidden = true;
+                    }
+
+                    function renderSnippets() {
+                        const query = searchInput.value.trim().toLocaleLowerCase("pt-BR");
+                        const language = filterInput.value;
+                        const filtered = snippets.filter((snippet) => {
+                            const searchable = [
+                                snippet.title,
+                                snippet.language,
+                                snippet.description || "",
+                                Array.isArray(snippet.tags) ? snippet.tags.join(" ") : "",
+                                snippet.code
+                            ].join(" ").toLocaleLowerCase("pt-BR");
+                            return (!language || snippet.language === language) && (!query || searchable.includes(query));
+                        });
+
+                        countLabel.textContent = `${filtered.length} de ${snippets.length} snippet${snippets.length === 1 ? "" : "s"}`;
+                        snippetList.innerHTML = filtered.length
+                            ? filtered.map((snippet) => {
+                                const tags = Array.isArray(snippet.tags) ? snippet.tags : [];
+                                const safeId = escapeHtml(snippet.id);
+                                const date = snippet.updatedAt || snippet.createdAt;
+                                const formattedDate = date
+                                    ? new Date(date).toLocaleDateString("pt-BR")
+                                    : "";
+                                return `
+                                    <article class="snippet-card">
+                                        <div class="snippet-card__head">
+                                            <h3 class="snippet-card__title">${escapeHtml(snippet.title)}</h3>
+                                            <span class="snippet-chip">${escapeHtml(snippet.language || "Outro")}</span>
+                                        </div>
+                                        <div class="snippet-card__meta">
+                                            ${tags.map((tag) => `<span class="snippet-chip">${escapeHtml(tag)}</span>`).join("")}
+                                            ${formattedDate ? `<span class="snippet-chip">${snippet.updatedAt ? "Atualizado" : "Salvo"} ${formattedDate}</span>` : ""}
+                                        </div>
+                                        ${snippet.description ? `<p class="snippet-card__description">${escapeHtml(snippet.description)}</p>` : ""}
+                                        <pre class="snippet-code"><code>${escapeHtml(snippet.code)}</code></pre>
+                                        <div class="snippet-card__actions">
+                                            <button class="btn btn--primary btn--sm" type="button" data-snippet-action="copy" data-snippet-id="${safeId}">📋 Copiar</button>
+                                            <button class="btn btn--sm" type="button" data-snippet-action="edit" data-snippet-id="${safeId}">✏️ Editar</button>
+                                            <button class="btn btn--sm" type="button" data-snippet-action="delete" data-snippet-id="${safeId}">🗑️ Remover</button>
+                                        </div>
+                                    </article>`;
+                            }).join("")
+                            : `<p class="snippet-empty">${snippets.length ? "Nenhum snippet corresponde à sua busca." : "Sua biblioteca está vazia. Salve seu primeiro trecho de código acima."}</p>`;
+                    }
+
+                    form.addEventListener("submit", (event) => {
+                        event.preventDefault();
+                        const now = new Date().toISOString();
+                        const existing = snippets.find((snippet) => snippet.id === editingId);
+                        const snippet = {
+                            id: existing?.id || (window.crypto?.randomUUID
+                                ? window.crypto.randomUUID()
+                                : `${Date.now()}-${Math.random().toString(36).slice(2)}`),
+                            title: titleInput.value.trim(),
+                            language: languageInput.value,
+                            tags: tagsInput.value.split(",").map((tag) => tag.trim()).filter(Boolean),
+                            description: descriptionInput.value.trim(),
+                            code: codeInput.value,
+                            createdAt: existing?.createdAt || now,
+                            updatedAt: existing ? now : ""
+                        };
+
+                        const nextSnippets = existing
+                            ? snippets.map((item) => item.id === existing.id ? snippet : item)
+                            : [snippet, ...snippets];
+                        if (!persist(nextSnippets)) return;
+                        snippets = nextSnippets;
+                        resetForm();
+                        renderSnippets();
+                        toast(existing ? "✅ Snippet atualizado!" : "✅ Snippet salvo na biblioteca!");
+                    });
+
+                    cancelButton.addEventListener("click", resetForm);
+                    searchInput.addEventListener("input", renderSnippets);
+                    filterInput.addEventListener("change", renderSnippets);
+
+                    snippetList.addEventListener("click", async (event) => {
+                        if (!(event.target instanceof Element)) return;
+                        const button = event.target.closest("[data-snippet-action]");
+                        if (!button) return;
+
+                        const snippet = snippets.find((item) => item.id === button.dataset.snippetId);
+                        if (!snippet) return;
+
+                        if (button.dataset.snippetAction === "copy") {
+                            try {
+                                if (navigator.clipboard?.writeText) {
+                                    await navigator.clipboard.writeText(snippet.code);
+                                } else {
+                                    const temporaryInput = document.createElement("textarea");
+                                    temporaryInput.value = snippet.code;
+                                    temporaryInput.setAttribute("readonly", "");
+                                    temporaryInput.style.position = "fixed";
+                                    temporaryInput.style.opacity = "0";
+                                    document.body.appendChild(temporaryInput);
+                                    temporaryInput.select();
+                                    const copied = document.execCommand("copy");
+                                    temporaryInput.remove();
+                                    if (!copied) throw new Error("O navegador não permitiu copiar o código.");
+                                }
+                                toast("📋 Código copiado!");
+                            } catch (error) {
+                                console.error("Não foi possível copiar o código.", error);
+                                toast("Não foi possível copiar. Verifique a permissão da área de transferência.");
+                            }
+                            return;
+                        }
+
+                        if (button.dataset.snippetAction === "edit") {
+                            editingId = snippet.id;
+                            titleInput.value = snippet.title;
+                            languageInput.value = languages.includes(snippet.language) ? snippet.language : "Outro";
+                            tagsInput.value = Array.isArray(snippet.tags) ? snippet.tags.join(", ") : "";
+                            descriptionInput.value = snippet.description || "";
+                            codeInput.value = snippet.code;
+                            submitButton.textContent = "💾 Atualizar snippet";
+                            cancelButton.hidden = false;
+                            titleInput.focus();
+                            return;
+                        }
+
+                        if (button.dataset.snippetAction === "delete" && window.confirm(`Remover o snippet “${snippet.title}”?`)) {
+                            const nextSnippets = snippets.filter((item) => item.id !== snippet.id);
+                            if (!persist(nextSnippets)) return;
+                            snippets = nextSnippets;
+                            if (editingId === snippet.id) resetForm();
+                            renderSnippets();
+                            toast("🗑️ Snippet removido.");
+                        }
+                    });
+
+                    renderSnippets();
                 },
 
                 "second-brain": function () {
