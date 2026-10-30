@@ -157,20 +157,25 @@
         form.addEventListener("input", (e) => setError(form, e.target.name, ""));
     });
 
-/* --- Tema (5 temas customizáveis no login) --- */
+/* --- Tema (4 fundos: claro, escuro, clássico, cyberpunk) --- */
     const themeToggle = document.getElementById("themeToggle");
 
     // Mesma ordem e rótulos do dashboard
-    const THEME_ORDER = ["light", "dark", "cyberpunk", "minimalista", "classico"];
+    const THEME_ORDER = ["light", "dark", "classico", "cyberpunk"];
     const THEME_META = {
-        light:      { icon: "☀️", label: "Claro" },
-        dark:       { icon: "🌙", label: "Escuro" },
-        cyberpunk:  { icon: "🌆", label: "Cyberpunk" },
-        minimalista:{ icon: "◻️", label: "Minimalista" },
-        classico:   { icon: "🏛️", label: "Clássico" }
+        light:     { icon: "☀️", label: "Claro" },
+        dark:      { icon: "🌙", label: "Escuro" },
+        classico:  { icon: "🏛️", label: "Clássico" },
+        cyberpunk: { icon: "🌆", label: "Cyberpunk" }
     };
 
+    function normalizeTheme(theme) {
+        if (theme === "minimalista") return "light";
+        return THEME_META[theme] ? theme : "light";
+    }
+
     function applyTheme(theme) {
+        theme = normalizeTheme(theme);
         document.documentElement.setAttribute("data-theme", theme);
         localStorage.setItem("nexus_theme", theme);
         if (themeToggle) {
