@@ -26,31 +26,33 @@
     /* ------------------------------------------------------------------
        COLOR SYSTEM (cores)
     ------------------------------------------------------------------ */
-    --color-primary: #6c5ce7;
-    --color-primary-hover: #5a4bd4;
-    --color-primary-soft: #ece9fb;
-    --color-secondary: #928dab;
-    --color-accent: #a29bfe;
-    --color-success: #10b981;
-    --color-warning: #f59e0b;
-    --color-danger: #e63946;
+    --color-primary: #5b5fc7;
+    --color-primary-hover: #484cb0;
+    --color-primary-soft: #ebebfa;
+    --color-secondary: #7b8199;
+    --color-accent: #4f8cff;
+    --color-success: #12b76a;
+    --color-warning: #f79009;
+    --color-danger: #e11d48;
     --color-surface: #ffffff;
-    --color-surface-hover: #f6f7fb;
-    --color-surface-2: #eef0f6;
-    --color-border: #e5e7eb;
-    --color-border-strong: #d1d5db;
-    --color-background: #f1f3f9;
+    --color-surface-hover: #f5f7ff;
+    --color-surface-2: #e8edf8;
+    --color-border: #d9e0ef;
+    --color-border-strong: #c2cce0;
+    --color-background: #e9eef9;
 
     /* Textos (mesmos nomes canônicos do dashboard.css) */
-    --color-text-primary: #2b2b3c;
-    --color-text-secondary: #6b7280;
-    --color-text-muted: #9aa1b5;
+    --color-text-primary: #1c2438;
+    --color-text-secondary: #5b657a;
+    --color-text-muted: #8b95ab;
 
-    /* Sidebar (mesmo gradiente do dashboard) */
-    --color-sidebar: linear-gradient(180deg, #0d0f1e, #16142e);
+    /* Sidebar + atmosfera de fundo */
+    --color-sidebar: linear-gradient(180deg, #151b2f, #222b46);
+    --bg-pattern: radial-gradient(1200px 500px at 12% -10%, rgba(91, 95, 199, 0.16), transparent 55%),
+                  radial-gradient(900px 420px at 100% 0%, rgba(79, 140, 255, 0.12), transparent 50%);
 
     /* Fundo hero (login) */
-    --gradient-login: linear-gradient(135deg, #0d0f1e 0%, #1a1442 45%, #3b2d8f 100%);
+    --gradient-login: linear-gradient(135deg, #151b2f 0%, #2a3358 45%, #4f63b8 100%);
 
     /* Aliases de compatibilidade (nome legado → canônico) */
     --color-text: var(--color-text-primary);
@@ -144,126 +146,125 @@
    Reatribui apenas os tokens de cor — componentes permanecem idênticos.
    Usado tanto no login (cores.css) quanto no dashboard (dashboard.css).
    -------------------------------------------------------------------------- */
+[data-theme="light"] {
+    --color-primary: #5b5fc7;
+    --color-primary-hover: #484cb0;
+    --color-primary-soft: #ebebfa;
+    --color-secondary: #7b8199;
+    --color-accent: #4f8cff;
+    --color-success: #12b76a;
+    --color-warning: #f79009;
+    --color-danger: #e11d48;
+    --color-surface: #ffffff;
+    --color-surface-hover: #f5f7ff;
+    --color-surface-2: #e8edf8;
+    --color-border: #d9e0ef;
+    --color-border-strong: #c2cce0;
+    --color-background: #e9eef9;
+    --color-text-primary: #1c2438;
+    --color-text-secondary: #5b657a;
+    --color-text-muted: #8b95ab;
+    --color-sidebar: linear-gradient(180deg, #151b2f, #222b46);
+    --bg-pattern: radial-gradient(1200px 500px at 12% -10%, rgba(91, 95, 199, 0.16), transparent 55%),
+                  radial-gradient(900px 420px at 100% 0%, rgba(79, 140, 255, 0.12), transparent 50%);
+    --gradient-login: linear-gradient(135deg, #151b2f 0%, #2a3358 45%, #4f63b8 100%);
+}
+
 [data-theme="dark"] {
-    --color-primary: #a29bfe;
-    --color-primary-hover: #8f86f5;
-    --color-primary-soft: #2a2738;
-    --color-secondary: #8d8ba3;
-    --color-accent: #6c5ce7;
+    --color-primary: #8ea2ff;
+    --color-primary-hover: #a8b6ff;
+    --color-primary-soft: #1d2742;
+    --color-secondary: #8e99b5;
+    --color-accent: #63d2ff;
     --color-success: #34d399;
     --color-warning: #fbbf24;
-    --color-danger: #f87171;
-    --color-surface: #1a1d27;
-    --color-surface-hover: #222634;
-    --color-surface-2: #2a2f40;
-    --color-border: #262b39;
-    --color-border-strong: #343a4d;
-    --color-background: #0f1117;
-    --color-text-primary: #e7e9f0;
-    --color-text-secondary: #9aa1b5;
-    --color-text-muted: #6b7280;
-    --color-sidebar: linear-gradient(180deg, #0d0f1e, #16142e);
-    --gradient-login: linear-gradient(135deg, #0d0f1e 0%, #1a1442 45%, #3b2d8f 100%);
-    --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.4);
-    --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.5);
-    --shadow-primary: 0 4px 14px rgba(162, 155, 254, 0.35);
-    --shadow-input: 0 0 0 3px rgba(162, 155, 254, 0.2);
+    --color-danger: #fb7185;
+    --color-surface: #121a2b;
+    --color-surface-hover: #182338;
+    --color-surface-2: #22304a;
+    --color-border: #2a3955;
+    --color-border-strong: #3b4d6f;
+    --color-background: #080d18;
+    --color-text-primary: #e8eefc;
+    --color-text-secondary: #9aabc8;
+    --color-text-muted: #6d7d9c;
+    --color-sidebar: linear-gradient(180deg, #060a14, #10182a);
+    --bg-pattern: radial-gradient(900px 420px at 0% 0%, rgba(142, 162, 255, 0.18), transparent 55%),
+                  radial-gradient(700px 360px at 100% 10%, rgba(99, 210, 255, 0.1), transparent 50%);
+    --gradient-login: linear-gradient(135deg, #060a14 0%, #121c36 45%, #243b6b 100%);
+    --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.45);
+    --shadow-card-hover: 0 10px 28px rgba(0, 0, 0, 0.55);
+    --shadow-primary: 0 4px 14px rgba(142, 162, 255, 0.35);
+    --shadow-input: 0 0 0 3px rgba(142, 162, 255, 0.22);
 }
 
 /* --------------------------------------------------------------------------
    1.2 TEMA CYBERPUNK ([data-theme="cyberpunk"])
    --------------------------------------------------------------------------
-   Neon escuro: fundo preto-azulado, destaques magenta/ciano/verde neon.
-   Sidebar e login ganham glow cibernético.
+   Fundo quase preto com atmosfera teal/magenta; cards com borda neon.
    -------------------------------------------------------------------------- */
 [data-theme="cyberpunk"] {
-    --color-primary: #00f5ff;          /* Ciano neon */
-    --color-primary-hover: #39ffd4;
-    --color-primary-soft: #0a2a33;
-    --color-secondary: #9d7bff;
-    --color-accent: #ff00e5;           /* Magenta neon */
-    --color-success: #00ff9d;          /* Verde neon */
-    --color-warning: #ffe600;
-    --color-danger: #ff2d55;
-    --color-surface: #0b0f1d;
-    --color-surface-hover: #121a2e;
-    --color-surface-2: #1a2440;
-    --color-border: #2a3a66;
-    --color-border-strong: #3b4f8a;
-    --color-background: #05070f;
-    --color-text-primary: #e6f7ff;
-    --color-text-secondary: #9fb4d8;
-    --color-text-muted: #5f739c;
-    --color-sidebar: linear-gradient(180deg, #050518, #120a2e);
-    --gradient-login: linear-gradient(135deg, #05070f 0%, #0a0a2e 45%, #2e0a4e 100%);
-    --shadow-card: 0 0 0 1px rgba(0, 245, 255, 0.12), 0 4px 20px rgba(0, 245, 255, 0.08);
-    --shadow-card-hover: 0 0 0 1px rgba(0, 245, 255, 0.35), 0 10px 30px rgba(255, 0, 229, 0.15);
-    --shadow-primary: 0 0 18px rgba(0, 245, 255, 0.45);
-    --shadow-input: 0 0 0 3px rgba(0, 245, 255, 0.25);
+    --color-primary: #22d3ee;
+    --color-primary-hover: #67e8f9;
+    --color-primary-soft: #083344;
+    --color-secondary: #a78bfa;
+    --color-accent: #f472b6;
+    --color-success: #4ade80;
+    --color-warning: #facc15;
+    --color-danger: #fb7185;
+    --color-surface: #07111f;
+    --color-surface-hover: #0d1a2e;
+    --color-surface-2: #13243d;
+    --color-border: #164e63;
+    --color-border-strong: #0891b2;
+    --color-background: #020617;
+    --color-text-primary: #ecfeff;
+    --color-text-secondary: #94c5d8;
+    --color-text-muted: #5f8ea3;
+    --color-sidebar: linear-gradient(180deg, #020617, #0b1324 55%, #1a0b2e);
+    --bg-pattern: linear-gradient(rgba(34, 211, 238, 0.05) 1px, transparent 1px),
+                  linear-gradient(90deg, rgba(244, 114, 182, 0.05) 1px, transparent 1px),
+                  radial-gradient(700px 380px at 15% 0%, rgba(34, 211, 238, 0.18), transparent 60%),
+                  radial-gradient(600px 340px at 95% 5%, rgba(244, 114, 182, 0.16), transparent 55%);
+    --bg-pattern-size: 28px 28px, 28px 28px, auto, auto;
+    --gradient-login: linear-gradient(135deg, #020617 0%, #0b1324 40%, #2a0a3d 100%);
+    --shadow-card: 0 0 0 1px rgba(34, 211, 238, 0.16), 0 8px 24px rgba(2, 6, 23, 0.65);
+    --shadow-card-hover: 0 0 0 1px rgba(244, 114, 182, 0.35), 0 12px 32px rgba(34, 211, 238, 0.18);
+    --shadow-primary: 0 0 18px rgba(34, 211, 238, 0.4);
+    --shadow-input: 0 0 0 3px rgba(34, 211, 238, 0.28);
 }
 
 /* --------------------------------------------------------------------------
-   1.3 TEMA MINIMALISTA ([data-theme="minimalista"])
+   1.3 TEMA CLÁSSICO ([data-theme="classico"])
    --------------------------------------------------------------------------
-   Monocromático, muito branco, tipografia limpa, sombras quase ausentes.
-   Foco total em conteúdo e espaçamento.
-   -------------------------------------------------------------------------- */
-[data-theme="minimalista"] {
-    --color-primary: #1a1a1a;          /* Preto sóbrio */
-    --color-primary-hover: #000000;
-    --color-primary-soft: #f0f0f0;
-    --color-secondary: #8a8a8a;
-    --color-accent: #3a3a3a;
-    --color-success: #2f9e44;
-    --color-warning: #b08968;
-    --color-danger: #c92a2a;
-    --color-surface: #ffffff;
-    --color-surface-hover: #fafafa;
-    --color-surface-2: #f3f3f3;
-    --color-border: #e8e8e8;
-    --color-border-strong: #cccccc;
-    --color-background: #f7f7f7;
-    --color-text-primary: #181818;
-    --color-text-secondary: #5c5c5c;
-    --color-text-muted: #9a9a9a;
-    --color-sidebar: linear-gradient(180deg, #ffffff, #f1f1f1);
-    --gradient-login: linear-gradient(135deg, #ffffff 0%, #ececec 50%, #e0e0e0 100%);
-    --shadow-card: none;
-    --shadow-card-hover: 0 1px 4px rgba(0, 0, 0, 0.06);
-    --shadow-primary: 0 1px 3px rgba(0, 0, 0, 0.12);
-    --shadow-input: 0 0 0 2px rgba(0, 0, 0, 0.08);
-}
-
-/* --------------------------------------------------------------------------
-   1.4 TEMA CLÁSSICO ([data-theme="classico"])
-   --------------------------------------------------------------------------
-   Azul clássico estilo Windows/empresarial, superfícies leves e sóbrias.
-   Aparência confiável e tradicional.
+   Azul corporativo, fundo slate e sidebar navy — visual tradicional.
    -------------------------------------------------------------------------- */
 [data-theme="classico"] {
-    --color-primary: #0a6cff;          /* Azul clássico */
-    --color-primary-hover: #0053d6;
-    --color-primary-soft: #e8f0fe;
+    --color-primary: #1d4ed8;
+    --color-primary-hover: #1e40af;
+    --color-primary-soft: #dbe7ff;
     --color-secondary: #64748b;
-    --color-accent: #3b82f6;
-    --color-success: #16a34a;
-    --color-warning: #d97706;
-    --color-danger: #dc2626;
-    --color-surface: #ffffff;
-    --color-surface-hover: #f4f7fb;
-    --color-surface-2: #e9eef5;
-    --color-border: #d1d9e6;
-    --color-border-strong: #b3c0d4;
-    --color-background: #eef2f7;
-    --color-text-primary: #1e293b;
-    --color-text-secondary: #475569;
-    --color-text-muted: #94a3b8;
-    --color-sidebar: linear-gradient(180deg, #1e3a5f, #16283f);
-    --gradient-login: linear-gradient(135deg, #1e3a5f 0%, #2b4a76 50%, #3f6fb5 100%);
-    --shadow-card: 0 1px 2px rgba(15, 30, 60, 0.08), 0 1px 1px rgba(15, 30, 60, 0.04);
-    --shadow-card-hover: 0 6px 20px rgba(15, 30, 60, 0.12);
-    --shadow-primary: 0 4px 14px rgba(10, 108, 255, 0.3);
-    --shadow-input: 0 0 0 3px rgba(10, 108, 255, 0.15);
+    --color-accent: #0ea5e9;
+    --color-success: #15803d;
+    --color-warning: #b45309;
+    --color-danger: #b91c1c;
+    --color-surface: #f8fafc;
+    --color-surface-hover: #eef4fb;
+    --color-surface-2: #e2eaf4;
+    --color-border: #c7d4e6;
+    --color-border-strong: #9fb3cd;
+    --color-background: #d9e3f0;
+    --color-text-primary: #0f172a;
+    --color-text-secondary: #334155;
+    --color-text-muted: #64748b;
+    --color-sidebar: linear-gradient(180deg, #0b1f3a, #16345a);
+    --bg-pattern: linear-gradient(180deg, rgba(255, 255, 255, 0.45), transparent 180px),
+                  radial-gradient(900px 420px at 100% -10%, rgba(14, 165, 233, 0.12), transparent 55%);
+    --gradient-login: linear-gradient(135deg, #0b1f3a 0%, #1d4ed8 55%, #38bdf8 100%);
+    --shadow-card: 0 1px 2px rgba(15, 30, 60, 0.1), 0 1px 1px rgba(15, 30, 60, 0.05);
+    --shadow-card-hover: 0 8px 22px rgba(15, 30, 60, 0.14);
+    --shadow-primary: 0 4px 14px rgba(29, 78, 216, 0.32);
+    --shadow-input: 0 0 0 3px rgba(29, 78, 216, 0.18);
 }
 
 [data-theme="cyberpunk"] .sidebar,
@@ -272,40 +273,28 @@
 [data-theme="cyberpunk"] .notes-card,
 [data-theme="cyberpunk"] .app-card,
 [data-theme="cyberpunk"] .theme-menu {
-    background: linear-gradient(135deg, rgba(11, 15, 29, 0.96), rgba(18, 26, 46, 0.96));
-    border-color: var(--color-border);
-    box-shadow: var(--shadow-card-hover);
-}
-
-[data-theme="cyberpunk"] .btn--primary,
-[data-theme="cyberpunk"] .theme-btn--active {
-    box-shadow: 0 0 0 1px rgba(0, 245, 255, 0.28), 0 0 16px rgba(0, 245, 255, 0.2);
-}
-
-[data-theme="minimalista"] .sidebar,
-[data-theme="minimalista"] .topbar,
-[data-theme="minimalista"] .widget,
-[data-theme="minimalista"] .notes-card,
-[data-theme="minimalista"] .app-card,
-[data-theme="minimalista"] .theme-menu {
-    background: var(--color-surface);
+    background: linear-gradient(160deg, rgba(7, 17, 31, 0.96), rgba(13, 26, 46, 0.92));
     border-color: var(--color-border);
     box-shadow: var(--shadow-card);
 }
 
-[data-theme="minimalista"] .btn--primary {
-    background: #111111;
-    color: #ffffff;
+[data-theme="cyberpunk"] .btn--primary,
+[data-theme="cyberpunk"] .theme-btn--active {
+    box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.35), 0 0 16px rgba(34, 211, 238, 0.22);
 }
 
-[data-theme="classico"] .sidebar,
+[data-theme="classico"] .sidebar {
+    background: var(--color-sidebar);
+    border-color: #0a1a30;
+}
+
 [data-theme="classico"] .topbar,
 [data-theme="classico"] .widget,
 [data-theme="classico"] .notes-card,
 [data-theme="classico"] .app-card,
 [data-theme="classico"] .theme-menu {
-    background: linear-gradient(135deg, #f8fbff 0%, #eef4ff 100%);
-    border-color: #cfdcf0;
+    background: linear-gradient(180deg, #ffffff 0%, #f3f7fc 100%);
+    border-color: var(--color-border);
     box-shadow: var(--shadow-card);
 }
 
