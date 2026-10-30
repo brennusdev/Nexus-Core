@@ -291,6 +291,7 @@
     let storedTasks = JSON.parse(localStorage.getItem("nexus_cal_tasks") || "[]");
 
     function renderCalendar() {
+        if (!calMonthLabel || !calGrid) return;
         const year = calDate.getFullYear();
         const month = calDate.getMonth();
         calMonthLabel.textContent = `${MONTHS[month]} ${year}`;
@@ -310,6 +311,7 @@
     }
 
     function renderTasks() {
+        if (!calTasks) return;
         calTasks.innerHTML = "";
         const key = `${calDate.getFullYear()}-${calDate.getMonth()}`;
         storedTasks.filter((t) => t.key === key).forEach((t) => {
@@ -320,6 +322,7 @@
     }
 
     function addTask() {
+        if (!calTaskInput) return;
         const text = calTaskInput.value.trim();
         if (!text) return;
         const key = `${calDate.getFullYear()}-${calDate.getMonth()}`;
@@ -742,25 +745,27 @@ data.forEach((v, i) => {
         });
     }
 
-    todoList.addEventListener("change", (event) => {
-        const checkbox = event.target.closest('input[type="checkbox"]');
-        if (!checkbox) return;
-        const id = Number(checkbox.dataset.id);
-        const task = todos.find((item) => item.id === id);
-        if (!task) return;
-        task.done = checkbox.checked;
-        saveTodos();
-        renderTodos();
-    });
+    if (todoList) {
+        todoList.addEventListener("change", (event) => {
+            const checkbox = event.target.closest('input[type="checkbox"]');
+            if (!checkbox) return;
+            const id = Number(checkbox.dataset.id);
+            const task = todos.find((item) => item.id === id);
+            if (!task) return;
+            task.done = checkbox.checked;
+            saveTodos();
+            renderTodos();
+        });
 
-    todoList.addEventListener("click", (event) => {
-        const btn = event.target.closest(".todo-del");
-        if (!btn) return;
-        const id = Number(btn.dataset.id);
-        todos = todos.filter((item) => item.id !== id);
-        saveTodos();
-        renderTodos();
-    });
+        todoList.addEventListener("click", (event) => {
+            const btn = event.target.closest(".todo-del");
+            if (!btn) return;
+            const id = Number(btn.dataset.id);
+            todos = todos.filter((item) => item.id !== id);
+            saveTodos();
+            renderTodos();
+        });
+    }
 
     renderTodos();
 

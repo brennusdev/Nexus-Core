@@ -480,6 +480,76 @@
         .snippet-card__actions { display: flex; gap: 8px; flex-wrap: wrap; padding: 12px 14px; border-top: 1px solid var(--color-border); }
         .snippet-empty { grid-column: 1 / -1; padding: 24px; border: 1px dashed var(--color-border-strong); border-radius: var(--radius-md); color: var(--color-text-secondary); text-align: center; }
 
+        .life-os { display: flex; flex-direction: column; gap: 18px; text-align: left; }
+        .life-os__hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            align-items: center;
+            gap: 16px;
+            padding: 22px;
+            border-radius: var(--radius-md);
+            background: linear-gradient(135deg, #0f766e, #14b8a6);
+            color: #fff;
+        }
+        .life-os__eyebrow { font-size: .78rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; opacity: .84; }
+        .life-os__greeting { margin: 4px 0; font-size: 1.45rem; font-weight: 800; }
+        .life-os__subtitle { max-width: 620px; line-height: 1.55; opacity: .94; }
+        .life-os__score { display: grid; place-items: center; width: 94px; height: 94px; border: 5px solid rgba(255,255,255,.55); border-radius: 50%; font-size: 1.4rem; font-weight: 800; }
+        .life-os__score small { display: block; margin-top: -24px; font-size: .62rem; font-weight: 600; }
+        .life-os__section { display: flex; flex-direction: column; gap: 12px; }
+        .life-os__section-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+        .life-os__section-title { color: var(--color-text-primary); font-size: 1.05rem; font-weight: 800; }
+        .life-os__muted { color: var(--color-text-secondary); font-size: .84rem; line-height: 1.5; }
+        .life-os__alerts { display: grid; gap: 8px; }
+        .life-os__alert { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; border: 1px solid var(--color-border); border-left: 4px solid var(--color-warning); border-radius: var(--radius-sm); background: var(--color-surface-hover); color: var(--color-text-primary); }
+        .life-os__alert--positive { border-left-color: var(--color-success); }
+        .life-os__alert strong { display: block; margin-bottom: 2px; font-size: .88rem; }
+        .life-os__alert p { color: var(--color-text-secondary); font-size: .83rem; line-height: 1.45; }
+        .life-os__preferences { display: grid; gap: 8px; padding: 12px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface); }
+        .life-os__preference { display: flex; align-items: flex-start; gap: 9px; color: var(--color-text-primary); font-size: .86rem; font-weight: 700; }
+        .life-os__preference input { margin-top: 3px; accent-color: var(--color-success); }
+        .life-os__support-panel { display: grid; gap: 10px; padding: 14px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface); }
+        .life-os__support-panel[hidden] { display: none; }
+        .life-os__support-list, .life-os__today-actions { display: grid; gap: 8px; }
+        .life-os__support-action, .life-os__today-action { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); }
+        .life-os__support-action p, .life-os__today-action span { color: var(--color-text-primary); font-size: .84rem; line-height: 1.45; }
+        .life-os__today-action label { display: flex; align-items: flex-start; gap: 8px; min-width: 0; }
+        .life-os__today-action input { margin-top: 3px; accent-color: var(--color-success); }
+        .life-os__today-action--done span { color: var(--color-text-secondary); text-decoration: line-through; }
+        .life-os__support-action button, .life-os__today-action button { flex: 0 0 auto; }
+        .life-os__metric-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+        .life-os__metric { min-width: 0; padding: 14px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface); }
+        .life-os__metric-label { color: var(--color-text-secondary); font-size: .78rem; }
+        .life-os__metric-value { margin-top: 5px; color: var(--color-text-primary); font-size: 1.1rem; font-weight: 800; overflow-wrap: anywhere; }
+        .life-os__form { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+        .life-os__field { display: flex; min-width: 0; flex-direction: column; gap: 5px; }
+        .life-os__field label { color: var(--color-text-secondary); font-size: .78rem; font-weight: 700; }
+        .life-os__field input, .life-os__field select, .life-os__field textarea {
+            width: 100%; min-width: 0; border: 1px solid var(--color-border); border-radius: var(--radius-sm);
+            padding: 10px; background: var(--color-surface-hover); color: var(--color-text-primary); font: inherit;
+        }
+        .life-os__field textarea { min-height: 72px; resize: vertical; }
+        .life-os__field--wide { grid-column: 1 / -1; }
+        .life-os__form-actions { grid-column: 1 / -1; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+        .life-os__habits { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px; }
+        .life-os__habit { display: flex; align-items: center; gap: 10px; min-width: 0; padding: 12px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface); }
+        .life-os__habit input { width: 20px; height: 20px; flex: 0 0 20px; accent-color: var(--color-success); }
+        .life-os__habit-main { min-width: 0; flex: 1; }
+        .life-os__habit-name { color: var(--color-text-primary); font-size: .88rem; font-weight: 700; overflow-wrap: anywhere; }
+        .life-os__habit-category { color: var(--color-text-secondary); font-size: .74rem; }
+        .life-os__habit--done { border-color: var(--color-success); background: var(--color-surface-hover); }
+        .life-os__habit-delete { width: 34px; height: 34px; flex: 0 0 34px; border-radius: var(--radius-sm); color: var(--color-text-secondary); }
+        .life-os__habit-delete:hover { background: var(--color-surface-hover); color: var(--color-danger); }
+        .life-os__add-habit { display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, .45fr) auto; gap: 8px; }
+        .life-os__add-habit input, .life-os__add-habit select { min-width: 0; padding: 10px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface-hover); color: var(--color-text-primary); font: inherit; }
+        .life-os__week { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px; }
+        .life-os__day { min-width: 0; padding: 10px 6px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface); text-align: center; }
+        .life-os__day-name { color: var(--color-text-secondary); font-size: .7rem; }
+        .life-os__day-value { margin-top: 5px; color: var(--color-text-primary); font-size: .84rem; font-weight: 800; }
+        .life-os__bar { height: 5px; margin-top: 8px; overflow: hidden; border-radius: 999px; background: var(--color-surface-2); }
+        .life-os__bar span { display: block; height: 100%; border-radius: inherit; background: var(--color-success); }
+        .life-os__disclaimer { padding-top: 10px; border-top: 1px solid var(--color-border); color: var(--color-text-muted); font-size: .75rem; line-height: 1.5; }
+
         @media (max-width: 640px) {
             .app-shell { padding: 12px; }
             .app-card { padding: 18px; min-height: 0; }
@@ -500,6 +570,15 @@
             .snippet-list { grid-template-columns: minmax(0, 1fr); }
             .snippet-form__full { grid-column: auto; }
             .snippets-toolbar select { flex: 1 1 100%; }
+            .life-os__hero { grid-template-columns: minmax(0, 1fr) auto; padding: 16px; }
+            .life-os__score { width: 72px; height: 72px; border-width: 4px; font-size: 1.15rem; }
+            .life-os__metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .life-os__form { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .life-os__habits { grid-template-columns: minmax(0, 1fr); }
+            .life-os__add-habit { grid-template-columns: minmax(0, 1fr) minmax(0, .7fr); }
+            .life-os__add-habit button { grid-column: 1 / -1; }
+            .life-os__week { gap: 4px; }
+            .life-os__day { padding-inline: 2px; }
         }
     </style>
 
@@ -1203,6 +1282,600 @@
 toast("✅ Perfil salvo com sucesso!");
                         });
                     }
+                },
+
+                "life-os": function () {
+                    const storageKey = "nexus_life_os_v1";
+                    const today = new Date();
+                    const dayKey = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
+                    const categories = ["Rotina", "Saúde", "Bem-estar", "Foco"];
+                    const defaultHabits = [
+                        { id: "life-plan-day", name: "Planejar o dia", category: "Rotina" },
+                        { id: "life-move", name: "Fazer uma pausa para se movimentar", category: "Saúde" },
+                        { id: "life-mindful-break", name: "Fazer uma pausa consciente", category: "Bem-estar" },
+                        { id: "life-prepare-sleep", name: "Preparar-se para descansar", category: "Rotina" }
+                    ];
+                    const defaultState = {
+                        habits: defaultHabits,
+                        completions: {},
+                        checkins: {},
+                        targets: { sleep: 7, water: 6, movement: 20 },
+                        supportEnabled: false,
+                        notificationsEnabled: false,
+                        lastNotification: "",
+                        dailyActions: {}
+                    };
+                    let state = defaultState;
+
+                    try {
+                        const saved = JSON.parse(localStorage.getItem(storageKey) || "null");
+                        if (saved && typeof saved === "object" && !Array.isArray(saved)) {
+                            state = {
+                                ...defaultState,
+                                ...saved,
+                                habits: Array.isArray(saved.habits)
+                                    ? saved.habits.filter((habit) =>
+                                        habit &&
+                                        typeof habit.id === "string" &&
+                                        typeof habit.name === "string" &&
+                                        categories.includes(habit.category)
+                                    )
+                                    : defaultHabits,
+                                completions: saved.completions && typeof saved.completions === "object" ? saved.completions : {},
+                                checkins: saved.checkins && typeof saved.checkins === "object" ? saved.checkins : {},
+                                targets: { ...defaultState.targets, ...(saved.targets || {}) },
+                                supportEnabled: saved.supportEnabled === true,
+                                notificationsEnabled: saved.notificationsEnabled === true,
+                                dailyActions: saved.dailyActions && typeof saved.dailyActions === "object" && !Array.isArray(saved.dailyActions)
+                                    ? Object.fromEntries(Object.entries(saved.dailyActions).map(([key, actions]) => [
+                                        key,
+                                        Array.isArray(actions)
+                                            ? actions.filter((action) =>
+                                                action &&
+                                                typeof action.id === "string" &&
+                                                typeof action.sourceId === "string" &&
+                                                typeof action.text === "string"
+                                            ).map((action) => ({ ...action, done: action.done === true }))
+                                            : []
+                                    ]))
+                                    : {}
+                            };
+                        }
+                    } catch (error) {
+                        console.error("Não foi possível carregar os dados do Life OS.", error);
+                        toast("Não foi possível ler os dados do Life OS neste navegador.");
+                    }
+
+                    function saveState(nextState) {
+                        try {
+                            localStorage.setItem(storageKey, JSON.stringify(nextState));
+                            state = nextState;
+                            return true;
+                        } catch (error) {
+                            console.error("Não foi possível salvar os dados do Life OS.", error);
+                            toast("Não foi possível salvar. O armazenamento do navegador pode estar cheio.");
+                            return false;
+                        }
+                    }
+
+                    function escapeHtml(value) {
+                        const element = document.createElement("span");
+                        element.textContent = String(value ?? "");
+                        return element.innerHTML.replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+                    }
+
+                    function getTodayCompletions() {
+                        const completions = state.completions[dayKey];
+                        return Array.isArray(completions) ? completions : [];
+                    }
+
+                    function getAlerts(checkin, completedHabits, score) {
+                        const alerts = [];
+                        if (!checkin) {
+                            alerts.push({
+                                title: "Faça seu check-in de hoje",
+                                text: "Registre como você está para receber sugestões baseadas nas suas próprias metas."
+                            });
+                        } else {
+                            if (Number(checkin.sleep) < Number(state.targets.sleep)) {
+                                alerts.push({
+                                    title: "Sono abaixo da sua meta",
+                                    text: `Você registrou ${checkin.sleep} h; sua meta pessoal é ${state.targets.sleep} h. Considere ajustar sua rotina de descanso.`
+                                });
+                            }
+                            if (Number(checkin.water) < Number(state.targets.water)) {
+                                alerts.push({
+                                    title: "Hidratação abaixo da sua meta",
+                                    text: `Você registrou ${checkin.water} copos; sua meta pessoal é ${state.targets.water}.`
+                                });
+                            }
+                            if (Number(checkin.movement) < Number(state.targets.movement)) {
+                                alerts.push({
+                                    title: "Movimento abaixo da sua meta",
+                                    text: `Você registrou ${checkin.movement} min; sua meta pessoal é ${state.targets.movement} min. Escolha um movimento confortável para você.`
+                                });
+                            }
+                        }
+                        if (state.habits.length && completedHabits.length < state.habits.length) {
+                            const remaining = state.habits.length - completedHabits.length;
+                            alerts.push({
+                                title: `${remaining} hábito${remaining === 1 ? "" : "s"} ainda não marcado${remaining === 1 ? "" : "s"}`,
+                                text: "Escolha uma ação pequena e realista; não é necessário completar tudo para que o dia conte."
+                            });
+                        }
+                        if (!alerts.length) {
+                            alerts.push({
+                                title: "Seu dia está alinhado às metas",
+                                text: `Você registrou suas metas pessoais e concluiu seus hábitos. Índice de acompanhamento: ${score}%. Continue respeitando seu próprio ritmo.`,
+                                positive: true
+                            });
+                        }
+                        return alerts;
+                    }
+
+                    function getSupportContext(checkin, completedHabits) {
+                        if (!checkin) return { difficultDay: false, suggestions: [] };
+                        const lowMoodOrEnergy = Number(checkin.mood) <= 2 || Number(checkin.energy) <= 2;
+                        const missedGoals = [];
+                        if (Number(checkin.sleep) < Number(state.targets.sleep)) missedGoals.push("sleep");
+                        if (Number(checkin.water) < Number(state.targets.water)) missedGoals.push("water");
+                        if (Number(checkin.movement) < Number(state.targets.movement)) missedGoals.push("movement");
+                        const difficultDay = lowMoodOrEnergy || missedGoals.length >= 2;
+                        if (!difficultDay) return { difficultDay, suggestions: [] };
+
+                        const suggestions = [];
+                        if (lowMoodOrEnergy) {
+                            suggestions.push({
+                                id: "gentle-pause",
+                                text: "Faça uma pausa curta e escolha apenas um próximo passo pequeno e possível."
+                            });
+                            suggestions.push({
+                                id: "reach-out",
+                                text: "Se isso ajudar, converse com alguém de confiança ou peça companhia."
+                            });
+                        }
+                        if (missedGoals.includes("sleep")) {
+                            suggestions.push({
+                                id: "wind-down",
+                                text: "Reserve um momento tranquilo para desacelerar antes de dormir, se isso fizer sentido para você."
+                            });
+                        }
+                        if (missedGoals.includes("water")) {
+                            suggestions.push({
+                                id: "water-break",
+                                text: "Faça uma pausa e tome água se estiver com vontade."
+                            });
+                        }
+                        if (missedGoals.includes("movement")) {
+                            suggestions.push({
+                                id: "gentle-movement",
+                                text: "Considere alguns minutos de alongamento ou movimento confortável, sem cobrança."
+                            });
+                        }
+                        if (!suggestions.length && state.habits.length && completedHabits.length < state.habits.length) {
+                            suggestions.push({
+                                id: "one-habit",
+                                text: "Escolha um hábito pequeno para hoje; deixar os outros para depois também está tudo bem."
+                            });
+                        }
+                        return { difficultDay, suggestions };
+                    }
+
+                    function getDailyScore(checkin, completedHabits) {
+                        if (!checkin) return null;
+                        const goalChecks = [
+                            Number(checkin.sleep) >= Number(state.targets.sleep),
+                            Number(checkin.water) >= Number(state.targets.water),
+                            Number(checkin.movement) >= Number(state.targets.movement),
+                            Number(checkin.mood) >= 3 && Number(checkin.energy) >= 3
+                        ];
+                        const goalsScore = goalChecks.filter(Boolean).length / goalChecks.length;
+                        const habitScore = state.habits.length ? completedHabits.length / state.habits.length : 1;
+                        return Math.round((goalsScore * 0.7 + habitScore * 0.3) * 100);
+                    }
+
+                    appContent.classList.remove("app-placeholder");
+                    appContent.innerHTML = `
+                        <div class="app-content life-os">
+                            <section class="life-os__hero">
+                                <div>
+                                    <p class="life-os__eyebrow">Seu espaço de autocuidado</p>
+                                    <h2 class="life-os__greeting">Um passo de cada vez.</h2>
+                                    <p class="life-os__subtitle">Organize sua rotina e acompanhe hábitos e bem-estar com metas definidas por você.</p>
+                                </div>
+                                <div class="life-os__score" id="lifeScore" aria-label="Índice de acompanhamento de hoje">—<small>HOJE</small></div>
+                            </section>
+
+                            <section class="life-os__section" aria-labelledby="lifeAlertsTitle">
+                                <div class="life-os__section-head">
+                                    <div>
+                                        <h3 class="life-os__section-title" id="lifeAlertsTitle">🔔 Atenção para hoje</h3>
+                                        <p class="life-os__muted">Sugestões baseadas no seu check-in e nas metas que você escolheu.</p>
+                                    </div>
+                                </div>
+                                <div class="life-os__preferences">
+                                    <label class="life-os__preference" for="lifeSupportEnabled">
+                                        <input id="lifeSupportEnabled" type="checkbox" />
+                                        <span>Quero receber sugestões opcionais para melhorar meu dia</span>
+                                    </label>
+                                    <p class="life-os__muted">Consideramos sinais do seu check-in: humor ou energia baixos (nota 1 ou 2), ou duas ou mais metas pessoais não atingidas. Nada será alterado sem sua escolha.</p>
+                                    <button class="btn btn--sm" type="button" id="lifeNotificationButton" disabled>Ativar notificações do navegador</button>
+                                </div>
+                                <div class="life-os__alerts" id="lifeAlerts" aria-live="polite"></div>
+                                <div class="life-os__support-panel" id="lifeSupportPanel" hidden>
+                                    <div>
+                                        <h4 class="life-os__section-title">🌱 Pequenas opções para hoje</h4>
+                                        <p class="life-os__muted" id="lifeSupportStatus"></p>
+                                    </div>
+                                    <div class="life-os__support-list" id="lifeSupportSuggestions"></div>
+                                    <div>
+                                        <h4 class="life-os__section-title">Suas ações escolhidas</h4>
+                                        <div class="life-os__today-actions" id="lifeTodayActions"></div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section class="life-os__section">
+                                <div class="life-os__section-head">
+                                    <h3 class="life-os__section-title">📊 Resumo de hoje</h3>
+                                    <span class="life-os__muted" id="lifeSummaryDate"></span>
+                                </div>
+                                <div class="life-os__metric-grid" id="lifeMetrics"></div>
+                            </section>
+
+                            <section class="life-os__section">
+                                <div>
+                                    <h3 class="life-os__section-title">📝 Check-in diário</h3>
+                                    <p class="life-os__muted">Seus registros são privados neste navegador. Ajuste as metas para que façam sentido para você.</p>
+                                </div>
+                                <form class="life-os__form" id="lifeCheckinForm">
+                                    <div class="life-os__field">
+                                        <label for="lifeSleep">Sono (horas)</label>
+                                        <input id="lifeSleep" name="sleep" type="number" min="0" max="24" step="0.5" required />
+                                    </div>
+                                    <div class="life-os__field">
+                                        <label for="lifeWater">Água (copos)</label>
+                                        <input id="lifeWater" name="water" type="number" min="0" max="50" step="1" required />
+                                    </div>
+                                    <div class="life-os__field">
+                                        <label for="lifeMovement">Movimento (minutos)</label>
+                                        <input id="lifeMovement" name="movement" type="number" min="0" max="1440" step="5" required />
+                                    </div>
+                                    <div class="life-os__field">
+                                        <label for="lifeMood">Como está seu humor?</label>
+                                        <select id="lifeMood" name="mood" required>
+                                            <option value="1">1 — Muito baixo</option><option value="2">2 — Baixo</option>
+                                            <option value="3">3 — Neutro</option><option value="4">4 — Bem</option><option value="5">5 — Muito bem</option>
+                                        </select>
+                                    </div>
+                                    <div class="life-os__field">
+                                        <label for="lifeEnergy">Sua energia</label>
+                                        <select id="lifeEnergy" name="energy" required>
+                                            <option value="1">1 — Muito baixa</option><option value="2">2 — Baixa</option>
+                                            <option value="3">3 — Média</option><option value="4">4 — Boa</option><option value="5">5 — Muito boa</option>
+                                        </select>
+                                    </div>
+                                    <div class="life-os__field">
+                                        <label for="lifeSleepTarget">Meta de sono (h)</label>
+                                        <input id="lifeSleepTarget" name="sleepTarget" type="number" min="1" max="24" step="0.5" required />
+                                    </div>
+                                    <div class="life-os__field">
+                                        <label for="lifeWaterTarget">Meta de água (copos)</label>
+                                        <input id="lifeWaterTarget" name="waterTarget" type="number" min="1" max="50" step="1" required />
+                                    </div>
+                                    <div class="life-os__field">
+                                        <label for="lifeMovementTarget">Meta de movimento (min)</label>
+                                        <input id="lifeMovementTarget" name="movementTarget" type="number" min="1" max="1440" step="1" required />
+                                    </div>
+                                    <div class="life-os__field life-os__field--wide">
+                                        <label for="lifeNote">Anotação sobre o seu dia (opcional)</label>
+                                        <textarea id="lifeNote" name="note" maxlength="300" placeholder="O que ajudou você hoje? O que gostaria de ajustar?"></textarea>
+                                    </div>
+                                    <div class="life-os__form-actions">
+                                        <button class="btn btn--primary btn--sm" type="submit">💾 Salvar check-in</button>
+                                        <span class="life-os__muted">Metas são pessoais e podem ser alteradas acima.</span>
+                                    </div>
+                                </form>
+                            </section>
+
+                            <section class="life-os__section">
+                                <div class="life-os__section-head">
+                                    <div>
+                                        <h3 class="life-os__section-title">✅ Rotina e hábitos</h3>
+                                        <p class="life-os__muted" id="lifeHabitProgress"></p>
+                                    </div>
+                                </div>
+                                <div class="life-os__habits" id="lifeHabits"></div>
+                                <form class="life-os__add-habit" id="lifeHabitForm">
+                                    <input id="lifeHabitName" type="text" maxlength="60" placeholder="Adicionar um hábito pequeno e possível" aria-label="Nome do novo hábito" required />
+                                    <select id="lifeHabitCategory" aria-label="Categoria do hábito">${categories.map((category) => `<option value="${category}">${category}</option>`).join("")}</select>
+                                    <button class="btn btn--sm" type="submit">＋ Adicionar hábito</button>
+                                </form>
+                            </section>
+
+                            <section class="life-os__section">
+                                <div>
+                                    <h3 class="life-os__section-title">📅 Últimos 7 dias</h3>
+                                    <p class="life-os__muted">Visão simples dos hábitos concluídos em cada dia.</p>
+                                </div>
+                                <div class="life-os__week" id="lifeWeek"></div>
+                            </section>
+                            <p class="life-os__disclaimer">O Life OS oferece organização e autorreflexão, não diagnóstico nem orientação médica. As metas são personalizáveis; procure um profissional qualificado para dúvidas sobre saúde. Os dados ficam salvos apenas neste navegador e dispositivo. Notificações do navegador dependem de permissão e são exibidas enquanto o Life OS está aberto.</p>
+                        </div>`;
+
+                    const alertsEl = appContent.querySelector("#lifeAlerts");
+                    const metricsEl = appContent.querySelector("#lifeMetrics");
+                    const habitsEl = appContent.querySelector("#lifeHabits");
+                    const checkinForm = appContent.querySelector("#lifeCheckinForm");
+                    const habitForm = appContent.querySelector("#lifeHabitForm");
+                    const notificationButton = appContent.querySelector("#lifeNotificationButton");
+                    const supportToggle = appContent.querySelector("#lifeSupportEnabled");
+                    const supportPanel = appContent.querySelector("#lifeSupportPanel");
+                    const supportStatus = appContent.querySelector("#lifeSupportStatus");
+                    const supportSuggestions = appContent.querySelector("#lifeSupportSuggestions");
+                    const todayActionsEl = appContent.querySelector("#lifeTodayActions");
+
+                    function readFormNumber(form, name) {
+                        return Number(new FormData(form).get(name));
+                    }
+
+                    function render() {
+                        const checkin = state.checkins[dayKey] || null;
+                        const completedHabits = getTodayCompletions();
+                        const score = getDailyScore(checkin, completedHabits);
+                        const alerts = getAlerts(checkin, completedHabits, score);
+                        const support = getSupportContext(checkin, completedHabits);
+                        const todayActions = Array.isArray(state.dailyActions[dayKey]) ? state.dailyActions[dayKey] : [];
+
+                        appContent.querySelector("#lifeScore").innerHTML = `${score === null ? "—" : `${score}%`}<small>HOJE</small>`;
+                        appContent.querySelector("#lifeSummaryDate").textContent = today.toLocaleDateString("pt-BR", { weekday: "long", day: "numeric", month: "long" });
+                        metricsEl.innerHTML = [
+                            { label: "Sono", value: checkin ? `${checkin.sleep} h` : "Sem registro", target: `Meta ${state.targets.sleep} h` },
+                            { label: "Água", value: checkin ? `${checkin.water} copos` : "Sem registro", target: `Meta ${state.targets.water}` },
+                            { label: "Movimento", value: checkin ? `${checkin.movement} min` : "Sem registro", target: `Meta ${state.targets.movement} min` },
+                            { label: "Hábitos", value: `${completedHabits.length}/${state.habits.length}`, target: "Concluídos hoje" }
+                        ].map((metric) => `
+                            <article class="life-os__metric">
+                                <p class="life-os__metric-label">${metric.label}</p>
+                                <p class="life-os__metric-value">${escapeHtml(metric.value)}</p>
+                                <p class="life-os__muted">${escapeHtml(metric.target)}</p>
+                            </article>`).join("");
+                        alertsEl.innerHTML = alerts.map((alert) => `
+                            <article class="life-os__alert${alert.positive ? " life-os__alert--positive" : ""}">
+                                <span aria-hidden="true">${alert.positive ? "✨" : "💡"}</span>
+                                <div><strong>${escapeHtml(alert.title)}</strong><p>${escapeHtml(alert.text)}</p></div>
+                            </article>`).join("");
+                        supportToggle.checked = state.supportEnabled;
+                        supportPanel.hidden = !state.supportEnabled;
+                        supportStatus.textContent = !checkin
+                            ? "Faça seu check-in para receber sugestões baseadas no que você registrou."
+                            : support.difficultDay
+                                ? "Parece que hoje pode estar mais puxado. Escolha somente o que for útil para você."
+                                : "Nenhum desses sinais apareceu no check-in de hoje. Continue no seu ritmo.";
+                        supportSuggestions.innerHTML = state.supportEnabled && support.difficultDay
+                            ? support.suggestions.map((suggestion) => {
+                                const alreadyAdded = todayActions.some((action) => action.sourceId === suggestion.id);
+                                return `<article class="life-os__support-action"><p>${escapeHtml(suggestion.text)}</p><button class="btn btn--sm" type="button" data-life-action-add="${escapeHtml(suggestion.id)}" ${alreadyAdded ? "disabled" : ""}>${alreadyAdded ? "Adicionada" : "Escolher"}</button></article>`;
+                            }).join("")
+                            : "";
+                        todayActionsEl.innerHTML = todayActions.length
+                            ? todayActions.map((action) => `
+                                <div class="life-os__today-action${action.done ? " life-os__today-action--done" : ""}">
+                                    <label><input type="checkbox" data-life-action-done="${escapeHtml(action.id)}" ${action.done ? "checked" : ""} /><span>${escapeHtml(action.text)}</span></label>
+                                    <button class="btn btn--sm" type="button" data-life-action-remove="${escapeHtml(action.id)}" aria-label="Remover ação escolhida">Remover</button>
+                                </div>`).join("")
+                            : `<p class="life-os__muted">As sugestões são apenas opções. Quando quiser, escolha uma para incluir aqui.</p>`;
+                        habitsEl.innerHTML = state.habits.length
+                            ? state.habits.map((habit) => {
+                                const done = completedHabits.includes(habit.id);
+                                return `
+                                    <div class="life-os__habit${done ? " life-os__habit--done" : ""}">
+                                        <input type="checkbox" data-life-habit="${escapeHtml(habit.id)}" ${done ? "checked" : ""} aria-label="Marcar ${escapeHtml(habit.name)} como concluído" />
+                                        <span class="life-os__habit-main"><span class="life-os__habit-name">${escapeHtml(habit.name)}</span><br /><span class="life-os__habit-category">${escapeHtml(habit.category)}</span></span>
+                                        <button class="life-os__habit-delete" type="button" data-life-delete="${escapeHtml(habit.id)}" aria-label="Remover hábito ${escapeHtml(habit.name)}" title="Remover hábito">✕</button>
+                                    </div>`;
+                            }).join("")
+                            : `<p class="snippet-empty">Adicione hábitos pequenos que sejam importantes para você.</p>`;
+                        appContent.querySelector("#lifeHabitProgress").textContent = `${completedHabits.length} de ${state.habits.length} hábitos marcados hoje.`;
+
+                        const weekHtml = [];
+                        for (let offset = 6; offset >= 0; offset--) {
+                            const date = new Date(today);
+                            date.setDate(today.getDate() - offset);
+                            const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+                            const doneCount = Array.isArray(state.completions[key]) ? state.completions[key].length : 0;
+                            const percent = state.habits.length ? Math.min(100, Math.round(doneCount / state.habits.length * 100)) : 0;
+                            weekHtml.push(`
+                                <div class="life-os__day" aria-label="${date.toLocaleDateString("pt-BR")}: ${doneCount} hábitos">
+                                    <p class="life-os__day-name">${date.toLocaleDateString("pt-BR", { weekday: "short" }).replace(".", "")}</p>
+                                    <p class="life-os__day-value">${doneCount}/${state.habits.length}</p>
+                                    <div class="life-os__bar"><span style="width:${percent}%"></span></div>
+                                </div>`);
+                        }
+                        appContent.querySelector("#lifeWeek").innerHTML = weekHtml.join("");
+
+                        if (checkin) {
+                            for (const [field, value] of Object.entries(checkin)) {
+                                const input = checkinForm.elements.namedItem(field);
+                                if (input && field !== "note") input.value = value;
+                                if (input && field === "note") input.value = value || "";
+                            }
+                        }
+                        checkinForm.elements.namedItem("sleepTarget").value = state.targets.sleep;
+                        checkinForm.elements.namedItem("waterTarget").value = state.targets.water;
+                        checkinForm.elements.namedItem("movementTarget").value = state.targets.movement;
+                        notificationButton.textContent = state.notificationsEnabled ? "Desativar notificações do navegador" : "Ativar notificações do navegador";
+                        notificationButton.disabled = !state.supportEnabled;
+                    }
+
+                    function sendBrowserNotification() {
+                        const support = getSupportContext(state.checkins[dayKey] || null, getTodayCompletions());
+                        if (!state.supportEnabled || !support.difficultDay || !state.notificationsEnabled || !("Notification" in window) || Notification.permission !== "granted") return;
+                        if (state.lastNotification === dayKey) return;
+                        try {
+                            new Notification("Life OS — cuidado no seu ritmo", {
+                                body: "Há sugestões opcionais para hoje. Abra o Life OS e escolha apenas o que fizer sentido.",
+                                tag: `life-os-${dayKey}`
+                            });
+                            if (saveState({ ...state, lastNotification: dayKey })) render();
+                        } catch (error) {
+                            console.error("Não foi possível enviar a notificação do Life OS.", error);
+                            toast("O navegador não conseguiu exibir a notificação.");
+                        }
+                    }
+
+                    checkinForm.addEventListener("submit", (event) => {
+                        event.preventDefault();
+                        if (!checkinForm.reportValidity()) return;
+                        const nextTargets = {
+                            sleep: readFormNumber(checkinForm, "sleepTarget"),
+                            water: readFormNumber(checkinForm, "waterTarget"),
+                            movement: readFormNumber(checkinForm, "movementTarget")
+                        };
+                        const checkin = {
+                            sleep: readFormNumber(checkinForm, "sleep"),
+                            water: readFormNumber(checkinForm, "water"),
+                            movement: readFormNumber(checkinForm, "movement"),
+                            mood: readFormNumber(checkinForm, "mood"),
+                            energy: readFormNumber(checkinForm, "energy"),
+                            note: String(new FormData(checkinForm).get("note") || "").trim(),
+                            updatedAt: new Date().toISOString()
+                        };
+                        if (saveState({
+                            ...state,
+                            targets: nextTargets,
+                            checkins: { ...state.checkins, [dayKey]: checkin }
+                        })) {
+                            render();
+                            sendBrowserNotification(getAlerts(checkin, getTodayCompletions(), getDailyScore(checkin, getTodayCompletions())));
+                            toast("✅ Check-in salvo. Suas metas foram atualizadas.");
+                        }
+                    });
+
+                    habitForm.addEventListener("submit", (event) => {
+                        event.preventDefault();
+                        const nameInput = habitForm.querySelector("#lifeHabitName");
+                        const name = nameInput.value.trim();
+                        if (!name) return;
+                        const habit = {
+                            id: window.crypto?.randomUUID ? window.crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`,
+                            name,
+                            category: habitForm.querySelector("#lifeHabitCategory").value
+                        };
+                        if (saveState({ ...state, habits: [...state.habits, habit] })) {
+                            habitForm.reset();
+                            render();
+                            toast("✅ Hábito adicionado à sua rotina.");
+                        }
+                    });
+
+                    habitsEl.addEventListener("change", (event) => {
+                        if (!(event.target instanceof HTMLInputElement) || !event.target.matches("[data-life-habit]")) return;
+                        const id = event.target.dataset.lifeHabit;
+                        const current = getTodayCompletions();
+                        const next = event.target.checked
+                            ? [...new Set([...current, id])]
+                            : current.filter((habitId) => habitId !== id);
+                        if (saveState({ ...state, completions: { ...state.completions, [dayKey]: next } })) {
+                            render();
+                            sendBrowserNotification(getAlerts(state.checkins[dayKey] || null, next, getDailyScore(state.checkins[dayKey] || null, next)));
+                        }
+                    });
+
+                    habitsEl.addEventListener("click", (event) => {
+                        if (!(event.target instanceof Element)) return;
+                        const button = event.target.closest("[data-life-delete]");
+                        if (!button) return;
+                        const id = button.dataset.lifeDelete;
+                        const habit = state.habits.find((item) => item.id === id);
+                        if (!habit || !window.confirm(`Remover o hábito “${habit.name}” e seus registros?`)) return;
+                        const completions = Object.fromEntries(
+                            Object.entries(state.completions).map(([key, ids]) => [key, Array.isArray(ids) ? ids.filter((habitId) => habitId !== id) : []])
+                        );
+                        if (saveState({ ...state, habits: state.habits.filter((item) => item.id !== id), completions })) {
+                            render();
+                            toast("Hábito removido.");
+                        }
+                    });
+
+                    supportSuggestions.addEventListener("click", (event) => {
+                        if (!(event.target instanceof Element)) return;
+                        const button = event.target.closest("[data-life-action-add]");
+                        if (!button || !state.supportEnabled) return;
+                        const support = getSupportContext(state.checkins[dayKey] || null, getTodayCompletions());
+                        const suggestion = support.suggestions.find((item) => item.id === button.dataset.lifeActionAdd);
+                        if (!suggestion) return;
+                        const actions = Array.isArray(state.dailyActions[dayKey]) ? state.dailyActions[dayKey] : [];
+                        if (actions.some((action) => action.sourceId === suggestion.id)) return;
+                        const action = {
+                            id: window.crypto?.randomUUID ? window.crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`,
+                            sourceId: suggestion.id,
+                            text: suggestion.text,
+                            done: false
+                        };
+                        if (saveState({ ...state, dailyActions: { ...state.dailyActions, [dayKey]: [...actions, action] } })) render();
+                    });
+
+                    todayActionsEl.addEventListener("click", (event) => {
+                        if (!(event.target instanceof Element)) return;
+                        const button = event.target.closest("[data-life-action-remove]");
+                        if (!button) return;
+                        const actions = Array.isArray(state.dailyActions[dayKey]) ? state.dailyActions[dayKey] : [];
+                        const nextActions = actions.filter((action) => action.id !== button.dataset.lifeActionRemove);
+                        if (saveState({ ...state, dailyActions: { ...state.dailyActions, [dayKey]: nextActions } })) render();
+                    });
+
+                    todayActionsEl.addEventListener("change", (event) => {
+                        if (!(event.target instanceof HTMLInputElement) || !event.target.matches("[data-life-action-done]")) return;
+                        const actionId = event.target.dataset.lifeActionDone;
+                        const actions = Array.isArray(state.dailyActions[dayKey]) ? state.dailyActions[dayKey] : [];
+                        const nextActions = actions.map((action) => action.id === actionId ? { ...action, done: event.target.checked } : action);
+                        if (saveState({ ...state, dailyActions: { ...state.dailyActions, [dayKey]: nextActions } })) render();
+                    });
+
+                    supportToggle.addEventListener("change", () => {
+                        const supportEnabled = supportToggle.checked;
+                        if (saveState({
+                            ...state,
+                            supportEnabled,
+                            notificationsEnabled: supportEnabled && state.notificationsEnabled
+                        })) render();
+                    });
+
+                    notificationButton.addEventListener("click", async () => {
+                        if (!state.supportEnabled) return;
+                        if (state.notificationsEnabled) {
+                            if (saveState({ ...state, notificationsEnabled: false })) {
+                                render();
+                                toast("Notificações do Life OS desativadas.");
+                            }
+                            return;
+                        }
+                        if (!("Notification" in window)) {
+                            toast("Este navegador não oferece notificações. Os alertas continuam disponíveis aqui.");
+                            return;
+                        }
+                        try {
+                            const permission = Notification.permission === "default"
+                                ? await Notification.requestPermission()
+                                : Notification.permission;
+                            if (permission !== "granted") {
+                                toast("Permissão não concedida. Os alertas continuam disponíveis nesta página.");
+                                return;
+                            }
+                            if (saveState({ ...state, notificationsEnabled: true })) {
+                                render();
+                                sendBrowserNotification([]);
+                                toast("🔔 Notificações ativadas neste navegador.");
+                            }
+                        } catch (error) {
+                            console.error("Não foi possível ativar as notificações.", error);
+                            toast("Não foi possível ativar notificações neste navegador.");
+                        }
+                    });
+
+                    render();
+                    sendBrowserNotification([]);
                 },
 
                 "snippets": function () {
