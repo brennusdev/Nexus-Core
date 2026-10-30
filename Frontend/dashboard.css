@@ -169,8 +169,91 @@ Hierarquia padronizada (escala aumentada p/ visualização e tamanho):
     --color-sidebar: linear-gradient(180deg, #060a14, #10182a);
     --bg-pattern: radial-gradient(900px 420px at 0% 0%, rgba(142, 162, 255, 0.18), transparent 55%),
                   radial-gradient(700px 360px at 100% 10%, rgba(99, 210, 255, 0.1), transparent 50%);
+    --bg-pattern-size: auto;
     --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.45);
     --shadow-card-hover: 0 10px 28px rgba(0, 0, 0, 0.55);
+}
+
+[data-theme="light"] {
+    --color-primary: #5b5fc7;
+    --color-primary-hover: #484cb0;
+    --color-primary-soft: #ebebfa;
+    --color-secondary: #7b8199;
+    --color-accent: #4f8cff;
+    --color-success: #12b76a;
+    --color-warning: #f79009;
+    --color-danger: #e11d48;
+    --color-surface: #ffffff;
+    --color-surface-hover: #f5f7ff;
+    --color-surface-2: #e8edf8;
+    --color-border: #d9e0ef;
+    --color-border-strong: #c2cce0;
+    --color-background: #e9eef9;
+    --color-text-primary: #1c2438;
+    --color-text-secondary: #5b657a;
+    --color-text-muted: #8b95ab;
+    --color-sidebar: linear-gradient(180deg, #151b2f, #222b46);
+    --bg-pattern: radial-gradient(1200px 500px at 12% -10%, rgba(91, 95, 199, 0.16), transparent 55%),
+                  radial-gradient(900px 420px at 100% 0%, rgba(79, 140, 255, 0.12), transparent 50%);
+    --bg-pattern-size: auto;
+}
+
+[data-theme="classico"] {
+    --color-primary: #1d4ed8;
+    --color-primary-hover: #1e40af;
+    --color-primary-soft: #dbe7ff;
+    --color-secondary: #64748b;
+    --color-accent: #0ea5e9;
+    --color-success: #15803d;
+    --color-warning: #b45309;
+    --color-danger: #b91c1c;
+    --color-surface: #f8fafc;
+    --color-surface-hover: #eef4fb;
+    --color-surface-2: #e2eaf4;
+    --color-border: #c7d4e6;
+    --color-border-strong: #9fb3cd;
+    --color-background: #d9e3f0;
+    --color-text-primary: #0f172a;
+    --color-text-secondary: #334155;
+    --color-text-muted: #64748b;
+    --color-sidebar: linear-gradient(180deg, #0b1f3a, #16345a);
+    --bg-pattern: linear-gradient(180deg, rgba(255, 255, 255, 0.45), transparent 180px),
+                  radial-gradient(900px 420px at 100% -10%, rgba(14, 165, 233, 0.12), transparent 55%);
+    --bg-pattern-size: auto;
+    --shadow-card: 0 1px 2px rgba(15, 30, 60, 0.1), 0 1px 1px rgba(15, 30, 60, 0.05);
+    --shadow-card-hover: 0 8px 22px rgba(15, 30, 60, 0.14);
+    --shadow-primary: 0 4px 14px rgba(29, 78, 216, 0.32);
+    --shadow-input: 0 0 0 3px rgba(29, 78, 216, 0.18);
+}
+
+[data-theme="cyberpunk"] {
+    --color-primary: #22d3ee;
+    --color-primary-hover: #67e8f9;
+    --color-primary-soft: #083344;
+    --color-secondary: #a78bfa;
+    --color-accent: #f472b6;
+    --color-success: #4ade80;
+    --color-warning: #facc15;
+    --color-danger: #fb7185;
+    --color-surface: #07111f;
+    --color-surface-hover: #0d1a2e;
+    --color-surface-2: #13243d;
+    --color-border: #164e63;
+    --color-border-strong: #0891b2;
+    --color-background: #020617;
+    --color-text-primary: #ecfeff;
+    --color-text-secondary: #94c5d8;
+    --color-text-muted: #5f8ea3;
+    --color-sidebar: linear-gradient(180deg, #020617, #0b1324 55%, #1a0b2e);
+    --bg-pattern: linear-gradient(rgba(34, 211, 238, 0.05) 1px, transparent 1px),
+                  linear-gradient(90deg, rgba(244, 114, 182, 0.05) 1px, transparent 1px),
+                  radial-gradient(700px 380px at 15% 0%, rgba(34, 211, 238, 0.18), transparent 60%),
+                  radial-gradient(600px 340px at 95% 5%, rgba(244, 114, 182, 0.16), transparent 55%);
+    --bg-pattern-size: 28px 28px, 28px 28px, auto, auto;
+    --shadow-card: 0 0 0 1px rgba(34, 211, 238, 0.16), 0 8px 24px rgba(2, 6, 23, 0.65);
+    --shadow-card-hover: 0 0 0 1px rgba(244, 114, 182, 0.35), 0 12px 32px rgba(34, 211, 238, 0.18);
+    --shadow-primary: 0 0 18px rgba(34, 211, 238, 0.4);
+    --shadow-input: 0 0 0 3px rgba(34, 211, 238, 0.28);
 }
 
 /* ==========================================================================
@@ -373,7 +456,7 @@ Hierarquia padronizada (escala aumentada p/ visualização e tamanho):
     position: absolute;
     top: calc(100% + 8px);
     right: 0;
-    min-width: 190px;
+    min-width: 230px;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
@@ -398,29 +481,58 @@ Hierarquia padronizada (escala aumentada p/ visualização e tamanho):
     color: var(--color-text-muted);
     padding: var(--space-1) var(--space-2) var(--space-2);
 }
+.theme-menu__hint {
+    font-size: var(--font-size-caption);
+    color: var(--color-text-muted);
+    padding: 0 var(--space-2) var(--space-2);
+}
 .theme-opt {
     display: flex;
     align-items: center;
     gap: var(--space-2);
     width: 100%;
-    padding: var(--space-2) var(--space-2);
+    padding: 10px var(--space-2);
+    border: 1px solid transparent;
     border-radius: var(--radius-sm);
+    background: transparent;
     font-family: var(--font-family);
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-medium);
     color: var(--color-text-primary);
     text-align: left;
     cursor: pointer;
-    transition: background var(--duration-fast) var(--ease);
+    transition: background var(--duration-fast) var(--ease), border-color var(--duration-fast) var(--ease);
 }
 .theme-opt:hover { background: var(--color-surface-hover); }
-.theme-opt.is-active { background: var(--color-primary-soft); color: var(--color-primary); font-weight: var(--font-weight-bold); }
+.theme-opt.is-active {
+    background: var(--color-primary-soft);
+    border-color: color-mix(in srgb, var(--color-primary) 35%, transparent);
+    color: var(--color-primary);
+    font-weight: var(--font-weight-bold);
+}
+.theme-opt__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+.theme-opt__label { line-height: 1.2; }
+.theme-opt__desc {
+    font-size: var(--font-size-caption);
+    font-weight: var(--font-weight-regular);
+    color: var(--color-text-muted);
+}
+.theme-opt.is-active .theme-opt__desc { color: inherit; opacity: 0.8; }
 .theme-swatch {
-    width: 18px;
-    height: 18px;
-    border-radius: var(--radius-sm);
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
     border: 1px solid var(--color-border-strong);
     flex-shrink: 0;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+    background:
+        linear-gradient(135deg, var(--swatch-accent, #4f8cff) 0 38%, transparent 38%),
+        var(--swatch-bg, #e9eef9);
 }
 
 /* --- Botão de ícone padronizado (20px de ícone) --- */
