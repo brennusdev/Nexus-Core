@@ -81,6 +81,10 @@ Exemplos:
 * Desenvolvimento de projetos
 * Revisões
 
+### 🧬 Life OS
+
+Painel local para organizar rotinas e hábitos, registrar check-ins diários de sono, hidratação, movimento, humor e energia, definir metas pessoais e visualizar o progresso semanal. A pessoa pode ativar ou desativar sugestões de apoio para dias difíceis, identificados por humor/energia baixos ou duas ou mais metas pessoais não atingidas; pode escolher cada ação sugerida sem que a rotina seja alterada automaticamente. Notificações do navegador são opcionais, dependem de permissão e aparecem enquanto o Life OS está aberto. Os registros ficam no navegador e não substituem orientação de profissionais de saúde.
+
 ### 🗂️ Projects
 
 Gerenciamento dos projetos em desenvolvimento, permitindo acompanhar:
