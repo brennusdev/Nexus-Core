@@ -6,6 +6,7 @@
     <title>Nexus Core | Ferramenta</title>
     <link rel="stylesheet" href="cores.css" />
     <link rel="stylesheet" href="dashboard.css" />
+    <link rel="stylesheet" href="project-generator.css" />
     <style>
 .app-shell { max-width: 1000px; margin: 0 auto; padding: 20px; }
         .app-card {
@@ -694,6 +695,7 @@
     </aside>
 
     <script src="js/dashboard.js" defer></script>
+    <script src="js/project-generator.js"></script>
     <script>
         (function () {
             "use strict";
@@ -702,7 +704,7 @@
                 "cyber-desk":         { icon: "🖥️", title: "Cyber Desk",         desc: "Seu espaço de trabalho digital personalizado." },
                 "code-vault":         { icon: "📦", title: "Code Vault",         desc: "Repositório pessoal de códigos e projetos." },
                 "second-brain":       { icon: "🧠", title: "Second Brain",       desc: "Painel de Insights IA: resumo diário, recomendações, tendências e notas do seu segundo cérebro." },
-                "project-generator":  { icon: "🛠️", title: "Project Generator",  desc: "Gere projetos novos a partir de templates." },
+                "project-generator":  { icon: "🛠️", title: "Project Generator",  desc: "Crie projetos a partir de templates e personalize os módulos do dashboard." },
                 "analytics-center":   { icon: "📈", title: "Analytics Center",   desc: "Análises, métricas e relatórios centralizados." },
                 "automation-hub":     { icon: "🤖", title: "Automation Hub",     desc: "Automatize processos e integrações." },
                 "terminal":           { icon: "💻", title: "Terminal",           desc: "Terminal integrado para comandos rápidos." },
@@ -780,6 +782,10 @@
             ];
 
             const RENDERERS = {
+                "project-generator": function () {
+                    appContent.classList.remove("app-placeholder");
+                    window.NexusProjectGenerator.render(appContent, toast);
+                },
                 "terminal": function () {
                     appContent.classList.remove("app-placeholder");
                     appContent.innerHTML = `
