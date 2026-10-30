@@ -431,6 +431,24 @@
             opacity: 0; transition: opacity .3s, transform .3s; z-index: 999; pointer-events: none;
         }
         .nexus-toast--show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        @media (max-width: 640px) {
+            .app-shell { padding: 12px; }
+            .app-card { padding: 18px; min-height: 0; }
+            .app-placeholder { padding: 24px 16px; }
+            .app-content { width: 100%; min-width: 0; }
+            .notes-card { padding: 16px; }
+            .notes-top { flex-direction: column; }
+            .notes-form { grid-template-columns: minmax(0, 1fr); }
+            .notes-grid { grid-template-columns: minmax(0, 1fr); }
+            .notes-form__row { align-items: stretch; }
+            .notes-select { max-width: none; }
+            .profile-wrap { gap: 20px; }
+            .profile-fields { min-width: 0; width: 100%; }
+            .theme-choice--grid,
+            .settings-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .theme-btn { min-width: 0; padding: 12px; }
+        }
     </style>
 
 </head>
@@ -1291,4 +1309,3 @@ toast("✅ Perfil salvo com sucesso!");
 
 </body>
 </html>
-
