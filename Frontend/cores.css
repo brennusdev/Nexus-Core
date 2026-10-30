@@ -535,3 +535,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
    -------------------------------------------------------------------------- */
 [hidden] { display: none !important; }
 
+@media (max-width: 480px) {
+    .login-bg { padding: var(--space-3); }
+    .login-card { padding: var(--space-4) var(--space-3); }
+    .login-theme-toggle { top: 12px; right: 12px; }
+}
