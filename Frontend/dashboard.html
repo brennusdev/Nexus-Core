@@ -68,12 +68,24 @@
                 <div class="theme-picker">
                     <button class="icon-btn" id="themeToggle" title="Ciclar tema" aria-label="Selecionar tema">🎨</button>
                     <div class="theme-menu" id="themeMenu" hidden>
-                        <p class="theme-menu__title">Tema</p>
-                        <button class="theme-opt" data-theme="light"><span class="theme-swatch" style="background:#6c5ce7"></span>☀️ Claro</button>
-                        <button class="theme-opt" data-theme="dark"><span class="theme-swatch" style="background:#1a1d27"></span>🌙 Escuro</button>
-                        <button class="theme-opt" data-theme="cyberpunk"><span class="theme-swatch" style="background:#00f5ff"></span>🌆 Cyberpunk</button>
-                        <button class="theme-opt" data-theme="minimalista"><span class="theme-swatch" style="background:#1a1a1a"></span>◻️ Minimalista</button>
-                        <button class="theme-opt" data-theme="classico"><span class="theme-swatch" style="background:#0a6cff"></span>🏛️ Clássico</button>
+                        <p class="theme-menu__title">Fundo / Tema</p>
+                        <p class="theme-menu__hint">Escolha a atmosfera visual</p>
+                        <button class="theme-opt" data-theme="light" type="button" aria-label="Tema claro, fundo azul-acinzentado">
+                            <span class="theme-swatch" style="--swatch-bg:#e9eef9; --swatch-accent:#5b5fc7" aria-hidden="true"></span>
+                            <span class="theme-opt__meta"><span class="theme-opt__label">☀️ Claro</span><span class="theme-opt__desc">Fundo azul-acinzentado</span></span>
+                        </button>
+                        <button class="theme-opt" data-theme="dark" type="button" aria-label="Tema escuro, navy profundo">
+                            <span class="theme-swatch" style="--swatch-bg:#080d18; --swatch-accent:#8ea2ff" aria-hidden="true"></span>
+                            <span class="theme-opt__meta"><span class="theme-opt__label">🌙 Escuro</span><span class="theme-opt__desc">Navy profundo</span></span>
+                        </button>
+                        <button class="theme-opt" data-theme="classico" type="button" aria-label="Tema clássico, azul corporativo">
+                            <span class="theme-swatch" style="--swatch-bg:#d9e3f0; --swatch-accent:#1d4ed8" aria-hidden="true"></span>
+                            <span class="theme-opt__meta"><span class="theme-opt__label">🏛️ Clássico</span><span class="theme-opt__desc">Azul corporativo</span></span>
+                        </button>
+                        <button class="theme-opt" data-theme="cyberpunk" type="button" aria-label="Tema cyberpunk, preto com neon">
+                            <span class="theme-swatch" style="--swatch-bg:#020617; --swatch-accent:#22d3ee" aria-hidden="true"></span>
+                            <span class="theme-opt__meta"><span class="theme-opt__label">🌆 Cyberpunk</span><span class="theme-opt__desc">Preto + neon</span></span>
+                        </button>
                     </div>
                 </div>
                 <button class="icon-btn assistant-btn" id="assistantToggle" title="Assistente Nexus" aria-label="Abrir Assistente Nexus">
