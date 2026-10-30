@@ -1148,20 +1148,18 @@
                         <span class="accent-swatch${savedAccent === a.hex ? " accent-swatch--active" : ""}"
                               data-accent="${a.hex}" style="background:${a.hex}"></span>`).join("");
 
-                    // 5 temas disponíveis
+                    // 4 fundos disponíveis
                     const THEMES = [
-                        { id: "light",      icon: "☀️", label: "Claro" },
-                        { id: "dark",       icon: "🌙", label: "Escuro" },
-                        { id: "cyberpunk",  icon: "🌆", label: "Cyberpunk" },
-                        { id: "minimalista",icon: "◻️", label: "Minimalista" },
-                        { id: "classico",   icon: "🏛️", label: "Clássico" }
+                        { id: "light",     icon: "☀️", label: "Claro" },
+                        { id: "dark",      icon: "🌙", label: "Escuro" },
+                        { id: "classico",  icon: "🏛️", label: "Clássico" },
+                        { id: "cyberpunk", icon: "🌆", label: "Cyberpunk" }
                     ];
                     const THEME_TOAST = {
-                        light: "☀️ Modo claro ativado",
-                        dark: "🌙 Modo escuro ativado",
-                        cyberpunk: "🌆 Tema cyberpunk ativado",
-                        minimalista: "◻️ Tema minimalista ativado",
-                        classico: "🏛️ Tema clássico ativado"
+                        light: "☀️ Fundo claro ativado",
+                        dark: "🌙 Fundo escuro ativado",
+                        classico: "🏛️ Fundo clássico ativado",
+                        cyberpunk: "🌆 Fundo cyberpunk ativado"
                     };
 
                     const themeBtns = THEMES.map((t) => `
