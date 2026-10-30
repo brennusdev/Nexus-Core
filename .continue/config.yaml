@@ -1,0 +1,14 @@
+name: Nexus Core - OmniRoute
+version: 1.0.0
+schema: v1
+
+models:
+  - name: OmniRoute Auto
+    provider: openai
+    model: auto
+    apiBase: http://localhost:20128/v1
+    apiKey: sk-a4e1698aeb6ba532-20f5b2-d4b64d29
+    roles:
+      - chat
+      - edit
+      - apply
