@@ -14,7 +14,12 @@
 (function () {
     "use strict";
 
-    document.documentElement.setAttribute("data-theme", localStorage.getItem("nexus_theme") || "light");
+    (function bootTheme() {
+        let theme = localStorage.getItem("nexus_theme") || "light";
+        if (theme === "minimalista") theme = "light";
+        if (!["light", "dark", "classico", "cyberpunk"].includes(theme)) theme = "light";
+        document.documentElement.setAttribute("data-theme", theme);
+    })();
 
     /* ============================================================
        1. SIDEBAR + USUÁRIO
@@ -44,8 +49,7 @@
     });
 
 /* ============================================================
-       2. TEMA — 5 temas customizáveis (claro, escuro, cyberpunk,
-          minimalista, clássico)
+       2. TEMA — 4 fundos (claro, escuro, clássico, cyberpunk)
        ============================================================ */
     const themeToggle = document.getElementById("themeToggle");
     const themePicker = document.querySelector(".theme-picker");
@@ -184,24 +188,29 @@
     }
 
     // Lista ordenada de temas disponíveis (cicla ao clicar)
-    const THEME_ORDER = ["light", "dark", "cyberpunk", "minimalista", "classico"];
+    const THEME_ORDER = ["light", "dark", "classico", "cyberpunk"];
 
     // Rótulos/ícones de cada tema (para o botão mostrar o próximo)
     const THEME_META = {
-        light:      { icon: "☀️", label: "Claro" },
-        dark:       { icon: "🌙", label: "Escuro" },
-        cyberpunk:  { icon: "🌆", label: "Cyberpunk" },
-        minimalista:{ icon: "◻️", label: "Minimalista" },
-        classico:   { icon: "🏛️", label: "Clássico" }
+        light:     { icon: "☀️", label: "Claro" },
+        dark:      { icon: "🌙", label: "Escuro" },
+        classico:  { icon: "🏛️", label: "Clássico" },
+        cyberpunk: { icon: "🌆", label: "Cyberpunk" }
     };
+
+    function normalizeTheme(theme) {
+        if (theme === "minimalista") return "light";
+        return THEME_META[theme] ? theme : "light";
+    }
 
     // Aplica o tema salvo no carregamento
     function initTheme() {
-        const saved = localStorage.getItem("nexus_theme") || "light";
+        const saved = normalizeTheme(localStorage.getItem("nexus_theme") || "light");
         applyTheme(saved, false);
     }
 
     function applyTheme(theme, persist) {
+        theme = normalizeTheme(theme);
         if (persist !== false) persist = true;
         document.documentElement.setAttribute("data-theme", theme);
         if (persist) localStorage.setItem("nexus_theme", theme);
