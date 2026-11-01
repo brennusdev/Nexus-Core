@@ -1,15 +1,29 @@
+# Python e ambientes locais
 __pycache__/
-
-*.pyc
-
-.env
-
+*.py[cod]
 .pytest_cache/
-
 .venv/
+venv/
 
+# Configuração local e segredos
+.env
+.env.*
+!.env.example
+
+# Bancos, logs e artefatos de execução
+*.db
+*.sqlite
+*.sqlite3
+*.log
+logs/
+
+# Dependências e artefatos de build
+node_modules/
+dist/
+build/
+coverage/
+
+# IDE, Docker e dados locais
 .idea/
-
 .vscode/
-
 postgres_data/

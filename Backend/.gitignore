@@ -1,3 +1,9 @@
 
-nexus_dev.db
-migrations/__pycache__/
+# Banco e artefatos Python locais
+*.db
+*.sqlite
+*.sqlite3
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
