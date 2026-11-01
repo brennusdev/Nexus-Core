@@ -77,7 +77,7 @@
     const validators = { login: validateLogin, register: validateRegister };
 
     /* URL da API FastAPI definida em js/config.js. */
-    const API_BASE = window.NEXUS_API_URL.replace(/\/+$/, "");
+    const API_BASE = (window.NEXUS_API_URL || "").replace(/\/+$/, "");
 
     /* --- Submit + chamada real a API --- */
     Object.entries(forms).forEach(([name, form]) => {
@@ -87,6 +87,13 @@
             e.preventDefault();
 
             if (!validators[name](form)) return;
+
+            if (!API_BASE) {
+                console.error("NEXUS_API_URL não está configurada para este domínio.");
+                setError(form, "email",
+                    "O serviço de autenticação está temporariamente indisponível. Tente novamente mais tarde.");
+                return;
+            }
 
             // Mostra loader e trava o formulario
             loader.hidden = false;
