@@ -357,10 +357,14 @@ A Vercel publica apenas o frontend. Para login e cadastro funcionarem em produç
 
 1. Crie um Blueprint no Render a partir deste repositório e revise os recursos antes de confirmar. O `render.yaml` cria o PostgreSQL e o serviço FastAPI, conecta a API ao banco, executa as migrações Alembic e define o domínio informado como origem CORS; a chave JWT é gerada pelo Render.
 2. Este Blueprint usa o plano gratuito de PostgreSQL, que é temporário e pode expirar após 30 dias. Não use esse banco para guardar dados permanentes; faça upgrade para um plano persistente antes de produção.
-3. Após o deploy, copie o endereço público do serviço `nexus-core-api` (terminado em `onrender.com`) e defina-o em `Frontend/js/config.js` no lugar de `http://localhost:8000`; faça um novo deploy na Vercel.
+3. Após o deploy, copie e valide o endereço público do serviço FastAPI no Render. Em `Frontend/js/config.js`, configure `window.NEXUS_API_URL` com essa URL HTTPS (sem `/auth` ou `/health`) e faça um novo deploy na Vercel. Em produção, o frontend não usa mais `localhost`; esse endereço só é usado ao abrir o frontend em `localhost` ou `127.0.0.1`.
 4. Verifique `https://<url-do-servico-render>/health`. O resultado deve indicar `healthy` e `database: up`.
 
 O endereço `localhost` é apenas para desenvolvimento local; ele aponta para o computador de cada visitante quando usado pelo navegador em produção. O plano gratuito do Render pode suspender o serviço após inatividade, causando demora na primeira requisição.
+
+## 🤖 Continue com OmniRoute
+
+O arquivo `.continue/config.yaml` usa a API OpenAI-compatible local do OmniRoute em `http://localhost:20128/v1` e o modelo `auto/best-chat`. O OmniRoute precisa estar rodando na mesma máquina do VS Code. Configure a chave localmente em `.continue/.env` usando `.continue/.env.example` como modelo; esse arquivo não deve ser versionado. A chave que estava anteriormente em `config.yaml` foi exposta no repositório e deve ser revogada/rotacionada.
 
 ---
 
