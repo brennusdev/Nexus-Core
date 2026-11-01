@@ -5,9 +5,9 @@ schema: v1
 models:
   - name: OmniRoute Auto
     provider: openai
-    model: auto
+    model: auto/best-chat
     apiBase: http://localhost:20128/v1
-    apiKey: sk-a4e1698aeb6ba532-20f5b2-d4b64d29
+    apiKey: ${{ secrets.OMNIROUTE_API_KEY }}
     roles:
       - chat
       - edit
