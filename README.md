@@ -357,7 +357,7 @@ A Vercel publica apenas o frontend. Para login e cadastro funcionarem em produç
 
 1. Crie um Blueprint no Render a partir deste repositório e revise os recursos antes de confirmar. O `render.yaml` cria o PostgreSQL e o serviço FastAPI, conecta a API ao banco, executa as migrações Alembic e define o domínio informado como origem CORS; a chave JWT é gerada pelo Render.
 2. Este Blueprint usa o plano gratuito de PostgreSQL, que é temporário e pode expirar após 30 dias. Não use esse banco para guardar dados permanentes; faça upgrade para um plano persistente antes de produção.
-3. Após o deploy, copie e valide o endereço público do serviço FastAPI no Render. Em `Frontend/js/config.js`, configure `window.NEXUS_API_URL` com essa URL HTTPS (sem `/auth` ou `/health`) e faça um novo deploy na Vercel. Em produção, o frontend não usa mais `localhost`; esse endereço só é usado ao abrir o frontend em `localhost` ou `127.0.0.1`.
+3. Após o deploy, copie e valide o endereço público do serviço FastAPI no Render. Em `Frontend/js/config.js`, preencha `productionApiUrl` com essa URL HTTPS (sem `/auth` ou `/health`) e faça um novo deploy na Vercel. Em produção, o frontend não usa mais `localhost`; esse endereço só é usado ao abrir o frontend em `localhost` ou `127.0.0.1`.
 4. Verifique `https://<url-do-servico-render>/health`. O resultado deve indicar `healthy` e `database: up`.
 
 O endereço `localhost` é apenas para desenvolvimento local; ele aponta para o computador de cada visitante quando usado pelo navegador em produção. O plano gratuito do Render pode suspender o serviço após inatividade, causando demora na primeira requisição.
