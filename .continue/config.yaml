@@ -12,3 +12,8 @@ models:
       - chat
       - edit
       - apply
+    defaultCompletionOptions:
+      contextLength: 120000
+      maxTokens: 4096
+    requestOptions:
+      timeout: 120000

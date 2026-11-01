@@ -1,0 +1,26 @@
+# Bancos e logs
+*.db
+*.sqlite
+*.sqlite3
+*.log
+logs/
+
+# Dependências e ambientes
+node_modules/
+.venv/
+venv/
+
+# Artefatos Python e testes
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# Artefatos de build e cobertura
+dist/
+build/
+coverage/
+
+# Dados locais e ferramentas
+postgres_data/
+.git/
