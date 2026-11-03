@@ -1066,13 +1066,14 @@
                             if (!actionBtn) return;
                             const id = Number(actionBtn.dataset.id);
                             const action = actionBtn.dataset.action;
-                            notes = notes.filter((note) => note.id !== id);
                             if (action === "pin") {
                                 const target = notes.find((note) => note.id === id);
                                 if (target) {
                                     target.pinned = !target.pinned;
                                     notes = [target, ...notes.filter((note) => note.id !== id)];
                                 }
+                            } else if (action === "delete") {
+                                notes = notes.filter((note) => note.id !== id);
                             }
                             saveNotes(notes);
                             renderNotes();
