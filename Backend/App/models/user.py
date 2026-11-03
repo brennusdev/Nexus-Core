@@ -5,8 +5,9 @@
 #         No Windows nao da erro (case-insensitive), mas no Linux
 #         (Docker/producao) quebra com ModuleNotFoundError.
 # ====================================================================
-from sqlalchemy import Column, Integer, String, DateTime
-from datetime import datetime
+from datetime import datetime, timezone
+
+from sqlalchemy import Column, DateTime, Integer, String
 
 # CORRECAO: "app.core.database" -> "App.core.database"
 # MOTIVO: Case-sensitive! "App" com A maiusculo, nao "app" com minusculo.
@@ -24,4 +25,7 @@ class User(Base):
     name = Column(String(100), nullable=False)
     email = Column(String(255), unique=True, nullable=False)
     password = Column(String(255), nullable=False)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(
+        DateTime,
+        default=lambda: datetime.now(timezone.utc).replace(tzinfo=None),
+    )
