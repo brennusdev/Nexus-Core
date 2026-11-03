@@ -9,6 +9,7 @@ from datetime import datetime, timedelta, timezone
 from typing import Any
 
 from jose import jwt
+from jose.exceptions import JWTError
 from passlib.context import CryptContext
 
 import App.core.config as config
@@ -43,5 +44,5 @@ def decode_access_token(token: str) -> dict | None:
     """Decodifica/valida um JWT. Retorna payload ou None se invalido/expirado."""
     try:
         return jwt.decode(token, config.SECRET_KEY, algorithms=[config.ALGORITHM])
-    except Exception:
+    except JWTError:
         return None
