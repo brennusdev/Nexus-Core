@@ -114,16 +114,59 @@
 
     function answerAssistant(prompt) {
         const text = prompt.trim().toLowerCase();
-        if (text.includes("resumo") || text.includes("semana")) {
-            return "Seu fluxo está equilibrado: foco, estudos e metas estão em alta. Recomendo revisar duas tarefas de alto impacto hoje.";
+
+        // Lê dados reais do localStorage para contextualizar a resposta
+        let todos = [];
+        let metas = [];
+        try { todos = JSON.parse(localStorage.getItem("nexus_todos") || "[]"); } catch (e) { /* ignore */ }
+        try { metas = JSON.parse(localStorage.getItem("nexus_metas") || "[]"); } catch (e) { /* ignore */ }
+
+        const doneTodos = todos.filter((t) => t.done).length;
+        const pendingTodos = todos.filter((t) => !t.done).length;
+        const totalTodos = todos.length;
+        const conclusionRate = totalTodos > 0 ? Math.round((doneTodos / totalTodos) * 100) : 0;
+        const avgMetaProg = metas.length > 0
+            ? Math.round(metas.reduce((acc, m) => acc + (m.prog || 0), 0) / metas.length)
+            : 0;
+
+        if (text.includes("resumo") || text.includes("semana") || text.includes("como estou")) {
+            if (totalTodos === 0 && metas.length === 0) {
+                return "Ainda não há dados registrados. Adicione tarefas e metas no Dashboard para eu poder analisar seu fluxo.";
+            }
+            return `Aqui está seu resumo: você tem ${totalTodos} tarefa${totalTodos !== 1 ? "s" : ""} registrada${totalTodos !== 1 ? "s" : ""}, concluiu ${doneTodos} (${conclusionRate}%) e tem ${pendingTodos} pendente${pendingTodos !== 1 ? "s" : ""}. Suas metas estão com média de ${avgMetaProg}% de progresso.`;
         }
-        if (text.includes("tarefa") || text.includes("organizar")) {
-            return "Posso te ajudar a priorizar em ordem: 1) concluir o bloco mais importante, 2) revisar pendências curtas e 3) deixar espaço para descanso.";
+
+        if (text.includes("tarefa") || text.includes("organizar") || text.includes("pendente")) {
+            if (pendingTodos === 0) {
+                return "Parabéns! Você não tem tarefas pendentes no momento. Que tal adicionar novos desafios ao seu dia?";
+            }
+            return `Você tem ${pendingTodos} tarefa${pendingTodos !== 1 ? "s" : ""} pendente${pendingTodos !== 1 ? "s" : ""}. Dica: comece pela mais importante, use ciclos de 25 minutos e evite multitarefa.`;
         }
-        if (text.includes("foco") || text.includes("produtividade")) {
-            return "Para ganhar foco, use ciclos curtos de 25 minutos e registre o próximo passo antes de começar.";
+
+        if (text.includes("meta") || text.includes("objetivo") || text.includes("progresso")) {
+            if (metas.length === 0) {
+                return "Você ainda não tem metas cadastradas. Acesse o widget 'Meta do Mês' no Dashboard para adicionar seus objetivos.";
+            }
+            const quaseFeitas = metas.filter((m) => (m.prog || 0) >= 80);
+            if (quaseFeitas.length > 0) {
+                return `Suas metas estão com ${avgMetaProg}% de progresso médio. ${quaseFeitas.length} meta${quaseFeitas.length !== 1 ? "s estão" : " está"} acima de 80% — um esforço final pode fechá-la${quaseFeitas.length !== 1 ? "s" : ""}!`;
+            }
+            return `Você tem ${metas.length} meta${metas.length !== 1 ? "s" : ""} com progresso médio de ${avgMetaProg}%. Continue registrando avanços para acompanhar sua evolução.`;
         }
-        return "Estou aqui para apoiar sua rotina: posso resumir sua semana, organizar tarefas ou sugerir um plano de foco.";
+
+        if (text.includes("foco") || text.includes("produtividade") || text.includes("concentração")) {
+            return "Para ganhar foco: use ciclos de 25 minutos (Pomodoro), elimine notificações durante o bloco e registre o próximo passo antes de começar. O botão 🍅 no Dashboard abre o modo foco.";
+        }
+
+        if (text.includes("nota") || text.includes("ideia") || text.includes("second brain")) {
+            return "O Second Brain é o lugar para capturar ideias e aprendizados. Acesse pelo menu lateral ou pelo atalho no Dashboard para registrar seus insights.";
+        }
+
+        // Resposta genérica contextualizada
+        if (totalTodos > 0 || metas.length > 0) {
+            return `Posso ajudar você a analisar seu fluxo. Atualmente você tem ${pendingTodos} tarefa${pendingTodos !== 1 ? "s" : ""} pendente${pendingTodos !== 1 ? "s" : ""} e ${metas.length} meta${metas.length !== 1 ? "s" : ""} em andamento. Experimente perguntar sobre tarefas, metas, foco ou pedir um resumo.`;
+        }
+        return "Estou aqui para apoiar sua rotina. Adicione tarefas e metas no Dashboard e eu poderei analisar seu progresso. Experimente perguntar: 'Como estou?' ou 'Minhas tarefas'.";
     }
 
     function sendAssistantPrompt(prompt) {
