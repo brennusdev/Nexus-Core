@@ -26,5 +26,7 @@ services:
         value: HS256
       - key: ACCESS_TOKEN_EXPIRE_MINUTES
         value: "60"
+      - key: ENVIRONMENT
+        value: production
       - key: CORS_ORIGINS
         value: https://nexus-core-sepia.vercel.app
