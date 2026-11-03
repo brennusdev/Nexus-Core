@@ -2111,25 +2111,122 @@ toast("✅ Perfil salvo com sucesso!");
                 },
 
                 "second-brain": function () {
-                    // Dados do painel de insights
-                    const insights = {
-                        resumo: "Hoje seu nível de foco está 15% acima da média. Você completou 8 tarefas e manteve consistência nos estudos.",
-                        recomendacoes: [
-                            { titulo: "Bloqueio de foco", texto: "Agende 2 blocos de 50min para o projeto Nexus — seu pico de produtividade é entre 9h e 11h.", tag: "produtividade" },
-                            { titulo: "Revisão de flashcards", texto: "Seus erros em FastAPI aumentaram 20%. Revise os cards de autenticação hoje.", tag: "estudos" },
-                            { titulo: "Pausa estratégica", texto: "Você está há 3h em frente à tela. Faça uma caminhada de 10min para recarregar.", tag: "saude" }
-                        ],
-                        tendencias: [
-                            { nome: "Foco", valor: "+15%", cor: "#10b981" },
-                            { nome: "Produtividade", valor: "+8%", cor: "#3b82f6" },
-                            { nome: "Estudos", valor: "-5%", cor: "#f59e0b" },
-                            { nome: "Disciplina", valor: "+12%", cor: "#6c5ce7" }
-                        ],
-                        alertas: [
-                            { tipo: "urgencia", texto: "Meta 'Concluir projeto' vence em 3 dias." },
-                            { tipo: "info", texto: "Novo padrão detectado: você estuda melhor à noite." }
-                        ]
-                    };
+                    // Gera insights a partir dos dados reais do usuário no localStorage
+                    function buildInsights() {
+                        let todos = [];
+                        let metas = [];
+                        let brainNotesCount = 0;
+                        try { todos = JSON.parse(localStorage.getItem("nexus_todos") || "[]"); } catch (e) { /* ignore */ }
+                        try { metas = JSON.parse(localStorage.getItem("nexus_metas") || "[]"); } catch (e) { /* ignore */ }
+                        try { brainNotesCount = JSON.parse(localStorage.getItem("nexus_second_brain") || "[]").length; } catch (e) { /* ignore */ }
+
+                        const totalTodos = todos.length;
+                        const doneTodos = todos.filter((t) => t.done).length;
+                        const pendingTodos = totalTodos - doneTodos;
+                        const conclusionRate = totalTodos > 0 ? Math.round((doneTodos / totalTodos) * 100) : 0;
+
+                        const totalMetas = metas.length;
+                        const avgProg = totalMetas > 0
+                            ? Math.round(metas.reduce((acc, m) => acc + (m.prog || 0), 0) / totalMetas)
+                            : 0;
+                        const metasQuaseFeitas = metas.filter((m) => (m.prog || 0) >= 80).length;
+
+                        // Resumo baseado nos dados reais
+                        let resumo;
+                        if (totalTodos === 0 && totalMetas === 0) {
+                            resumo = "Ainda não há dados registrados. Adicione tarefas e metas no Dashboard para ver seus insights aqui.";
+                        } else if (conclusionRate >= 70) {
+                            resumo = `Ótimo desempenho! Você concluiu ${doneTodos} de ${totalTodos} tarefa${totalTodos !== 1 ? "s" : ""} (${conclusionRate}%) e suas metas estão com média de ${avgProg}% de progresso.`;
+                        } else if (conclusionRate >= 40) {
+                            resumo = `Você concluiu ${doneTodos} de ${totalTodos} tarefa${totalTodos !== 1 ? "s" : ""} (${conclusionRate}%). Ainda há ${pendingTodos} pendente${pendingTodos !== 1 ? "s" : ""} — foque nas mais importantes primeiro.`;
+                        } else {
+                            resumo = `Você tem ${pendingTodos} tarefa${pendingTodos !== 1 ? "s" : ""} pendente${pendingTodos !== 1 ? "s" : ""} e completou ${doneTodos}. Comece pelo item mais impactante do dia.`;
+                        }
+
+                        // Recomendações baseadas nos dados reais
+                        const recomendacoes = [];
+                        if (pendingTodos > 0) {
+                            recomendacoes.push({
+                                titulo: "Tarefas pendentes",
+                                texto: `Você tem ${pendingTodos} tarefa${pendingTodos !== 1 ? "s" : ""} pendente${pendingTodos !== 1 ? "s" : ""}. Use ciclos de 25 minutos para destravar as mais importantes.`,
+                                tag: "produtividade"
+                            });
+                        }
+                        if (metasQuaseFeitas > 0) {
+                            recomendacoes.push({
+                                titulo: "Metas quase completas",
+                                texto: `${metasQuaseFeitas} meta${metasQuaseFeitas !== 1 ? "s estão" : " está"} acima de 80%. Um esforço final pode fechá-la${metasQuaseFeitas !== 1 ? "s" : ""} hoje.`,
+                                tag: "metas"
+                            });
+                        }
+                        if (brainNotesCount === 0) {
+                            recomendacoes.push({
+                                titulo: "Capture suas ideias",
+                                texto: "Você ainda não tem notas no Second Brain. Anote ao menos uma ideia ou aprendizado do dia.",
+                                tag: "estudos"
+                            });
+                        }
+                        if (recomendacoes.length === 0) {
+                            recomendacoes.push({
+                                titulo: "Tudo em ordem",
+                                texto: "Sem pendências críticas no momento. Revise suas metas e adicione novos desafios para continuar evoluindo.",
+                                tag: "produtividade"
+                            });
+                        }
+
+                        // Tendências com base nos dados reais
+                        const tendencias = [
+                            {
+                                nome: "Tarefas",
+                                valor: totalTodos > 0 ? `${conclusionRate}%` : "—",
+                                cor: conclusionRate >= 70 ? "#10b981" : conclusionRate >= 40 ? "#f59e0b" : "#ef4444"
+                            },
+                            {
+                                nome: "Metas",
+                                valor: totalMetas > 0 ? `${avgProg}%` : "—",
+                                cor: avgProg >= 70 ? "#10b981" : avgProg >= 40 ? "#3b82f6" : "#f59e0b"
+                            },
+                            {
+                                nome: "Notas",
+                                valor: brainNotesCount > 0 ? `${brainNotesCount} nota${brainNotesCount !== 1 ? "s" : ""}` : "0 notas",
+                                cor: brainNotesCount > 0 ? "#6c5ce7" : "#94a3b8"
+                            },
+                            {
+                                nome: "Concluídas",
+                                valor: `${doneTodos} tarefa${doneTodos !== 1 ? "s" : ""}`,
+                                cor: doneTodos > 0 ? "#10b981" : "#94a3b8"
+                            }
+                        ];
+
+                        // Alertas baseados nos dados reais
+                        const alertas = [];
+                        const metasCriticas = metas.filter((m) => (m.prog || 0) < 30);
+                        if (metasCriticas.length > 0) {
+                            alertas.push({
+                                tipo: "urgencia",
+                                texto: `${metasCriticas.length} meta${metasCriticas.length !== 1 ? "s" : ""} com menos de 30% de progresso precisa${metasCriticas.length !== 1 ? "m" : ""} de atenção: "${metasCriticas[0].text}".`
+                            });
+                        }
+                        if (pendingTodos >= 5) {
+                            alertas.push({
+                                tipo: "urgencia",
+                                texto: `Você tem ${pendingTodos} tarefas acumuladas. Considere revisar e priorizar a lista.`
+                            });
+                        }
+                        if (brainNotesCount >= 5) {
+                            alertas.push({
+                                tipo: "info",
+                                texto: `Você tem ${brainNotesCount} notas no Second Brain. Revise e consolide o conhecimento periodicamente.`
+                            });
+                        }
+                        if (alertas.length === 0) {
+                            alertas.push({ tipo: "info", texto: "Sem alertas no momento. Continue registrando tarefas e metas para análises mais detalhadas." });
+                        }
+
+                        return { resumo, recomendacoes, tendencias, alertas };
+                    }
+
+                    const insights = buildInsights();
 
                     // Notas salvas
                     const loadNotes = () => {
