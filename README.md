@@ -357,8 +357,11 @@ A Vercel publica apenas o frontend. Para login e cadastro funcionarem em produç
 
 1. Crie um Blueprint no Render a partir deste repositório e revise os recursos antes de confirmar. O `render.yaml` cria o PostgreSQL e o serviço FastAPI, conecta a API ao banco, executa as migrações Alembic e define o domínio informado como origem CORS; a chave JWT é gerada pelo Render.
 2. Este Blueprint usa o plano gratuito de PostgreSQL, que é temporário e pode expirar após 30 dias. Não use esse banco para guardar dados permanentes; faça upgrade para um plano persistente antes de produção.
-3. Após o deploy, copie e valide o endereço público do serviço FastAPI no Render. Em `Frontend/js/config.js`, preencha `productionApiUrl` com essa URL HTTPS (sem `/auth` ou `/health`) e faça um novo deploy na Vercel. Em produção, o frontend não usa mais `localhost`; esse endereço só é usado ao abrir o frontend em `localhost` ou `127.0.0.1`.
-4. Verifique `https://<url-do-servico-render>/health`. O resultado deve indicar `healthy` e `database: up`.
+3. O frontend usa `https://nexus-core-api.onrender.com` como endereço padrão da API em produção, correspondente ao nome do serviço deste Blueprint. Se o Render atribuir outro domínio ou você usar um domínio próprio, atualize `productionApiUrl` em `Frontend/js/config.js` e publique novamente na Vercel. Em desenvolvimento local, o frontend usa `http://localhost:8000`.
+4. Configure `ENVIRONMENT=production` e `CORS_ORIGINS` com as origens HTTPS exatas do frontend no serviço Render. `SECRET_KEY` deve ser uma chave aleatória exclusiva com pelo menos 32 caracteres; o Blueprint gera esse valor. Não copie a chave de exemplo para produção.
+5. Verifique `https://<url-do-servico-render>/health`. O resultado deve indicar `healthy` e `database: up`.
+
+O cadastro e o login usam `POST /auth/register` e `POST /auth/login`. O endpoint `GET /auth/me` exige `Authorization: Bearer <token>` e é usado pelo frontend para confirmar a sessão antes de abrir o dashboard, as ferramentas ou a página de música. O token expira conforme `ACCESS_TOKEN_EXPIRE_MINUTES`. Execute os testes de autenticação a partir de `Backend/` com `python -m pytest`.
 
 O endereço `localhost` é apenas para desenvolvimento local; ele aponta para o computador de cada visitante quando usado pelo navegador em produção. O plano gratuito do Render pode suspender o serviço após inatividade, causando demora na primeira requisição.
 
