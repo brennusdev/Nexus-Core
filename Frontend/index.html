@@ -30,6 +30,7 @@
                 <h2 class="login-card__title">Bem-vindo de volta</h2>
                 <p class="login-card__subtitle">Acesse sua plataforma unificada</p>
             </header>
+            <p class="form-field__error" id="auth-status" role="alert" hidden></p>
 
             <!-- Tabs: Entrar | Cadastrar -->
             <div class="auth-tabs" role="tablist">
@@ -167,6 +168,15 @@
     </main>
 
     <script src="js/config.js" defer></script>
+    <script src="js/api.js" defer></script>
     <script src="js/app.js" defer></script>
+    <script>
+        const authError = new URLSearchParams(window.location.search).get("auth_error");
+        const authStatus = document.getElementById("auth-status");
+        if (authError === "unavailable" && authStatus) {
+            authStatus.textContent = "Não foi possível validar sua sessão. Verifique sua conexão e tente novamente.";
+            authStatus.hidden = false;
+        }
+    </script>
 </body>
 </html>
