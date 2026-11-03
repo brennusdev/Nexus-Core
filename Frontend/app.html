@@ -584,7 +584,7 @@
     </style>
 
 </head>
-<body class="dash-body">
+<body class="dash-body" data-auth-required="true">
 
     <!-- Sidebar compacta -->
     <aside class="sidebar" id="sidebar">
@@ -694,6 +694,9 @@
         </div>
     </aside>
 
+    <script src="js/config.js" defer></script>
+    <script src="js/api.js" defer></script>
+    <script src="js/auth.js" defer></script>
     <script src="js/dashboard.js" defer></script>
     <script src="js/project-generator.js"></script>
     <script>
@@ -1132,8 +1135,7 @@
                     const logoutBtn = document.getElementById("configLogout");
                     if (logoutBtn) {
                         logoutBtn.addEventListener("click", () => {
-                            localStorage.removeItem("nexus_user");
-                            localStorage.removeItem("nexus_token"); // JWT
+                            window.NexusApi.clearSession();
                             localStorage.removeItem("nexus_theme");
                             window.location.href = "index.html";
                         });
