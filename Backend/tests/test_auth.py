@@ -96,3 +96,18 @@ def test_registration_rejects_password_over_bcrypt_byte_limit():
         },
     )
     assert response.status_code == 422
+
+
+def test_root_and_health_endpoints():
+    with TestClient(app) as client:
+        root = client.get("/")
+        assert root.status_code == 200
+        assert root.json() == {
+            "project": "Nexus Core",
+            "version": app.version,
+            "status": "running",
+        }
+
+        health = client.get("/health")
+        assert health.status_code == 200
+        assert health.json() == {"status": "healthy", "database": "up"}
