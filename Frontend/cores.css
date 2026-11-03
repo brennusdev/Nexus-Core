@@ -529,3 +529,6 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     .login-card { padding: var(--space-4) var(--space-3); }
     .login-theme-toggle { top: 12px; right: 12px; }
 }
+html.auth-pending body {
+    visibility: hidden;
+}
