@@ -6,7 +6,7 @@
 #         (exporia a coluna 'password'). Schemas separam as camadas.
 # ====================================================================
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, EmailStr, Field
+from pydantic import BaseModel, ConfigDict, EmailStr, Field, field_validator
 
 
 # ---------- Entrada (request bodies) ----------
@@ -17,11 +17,25 @@ class UserRegister(BaseModel):
     email: EmailStr
     password: str = Field(min_length=6, max_length=255)
 
+    @field_validator("password")
+    @classmethod
+    def password_fits_bcrypt(cls, value: str) -> str:
+        if len(value.encode("utf-8")) > 72:
+            raise ValueError("A senha deve ter no maximo 72 bytes em UTF-8.")
+        return value
+
 
 class UserLogin(BaseModel):
     """Payload de POST /auth/login."""
     email: EmailStr
     password: str = Field(min_length=1)
+
+    @field_validator("password")
+    @classmethod
+    def password_fits_bcrypt(cls, value: str) -> str:
+        if len(value.encode("utf-8")) > 72:
+            raise ValueError("A senha deve ter no maximo 72 bytes em UTF-8.")
+        return value
 
 
 # ---------- Saida (responses) ----------
