@@ -76,9 +76,6 @@
 
     const validators = { login: validateLogin, register: validateRegister };
 
-    /* URL da API FastAPI definida em js/config.js. */
-    const API_BASE = (window.NEXUS_API_URL || "").replace(/\/+$/, "");
-
     /* --- Submit + chamada real a API --- */
     Object.entries(forms).forEach(([name, form]) => {
         if (!form) return;
@@ -88,19 +85,11 @@
 
             if (!validators[name](form)) return;
 
-            if (!API_BASE) {
-                console.error("NEXUS_API_URL não está configurada para este domínio.");
-                setError(form, "email",
-                    "O serviço de autenticação está temporariamente indisponível. Tente novamente mais tarde.");
-                return;
-            }
-
             // Mostra loader e trava o formulario
             loader.hidden = false;
             form.querySelectorAll("input, button").forEach((el) => (el.disabled = true));
 
             const isRegister = name === "register";
-            const url = isRegister ? `${API_BASE}/auth/register` : `${API_BASE}/auth/login`;
             const body = isRegister
                 ? {
                     name: form.name.value.trim(),
@@ -113,48 +102,29 @@
                 };
 
             try {
-                const response = await fetch(url, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(body)
-                });
-
-                const data = await response.json().catch(() => ({}));
-
-                if (!response.ok) {
-                    // 409 = e-mail ja cadastrado; 401 = credenciais invalidas;
-                    // 422 = erro de validacao do Pydantic.
-                    const msg = data.detail
-                        ? (typeof data.detail === "string"
-                            ? data.detail
-                            : "Verifique os campos e tente novamente.")
-                        : `Erro ${response.status}. Tente novamente.`;
-                    setError(form, isRegister ? "email" : "email", msg);
-                    return; // finally reabilita o formulario
-                }
-
-                // Sucesso: guarda token + usuario e vai pro dashboard
                 if (isRegister) {
-                    // Cadastro nao retorna token: faz login automatico
-                    const loginRes = await fetch(`${API_BASE}/auth/login`, {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ email: body.email, password: body.password })
-                    });
-                    if (!loginRes.ok) throw new Error("auto-login falhou");
-                    const loginData = await loginRes.json();
-                    localStorage.setItem("nexus_token", loginData.access_token);
-                    localStorage.setItem("nexus_user", loginData.user.name);
+                    await window.NexusApi.register(body);
+                    await window.NexusApi.login(
+                        { email: body.email, password: body.password },
+                        false
+                    );
                 } else {
-                    localStorage.setItem("nexus_token", data.access_token);
-                    localStorage.setItem("nexus_user", data.user.name);
+                    await window.NexusApi.login(body, Boolean(form.remember.checked));
                 }
 
                 window.location.href = "dashboard.html";
             } catch (err) {
-                // Backend offline ou erro de rede/CORS
-                setError(form, "email",
-                    "Nao foi possivel conectar ao servidor. Verifique se a API esta rodando em " + API_BASE + ".");
+                if (err.status === 401) {
+                    setError(form, "password", err.message);
+                } else if (err.status === 409) {
+                    setError(form, "email", err.message);
+                } else if (err.status === 422) {
+                    setError(form, isRegister ? "email" : "password", err.message);
+                } else {
+                    console.error("Falha na autenticação com a API.", err);
+                    setError(form, "email",
+                        "Não foi possível conectar ao serviço de autenticação. Tente novamente.");
+                }
             } finally {
                 loader.hidden = true;
                 form.querySelectorAll("input, button").forEach((el) => (el.disabled = false));
