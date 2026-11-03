@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="cores.css" />
     <link rel="stylesheet" href="dashboard.css" />
 </head>
-<body class="dash-body">
+<body class="dash-body" data-auth-required="true">
 
     <!-- ===================== SIDEBAR / NAVBAR ===================== -->
     <aside class="sidebar" id="sidebar">
@@ -535,7 +535,9 @@
         </div>
     </div>
 
+    <script src="js/config.js" defer></script>
+    <script src="js/api.js" defer></script>
+    <script src="js/auth.js" defer></script>
     <script src="js/dashboard.js" defer></script>
 </body>
 </html>
-
