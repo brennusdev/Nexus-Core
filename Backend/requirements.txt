@@ -13,13 +13,17 @@
 # ====================================================================
 
 # --- Web framework ---
-fastapi>=0.116.1
-uvicorn[standard]>=0.35.0
+# Validado: 0.162.0
+fastapi>=0.162.0
+# Validado: 0.54.0
+uvicorn[standard]>=0.54.0
 
 # --- Banco de dados / ORM ---
-sqlalchemy>=2.0.41
+# Validado: 2.1.6 (upgrade de 2.0 para 2.1 testado; sem breaking changes nos modelos atuais)
+sqlalchemy>=2.1.6
 psycopg2-binary>=2.9.10
-alembic>=1.16.4
+# Validado: 1.20.1
+alembic>=1.20.1
 
 # --- Autenticacao / Seguranca ---
 python-jose[cryptography]>=3.5.0
@@ -28,15 +32,21 @@ passlib[bcrypt]>=1.7.4
 # ValueError 72 bytes). Pin em 4.0.1 ate passlib ser substituido (ex. por
 # pwdlib ou bcrypt puro).
 bcrypt==4.0.1
-python-multipart>=0.0.20
+# Validado: 0.0.33
+python-multipart>=0.0.33
 
 # --- Configuracao / Validacao ---
-python-dotenv>=1.1.1
-pydantic[email]>=2.11.7
+# Validado: 1.2.4
+python-dotenv>=1.2.4
+# Validado: 2.14.2
+pydantic[email]>=2.14.2
 
 # --- Cache / Filas ---
-redis>=6.2.0
+# Validado: 8.1.0 (upgrade de 6.x para 8.x testado; Redis nao e usado diretamente
+# nos testes atuais — validar ao integrar cache/filas em producao)
+redis>=8.1.0
 
 # --- Testes ---
-pytest>=8.4.1
+# Validado: 9.2.0 (aviso de deprecacao do anyio sobre CallSpec2; nao afeta os testes)
+pytest>=9.2.0
 httpx>=0.28.1
