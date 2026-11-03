@@ -43,8 +43,7 @@
 
     if (toggle) toggle.addEventListener("click", () => sidebar.classList.toggle("sidebar--open"));
     if (logoutBtn) logoutBtn.addEventListener("click", () => {
-        localStorage.removeItem("nexus_user");
-        localStorage.removeItem("nexus_token"); // JWT da sessão autenticada
+        window.NexusApi.clearSession();
         window.location.href = "index.html";
     });
 
